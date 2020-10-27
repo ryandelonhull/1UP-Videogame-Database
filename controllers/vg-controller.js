@@ -5,12 +5,13 @@ const vg = require("../models/vg.js");
 
 // displays all burgers on load
 router.get("/", function (req, res) {
-    vg.selectAll(function (data) {
-        var all = {
-            burgers: data
-        };
-        res.render("index", all);
-    });
+    // vg.selectAll(function (data) {
+    //     var all = {
+    //         burgers: data
+    //     };
+    //     res.render("index", all);
+    // });
+    res.render("index");
 });
 
 
