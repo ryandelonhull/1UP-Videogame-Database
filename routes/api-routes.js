@@ -140,7 +140,7 @@ module.exports = function (app) {
 
   app.get("/api/search", async function (req, res) {
     covers = await axios({
-      url: "https://api.igdb.com/v4/covers/?search=" + games.id[0],
+      url: "https://api.igdb.com/v4/covers/?search=" + games,
       method: 'POST',
       headers: {
         'Accept': 'application/json',
