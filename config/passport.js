@@ -1,7 +1,8 @@
-// initialize variables, require passport and passport strategy
+// setting up passport for authentication middleware using node.js.
 var passport = require("passport");
+// create class for using a username and password for authenticating in passport from node.js.
 var LocalStrategy = require("passport-local").Strategy;
-
+// pulls the db variable from index.js in the models folder
 var db = require("../models");
 
 // Telling passport we want to use a Local Strategy. In other words, we want login with a username/email and password
