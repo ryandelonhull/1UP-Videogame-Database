@@ -3,13 +3,42 @@ var db = require("../models");
 var passport = require("../config/passport");
 const axios = require("axios");
 var games = "";
+var token = "";
 const access = require("./authorization");
 module.exports = function (app) {
   // Using the passport.authenticate middleware with our local strategy.
   // If the user has valid login credentials, send them to the members page.
   // Otherwise the user will be sent an error
-  app.post("/api/login", passport.authenticate("local"), function (req, res) {
-    res.json(req.user);
+  app.post("/api/login", passport.authenticate("local"), async function (req, res) {
+    
+    axios.post("https://id.twitch.tv/oauth2/token?client_id=qh6jfouob87senzmm6422jomq4ui44&client_secret=83qdp141qoaog5ybcmwpr4z7u6wj4y&grant_type=client_credentials")
+    .then(function (response) {
+        console.log("response in auth func", response.data.access_token);
+        token = response.data.access_token;
+        console.log("token in auth function", token);
+
+    }, function (err) {
+        console.log(err);
+    })
+      .then(function () {
+        console.log("token login", token);
+        // sessionStorage.setItem('access', token);
+        // var test = sessionStorage.getItem('access');
+        // console.log("access token from storage", test);
+        console.log("user", req.user.dataValues);
+        db.User.update({access : token},
+          {
+          where:{
+            id: req.user.dataValues.id
+          }
+        }
+        );
+        res.json(req.user);
+        
+      }).catch(function(err){
+        console.log(err);
+      });
+
   });
 
   // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
@@ -45,15 +74,13 @@ module.exports = function (app) {
       res.json({});
     } else {
       // GAME CODE START
-      var token = await access.getToken();
-      console.log("token", token);
       games = await axios({
         url: "https://api.igdb.com/v4/games",
         method: 'POST',
         headers: {
           'Accept': 'application/json',
           'Client-ID': 'qh6jfouob87senzmm6422jomq4ui44',
-          'Authorization': 'Bearer 8l4vc278fvlktpjfe67w7zryp9711z',
+          'Authorization': `Bearer ${token}`,
         },
         data: "fields age_ratings,aggregated_rating,aggregated_rating_count,alternative_names,artworks,bundles,category,checksum,collection,cover,created_at,dlcs,expansions,external_games,first_release_date,follows,franchise,franchises,game_engines,game_modes,genres,hypes,involved_companies,keywords,multiplayer_modes,name,parent_game,platforms,player_perspectives,rating,rating_count,release_dates,screenshots,similar_games,slug,standalone_expansions,status,storyline,summary,tags,themes,total_rating,total_rating_count,updated_at,url,version_parent,version_title,videos,websites;"
       })
@@ -77,7 +104,4 @@ module.exports = function (app) {
       });
     }
   });
-
-
-
 };
