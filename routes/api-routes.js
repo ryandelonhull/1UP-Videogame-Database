@@ -3,6 +3,7 @@ var db = require("../models");
 var passport = require("../config/passport");
 const axios = require("axios");
 var games = "";
+const access = require("./authorization");
 module.exports = function (app) {
   // Using the passport.authenticate middleware with our local strategy.
   // If the user has valid login credentials, send them to the members page.
@@ -44,6 +45,8 @@ module.exports = function (app) {
       res.json({});
     } else {
       // GAME CODE START
+      var token = await access.getToken();
+      console.log("token", token);
       games = await axios({
         url: "https://api.igdb.com/v4/games",
         method: 'POST',
@@ -63,7 +66,7 @@ module.exports = function (app) {
         .catch(err => {
           console.error(err);
         });
-        console.log("games test2", games);
+      console.log("games test2", games);
       // Otherwise send back the user's email and id
       // Sending back a password, even a hashed password, isn't a good idea
       res.json({
