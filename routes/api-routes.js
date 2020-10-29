@@ -4,6 +4,7 @@ var passport = require("../config/passport");
 const axios = require("axios");
 var games = "";
 var token = "";
+var search = "";
 const access = require("./authorization");
 module.exports = function (app) {
   // Using the passport.authenticate middleware with our local strategy.
@@ -107,7 +108,7 @@ module.exports = function (app) {
 
   app.post("/search", async function (req, res) {
   console.log("START OF SEARCH");
-    // console.log("search= ", search);
+    console.log("search= ", req.body.search);
     games = await axios({
       url: "https://api.igdb.com/v4/games/?search=" + req.body.search,
       method: 'POST',
@@ -116,10 +117,11 @@ module.exports = function (app) {
         'Client-ID': 'qh6jfouob87senzmm6422jomq4ui44',
         'Authorization': `Bearer ${token}`,
       },
-      data: "fields name, game, company;"
+      data: "fields *;"
+      //  name, game, company;"
     })
       .then(response => {
-        // console.log(response.data);
+        console.log(response.data);
         games = response.data;
         console.log("games NEW", games);
         return games;
@@ -134,10 +136,32 @@ module.exports = function (app) {
       // pass data email/id
       games: games
     });
-  
   });
 
-  app.get("/api/search", function (req, res) {
-    
+  app.get("/api/search", async function (req, res) {
+    covers = await axios({
+      url: "https://api.igdb.com/v4/covers/?search=" + games.id[0],
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Client-ID': 'qh6jfouob87senzmm6422jomq4ui44',
+        'Authorization': `Bearer ${token}`,
+      },
+      data: "fields *;"
+      //  name, game, company;"
+    })
+      .then(response => {
+        console.log(response.data);
+        games = response.data;
+        console.log("games NEW", games);
+        return games;
+      })
+      .catch(err => {
+        console.error(err);
+      });
+
+    res.json({    
+      display: JSON.stringify(games)
+    });
   });
 };
