@@ -4,7 +4,6 @@ var passport = require("../config/passport");
 const axios = require("axios");
 var games = "";
 var token = "";
-var search = "";
 var cover = "";
 const access = require("./authorization");
 module.exports = function (app) {
@@ -106,43 +105,46 @@ module.exports = function (app) {
       });
     }
   });
+  // final url url: `https://api.igdb.com/v4/games/?search=${req.body.search}&fields=id,name,collection,genres,cover.url,first_release_date,rating,slug,storyline,summary`,
+
 // working url "https://api.igdb.com/v4/games/?search=" + req.body.search,
   app.post("/search", async function (req, res) {
   console.log("START OF SEARCH");
     console.log("search = ", req.body.search);
     games = await axios({
-      url: "https://api.igdb.com/v4/games/?search=" + req.body.search,
+      url: `https://api.igdb.com/v4/games/?search=${req.body.search}&fields=id,name,collection,genres,cover.url,first_release_date,rating,slug,storyline,summary`,
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Client-ID': 'qh6jfouob87senzmm6422jomq4ui44',
         'Authorization': `Bearer ${token}`,
       },
-      data: "fields= *;"
+      // data: "fields= *;"
       //  name, game, company;"
     })
       .then(response => {
         console.log("first search responses ", response.data);
         games = response.data;
-        console.log("first id", games[0].id);
+        console.log("first id", games[0].cover);
         console.log("games NEW", games);
         return games;
       })
       .catch(err => {
         console.error(err);
       });
-     
-      var gameCover = covers(games[0].id);
+     console.log("trimmed game ", games[0].name.split(" ").join(""));
+      var gameCover = covers(games[0].cover);
+      console.log(gameCover);
     // console.log("games test s0.earch", games);
     // Otherwise send back the user's email and id
     // Sending back a password, even a hashed password, isn't a good idea
     res.json({
       // pass data email/id
-      games: gameCover
+      games: JSON.stringify(games)
     });
   });
 
-  app.post("/api/search", async function (req, res) {
+  app.get("/api/search", async function (req, res) {
     console.log("games value = ", games);
     res.json({    
       display: JSON.stringify(games)
@@ -154,7 +156,7 @@ module.exports = function (app) {
 function covers(x){
   console.log("cover x=", x);
   axios({
-    url: `https://api.igdb.com/v4/covers/?game=${x}&fields=url,game`,
+    url: `https://api.igdb.com/v4/covers/?search=${x}&fields=url,game`,
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -165,7 +167,7 @@ function covers(x){
     //  name, game, company;"
   })
     .then(response => {
-      console.log("covers response", response.data);
+      console.log("covers response", response);
       cover = response.data;
       console.log("games cover search", cover);
       // return cover;
@@ -173,6 +175,7 @@ function covers(x){
     .catch(err => {
       console.error(err);
     });
+    // begin second axios call for cover
     return cover;
 }
 
