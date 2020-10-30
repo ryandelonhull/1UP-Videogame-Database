@@ -5,40 +5,51 @@ const axios = require("axios");
 var games = "";
 var token = "";
 var cover = "";
-const access = require("./authorization");
+// var getToken = "./authorization.js";
 module.exports = function (app) {
   // Using the passport.authenticate middleware with our local strategy.
   // If the user has valid login credentials, send them to the members page.
   // Otherwise the user will be sent an error
-  app.post("/api/login", passport.authenticate("local"), async function (req, res) {
+  app.post("/api/login", passport.authenticate("local"), function (req, res) {
 
-    axios.post("https://id.twitch.tv/oauth2/token?client_id=qh6jfouob87senzmm6422jomq4ui44&client_secret=83qdp141qoaog5ybcmwpr4z7u6wj4y&grant_type=client_credentials")
-      .then(function (response) {
-        console.log("response in auth func", response.data.access_token);
-        token = response.data.access_token;
-        console.log("token in auth function", token);
+  //   token = getToken();
+  //   // console.log(scripts.getToken());
+  //   db.User.update({ access: token },
+  //     {
+  //       where: {
+  //         id: req.user.dataValues.id
+  //       }
+  //     }
+  //   );
+  //   res.json(req.user);
+  // });
+  axios.post("https://id.twitch.tv/oauth2/token?client_id=qh6jfouob87senzmm6422jomq4ui44&client_secret=83qdp141qoaog5ybcmwpr4z7u6wj4y&grant_type=client_credentials")
+    .then(function (response) {
+      console.log("response in auth func", response.data.access_token);
+      token = response.data.access_token;
+      console.log("token in auth function", token);
 
-      }, function (err) {
-        console.log(err);
-      })
-      .then(function () {
-        console.log("token login", token);
-        // sessionStorage.setItem('access', token);
-        // var test = sessionStorage.getItem('access');
-        // console.log("access token from storage", test);
-        console.log("user", req.user.dataValues);
-        db.User.update({ access: token },
-          {
-            where: {
-              id: req.user.dataValues.id
-            }
+    }, function (err) {
+      console.log(err);
+    })
+    .then(function () {
+      console.log("token login", token);
+      // sessionStorage.setItem('access', token);
+      // var test = sessionStorage.getItem('access');
+      // console.log("access token from storage", test);
+      console.log("user", req.user.dataValues);
+      db.User.update({ access: token },
+        {
+          where: {
+            id: req.user.dataValues.id
           }
-        );
-        res.json(req.user);
+        }
+      );
+      res.json(req.user);
 
-      }).catch(function (err) {
-        console.log(err);
-      });
+    }).catch(function (err) {
+      console.log(err);
+    });
 
   });
 
@@ -145,7 +156,7 @@ module.exports = function (app) {
       games: JSON.stringify(games)
     });
   });
-  
+
   // displays games on search page
   app.get("/api/search", async function (req, res) {
     // var final = JSON.parse(games);
@@ -154,34 +165,36 @@ module.exports = function (app) {
       display: games
     });
   });
-};
 
-// function not necessary
-// working url url: `https://api.igdb.com/v4/covers/?game=${x}&fields=url,game`,
-function covers(x) {
-  console.log("cover x=", x);
-  axios({
-    url: `https://api.igdb.com/v4/covers/?search=${x}&fields=url,game`,
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Client-ID': 'qh6jfouob87senzmm6422jomq4ui44',
-      'Authorization': `Bearer ${token}`,
-    },
-    // data: `fields url.*;`
-    //  name, game, company;"
-  })
-    .then(response => {
-      console.log("covers response", response);
-      cover = response.data;
-      console.log("games cover search", cover);
-      // return cover;
+
+  // function not necessary
+  // working url url: `https://api.igdb.com/v4/covers/?game=${x}&fields=url,game`,
+  function covers(x) {
+    console.log("cover x=", x);
+    axios({
+      url: `https://api.igdb.com/v4/covers/?search=${x}&fields=url,game`,
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Client-ID': 'qh6jfouob87senzmm6422jomq4ui44',
+        'Authorization': `Bearer ${token}`,
+      },
+      // data: `fields url.*;`
+      //  name, game, company;"
     })
-    .catch(err => {
-      console.error(err);
-    });
-  // begin second axios call for cover
-  return cover;
-}
+      .then(response => {
+        console.log("covers response", response);
+        cover = response.data;
+        console.log("games cover search", cover);
+        // return cover;
+      })
+      .catch(err => {
+        console.error(err);
+      });
+    // begin second axios call for cover
+    return cover;
+  }
 
-// url: `https://api.igdb.com/v4/covers/?game=${x}`,
+  // url: `https://api.igdb.com/v4/covers/?game=${x}`,
+
+};
