@@ -6,6 +6,10 @@ $(document).ready(function () {
     $(".games").text(data.display);
   });
 
+  if($(".gameCarousel").text("")){
+    $(".gameCarousel").text("No Favorite Games");
+  }
+
   $(".search").on("click", function (event) {
     event.preventDefault();
     var search = $(".searchbar").val();
