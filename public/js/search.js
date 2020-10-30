@@ -1,10 +1,19 @@
 $(document).ready(function () {
     $.get("/api/search").then(function (data) {
         console.log("TESTING");
+        // console.log(data.display[0].cover)
         for(let i = 0; i<data.display.length; i++){
+
+            var content = `<img class="is-background" src="${data.display[i].cover}"/>
+            <div class="hero-body has-text-centered is-overlay">
+              <h1 class="title">${data.display[i].title}</h1>
+              <h2 class="rating">PG-13</h2>
+              <h3 class="year">2020</h3>`
+
             var newCard = $("<p>");
-            newCard.text(JSON.stringify(data.display[i]));
-            $(".games").append(newCard);
+            // newCard.setAttribute("href", data.display[i].cover)
+            // newCard.text(JSON.stringify(data.display[i]));
+            $(".games").append(content);
         }
         // $(".games").text(data.display);
     });

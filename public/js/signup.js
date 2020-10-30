@@ -52,6 +52,11 @@ $(document).ready(function () {
       })
       .catch(handleLoginErr);
   }
+  $("#login").on("click", function(event){
+    event.preventDefault();
+    console.log("testing")
+    window.location.replace("/login");
+  });
   // popup error if something goes wrong
   function handleLoginErr(err) {
     alert(JSON.stringify(err));
