@@ -4,41 +4,52 @@ var passport = require("../config/passport");
 const axios = require("axios");
 var games = "";
 var token = "";
-var search = "";
-const access = require("./authorization");
+var cover = "";
+// var getToken = "./authorization.js";
 module.exports = function (app) {
   // Using the passport.authenticate middleware with our local strategy.
   // If the user has valid login credentials, send them to the members page.
   // Otherwise the user will be sent an error
-  app.post("/api/login", passport.authenticate("local"), async function (req, res) {
-    
-    axios.post("https://id.twitch.tv/oauth2/token?client_id=qh6jfouob87senzmm6422jomq4ui44&client_secret=83qdp141qoaog5ybcmwpr4z7u6wj4y&grant_type=client_credentials")
+  app.post("/api/login", passport.authenticate("local"), function (req, res) {
+
+  //   token = getToken();
+  //   // console.log(scripts.getToken());
+  //   db.User.update({ access: token },
+  //     {
+  //       where: {
+  //         id: req.user.dataValues.id
+  //       }
+  //     }
+  //   );
+  //   res.json(req.user);
+  // });
+  axios.post("https://id.twitch.tv/oauth2/token?client_id=qh6jfouob87senzmm6422jomq4ui44&client_secret=83qdp141qoaog5ybcmwpr4z7u6wj4y&grant_type=client_credentials")
     .then(function (response) {
-        console.log("response in auth func", response.data.access_token);
-        token = response.data.access_token;
-        console.log("token in auth function", token);
+      console.log("response in auth func", response.data.access_token);
+      token = response.data.access_token;
+      console.log("token in auth function", token);
 
     }, function (err) {
-        console.log(err);
+      console.log(err);
     })
-      .then(function () {
-        console.log("token login", token);
-        // sessionStorage.setItem('access', token);
-        // var test = sessionStorage.getItem('access');
-        // console.log("access token from storage", test);
-        console.log("user", req.user.dataValues);
-        db.User.update({access : token},
-          {
-          where:{
+    .then(function () {
+      console.log("token login", token);
+      // sessionStorage.setItem('access', token);
+      // var test = sessionStorage.getItem('access');
+      // console.log("access token from storage", test);
+      console.log("user", req.user.dataValues);
+      db.User.update({ access: token },
+        {
+          where: {
             id: req.user.dataValues.id
           }
         }
-        );
-        res.json(req.user);
-        
-      }).catch(function(err){
-        console.log(err);
-      });
+      );
+      res.json(req.user);
+
+    }).catch(function (err) {
+      console.log(err);
+    });
 
   });
 
@@ -102,63 +113,85 @@ module.exports = function (app) {
       });
     }
   });
+  // final url url: `https://api.igdb.com/v4/games/?search=${req.body.search}&fields=id,name,collection,genres,cover.url,first_release_date,rating,slug,storyline,summary`,
 
+  // working url "https://api.igdb.com/v4/games/?search=" + req.body.search,
+
+  // search function - grabs all data requested
   app.post("/search", async function (req, res) {
-  console.log("START OF SEARCH");
-    console.log("search= ", req.body.search);
+    console.log("START OF SEARCH");
+    console.log("search = ", req.body.search);
     games = await axios({
-      url: "https://api.igdb.com/v4/games/?search=" + req.body.search,
+      url: `https://api.igdb.com/v4/games/?search=${req.body.search}&fields=id,name,collection,genres,cover.url,first_release_date,rating,slug,storyline,summary`,
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Client-ID': 'qh6jfouob87senzmm6422jomq4ui44',
         'Authorization': `Bearer ${token}`,
       },
-      data: "fields *;"
+      // data: "fields= *;"
       //  name, game, company;"
     })
       .then(response => {
-        console.log(response.data);
+        console.log("first search responses ", response.data);
         games = response.data;
+        console.log("first id", games[0].cover);
         console.log("games NEW", games);
         return games;
       })
       .catch(err => {
         console.error(err);
       });
-    console.log("games test search", games);
+    console.log("trimmed game ", games[0].name.split(" ").join(""));
+    // var gameCover = covers(games[0].cover);
+    // console.log(gameCover);
+    // console.log("games test s0.earch", games);
     // Otherwise send back the user's email and id
     // Sending back a password, even a hashed password, isn't a good idea
     res.json({
       // pass data email/id
-      games: games
+      games: JSON.stringify(games)
     });
   });
 
+  // displays games on search page
   app.get("/api/search", async function (req, res) {
-    covers = await axios({
-      url: "https://api.igdb.com/v4/covers/?search=" + games,
+    // var final = JSON.parse(games);
+    console.log("games value = ", games);
+    res.json({
+      display: games
+    });
+  });
+
+
+  // function not necessary
+  // working url url: `https://api.igdb.com/v4/covers/?game=${x}&fields=url,game`,
+  function covers(x) {
+    console.log("cover x=", x);
+    axios({
+      url: `https://api.igdb.com/v4/covers/?search=${x}&fields=url,game`,
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Client-ID': 'qh6jfouob87senzmm6422jomq4ui44',
         'Authorization': `Bearer ${token}`,
       },
-      data: "fields *;"
+      // data: `fields url.*;`
       //  name, game, company;"
     })
       .then(response => {
-        console.log(response.data);
-        games = response.data;
-        console.log("games NEW", games);
-        return games;
+        console.log("covers response", response);
+        cover = response.data;
+        console.log("games cover search", cover);
+        // return cover;
       })
       .catch(err => {
         console.error(err);
       });
+    // begin second axios call for cover
+    return cover;
+  }
 
-    res.json({    
-      display: JSON.stringify(games)
-    });
-  });
+  // url: `https://api.igdb.com/v4/covers/?game=${x}`,
+
 };
