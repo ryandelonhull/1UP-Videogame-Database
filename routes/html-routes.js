@@ -11,7 +11,6 @@ module.exports = function (app) {
     if (req.user) {
       res.redirect("/members");
     }
-    // sends signup page
     res.sendFile(path.join(__dirname, "../public/signup.html"));
   });
 
@@ -20,7 +19,6 @@ module.exports = function (app) {
     if (req.user) {
       res.redirect("/members");
     }
-    // sends the login page if not logged in
     res.sendFile(path.join(__dirname, "../public/login.html"));
   });
 

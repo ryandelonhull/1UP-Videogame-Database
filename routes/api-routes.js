@@ -58,7 +58,6 @@ module.exports = function (app) {
   // otherwise send back an error
   app.post("/api/signup", function (req, res) {
     db.User.create({
-      // use create function in model to insert email and password into database
       email: req.body.email,
       password: req.body.password
     })
@@ -75,7 +74,6 @@ module.exports = function (app) {
   // Route for logging user out
   app.get("/logout", function (req, res) {
     req.logout();
-    // redirects to landing page - login/signup
     res.redirect("/");
   });
 
@@ -109,7 +107,6 @@ module.exports = function (app) {
       // Otherwise send back the user's email and id
       // Sending back a password, even a hashed password, isn't a good idea
       res.json({
-        // pass data email/id
         email: req.user.email,
         id: req.user.id,
         display: JSON.stringify(games)
