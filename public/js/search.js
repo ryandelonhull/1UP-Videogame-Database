@@ -1,7 +1,12 @@
 $(document).ready(function () {
     $.get("/api/search").then(function (data) {
         console.log("TESTING");
-        $(".games").text(data.display);
+        for(let i = 0; i<data.display.length; i++){
+            var newCard = $("<p>");
+            newCard.text(JSON.stringify(data.display[i]));
+            $(".games").append(newCard);
+        }
+        // $(".games").text(data.display);
     });
 
     $(".search").on("click", function (event) {

@@ -11,32 +11,32 @@ module.exports = function (app) {
   // If the user has valid login credentials, send them to the members page.
   // Otherwise the user will be sent an error
   app.post("/api/login", passport.authenticate("local"), async function (req, res) {
-    
+
     axios.post("https://id.twitch.tv/oauth2/token?client_id=qh6jfouob87senzmm6422jomq4ui44&client_secret=83qdp141qoaog5ybcmwpr4z7u6wj4y&grant_type=client_credentials")
-    .then(function (response) {
+      .then(function (response) {
         console.log("response in auth func", response.data.access_token);
         token = response.data.access_token;
         console.log("token in auth function", token);
 
-    }, function (err) {
+      }, function (err) {
         console.log(err);
-    })
+      })
       .then(function () {
         console.log("token login", token);
         // sessionStorage.setItem('access', token);
         // var test = sessionStorage.getItem('access');
         // console.log("access token from storage", test);
         console.log("user", req.user.dataValues);
-        db.User.update({access : token},
+        db.User.update({ access: token },
           {
-          where:{
-            id: req.user.dataValues.id
+            where: {
+              id: req.user.dataValues.id
+            }
           }
-        }
         );
         res.json(req.user);
-        
-      }).catch(function(err){
+
+      }).catch(function (err) {
         console.log(err);
       });
 
@@ -107,9 +107,11 @@ module.exports = function (app) {
   });
   // final url url: `https://api.igdb.com/v4/games/?search=${req.body.search}&fields=id,name,collection,genres,cover.url,first_release_date,rating,slug,storyline,summary`,
 
-// working url "https://api.igdb.com/v4/games/?search=" + req.body.search,
+  // working url "https://api.igdb.com/v4/games/?search=" + req.body.search,
+
+  // search function - grabs all data requested
   app.post("/search", async function (req, res) {
-  console.log("START OF SEARCH");
+    console.log("START OF SEARCH");
     console.log("search = ", req.body.search);
     games = await axios({
       url: `https://api.igdb.com/v4/games/?search=${req.body.search}&fields=id,name,collection,genres,cover.url,first_release_date,rating,slug,storyline,summary`,
@@ -132,9 +134,9 @@ module.exports = function (app) {
       .catch(err => {
         console.error(err);
       });
-     console.log("trimmed game ", games[0].name.split(" ").join(""));
-      var gameCover = covers(games[0].cover);
-      console.log(gameCover);
+    console.log("trimmed game ", games[0].name.split(" ").join(""));
+    // var gameCover = covers(games[0].cover);
+    // console.log(gameCover);
     // console.log("games test s0.earch", games);
     // Otherwise send back the user's email and id
     // Sending back a password, even a hashed password, isn't a good idea
@@ -143,17 +145,20 @@ module.exports = function (app) {
       games: JSON.stringify(games)
     });
   });
-
+  
+  // displays games on search page
   app.get("/api/search", async function (req, res) {
+    // var final = JSON.parse(games);
     console.log("games value = ", games);
-    res.json({    
-      display: JSON.stringify(games)
+    res.json({
+      display: games
     });
   });
 };
 
+// function not necessary
 // working url url: `https://api.igdb.com/v4/covers/?game=${x}&fields=url,game`,
-function covers(x){
+function covers(x) {
   console.log("cover x=", x);
   axios({
     url: `https://api.igdb.com/v4/covers/?search=${x}&fields=url,game`,
@@ -175,8 +180,8 @@ function covers(x){
     .catch(err => {
       console.error(err);
     });
-    // begin second axios call for cover
-    return cover;
+  // begin second axios call for cover
+  return cover;
 }
 
 // url: `https://api.igdb.com/v4/covers/?game=${x}`,
