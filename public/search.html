@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>1UP</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.4/dist/css/bulma-carousel.min.css">
   <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
   <link href="stylesheets/style.css" rel="stylesheet">
 </head>
@@ -21,7 +22,7 @@
         <div class="field">
           <label class="label">Search</label>
           <div class="control">
-            <input class="input" type="text" placeholder="Text input" />
+            <input class="searchbar input" type="text" placeholder="Text input" />
           </div>
         </div>
         <div class="control">
@@ -33,32 +34,63 @@
     </div>
   </section>
   <main class="Site-content">
-    <div class="tile is-ancestor">
-      <div class="tile is-vertical is-12">
-        <div class="tile">
-          <div class="tile is-parent is-vertical is-6">
-            <article class="tile is-child notification is-danger">
-              <p class="title">GAME CAROUSEL</p>
-              <p class="subtitle">Amazing content!</p>
-              <div class="games content">
-                <!-- Content -->
+    <!-- Start Carousel -->
+    <section class="section">
+      <div class="container">
+        <div id="post_images" class="carousel">
+          <div class="item-1">
+            <figure class="image is-16by9 has-ratio has-text-centered has-background">
+              <img class="is-background" src="assets/1^dblogo.png" />
+              <div class="hero-body has-text-centered is-overlay">
+                <h1 class="title">Test Game One!</h1>
+                <h2 class="rating">PG-13</h2>
+                <h3 class="year">2020</h3>
               </div>
-            </article>
+            </figure>
           </div>
-          <div class="tile is-parent is-vertical is-3">
-            <article class="tile is-child notification is-success">
-              <div class="content">
-                <p class="title">FRIENDS INFO</p>
-                <p class="subtitle">Even more great content!</p>
-                <div class="content">
-                  <!-- Content -->
-                </div>
+          <div class="item-2">
+            <figure class="image is-16by9 has-ratio has-text-centered has-background">
+              <img class="is-background" src="assets/1^dblogo.png" />
+              <div class="hero-body has-text-centered is-overlay">
+                <h1 class="title">Test Game Two!</h1>
+                <h2 class="rating">PG-13</h2>
+                <h3 class="year">2020</h3>
               </div>
-            </article>
+            </figure>
+          </div>
+          <div class="item-3">
+            <figure class="image is-16by9 has-ratio has-text-centered has-background">
+              <img class="is-background" src="assets/1^dblogo.png" />
+              <div class="hero-body has-text-centered is-overlay">
+                <h1 class="title">Test Game Three!</h1>
+                <h2 class="rating">PG-13</h2>
+                <h3 class="year">2020</h3>
+              </div>
+            </figure>
+          </div>
+          <div class="item-4">
+            <figure class="image is-16by9 has-ratio has-text-centered has-background">
+              <img class="is-background" src="assets/1^dblogo.png" />
+              <div class="hero-body has-text-centered is-overlay">
+                <h1 class="title">Test Game Four!</h1>
+                <h2 class="rating">PG-13</h2>
+                <h3 class="year">2020</h3>
+              </div>
+            </figure>
+          </div>
+          <div class="item-5">
+            <figure class="image is-16by9 has-ratio has-text-centered has-background">
+              <img class="is-background" src="assets/1^dblogo.png" />
+              <div class="hero-body has-text-centered is-overlay">
+                <h1 class="title">Test Game Five!</h1>
+                <h2 class="rating">PG-13</h2>
+                <h3 class="year">2020</h3>
+              </div>
+            </figure>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   </main>
   <footer class="footer">
     <div class="content has-text-centered">
@@ -71,6 +103,7 @@
     </div>
   </footer>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.4/dist/js/bulma-carousel.min.js"></script>
   <script type="text/javascript" src="js/search.js"></script>
 </body>
 

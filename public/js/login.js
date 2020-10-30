@@ -5,7 +5,7 @@ $(document).ready(function() {
   var passwordInput = $("input#password-input");
 
   // When the form is submitted, we validate there's an email and password entered
-  $("#login").on("click", function(event) {
+  $("#loginbutton").on("click", function(event) {
     console.log("testing")
     event.preventDefault();
     var userData = {

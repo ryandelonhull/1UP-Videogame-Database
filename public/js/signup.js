@@ -9,7 +9,7 @@ $(document).ready(function () {
   var birthday = $("input#dateofbirth");
   // When the signup button is clicked, we validate the email and password are not blank
 
-  $("#signup").on("click", function (event) {
+  $("#signupbutton").on("click", function (event) {
     // prevent page from reloading
     event.preventDefault();
     // get user data
@@ -52,7 +52,7 @@ $(document).ready(function () {
       })
       .catch(handleLoginErr);
   }
-  $("#login").on("click", function(event){
+  $("#loginbutton").on("click", function(event){
     event.preventDefault();
     console.log("testing")
     window.location.replace("/login");
