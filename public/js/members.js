@@ -9,7 +9,7 @@ $(document).ready(function () {
   if($(".gameCarousel").text("")){
     $(".gameCarousel").text("No Favorite Games");
   }
-
+  
   $(".search").on("click", function (event) {
     event.preventDefault();
     var search = $(".searchbar").val();
@@ -22,5 +22,12 @@ $(document).ready(function () {
       console.log(err);
     });
   });
+
+  bulmaCarousel.attach('#post_images', {
+    slidesToScroll: 1,
+    slidesToShow: 1,
+    loop: true,
+  });
+  
 
 });

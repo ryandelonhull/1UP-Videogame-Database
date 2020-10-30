@@ -34,9 +34,6 @@ module.exports = function (app) {
     })
     .then(function () {
       console.log("token login", token);
-      // sessionStorage.setItem('access', token);
-      // var test = sessionStorage.getItem('access');
-      // console.log("access token from storage", test);
       console.log("user", req.user.dataValues);
       db.User.update({ access: token },
         {
