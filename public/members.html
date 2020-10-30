@@ -3,16 +3,10 @@
 
 <head>
   <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>1UP</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css"
-    />
-    <script
-      defer
-      src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"
-    ></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>1UP</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css" />
+  <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
   <link href="stylesheets/style.css" rel="stylesheet">
 </head>
 
@@ -28,11 +22,11 @@
         <div class="field">
           <label class="label">Search</label>
           <div class="control">
-            <input class="input" type="text" placeholder="What game do you want to find?" />
+            <input class="searchbar input" type="text" placeholder="Text input" />
           </div>
         </div>
         <div class="control">
-          <button class="button is-primary">Submit</button>
+          <button class="search button is-primary">Submit</button>
         </div>
       </div>
       <div class="column">
@@ -53,6 +47,7 @@
         <div class="column is-11 is-offset-1 is-grey">
           <p class="title">Game Carousel</p>
           <p class="subtitle">Great content!</p>
+          <p class="games"></p>
           <div class="content">
             <!-- Content -->
           </div>
@@ -60,9 +55,8 @@
       </div>
     </div>
   </main>
- 
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="js/members.js"></script>
-
 </body>
 </html>
