@@ -16,43 +16,50 @@
 </head>
 
 <body class="Site">
-  <section class="hero is-warning">
-    <div class="hero-body columns">
-      <div class="column">
-        <h1 class="title">1UP</h1>
-        <h2 class="subtitle">Video Game Database</h2>
-      </div>
+  <video class="video" autoplay loop muted>
+    <source src="assets/Circularity_01.mp4" type="video/mp4">
+    </video>
+    <div>
+      <img class="img img-thumbnail" src="assets/1^db solo.png" alt="1^db">
     </div>
-  </section>
-  <div class="columns is-mobile">
-    <div class="column is-half is-offset-one-quarter">
-      <div class="field">
-        <label class="label">Email</label>
-        <div class="control has-icons-left has-icons-right">
-          <input
-            class="input is-success"
-            type="text"
-            placeholder="Text input"
-            value="email"
-          />
-          <span class="icon is-small is-left">
-            <i class="fas fa-user"></i>
-          </span>
-          <span class="icon is-small is-right">
-            <i class="fas fa-check"></i>
-          </span>
-        </div>
-        <p class="help is-success"></p>
 
-        <div class="field">
-          <label class="label">Password</label>
-          <div class="control">
-            <input class="input" type="text" placeholder="Text input" />
+    <section class="container">
+      <div class="row"></div>
+    </section>
+    
+    <section class="container">
+      <div class="row">
+        <div class="card text-center col-sm-8 m-5 p-3" id="login">
+          <div class="field">
+            <label class="label">Email</label>
+            <div class="control has-icons-left has-icons-right">
+              <input
+                class="input is-success"
+                type="text"
+                placeholder="Text input"
+                value="email"
+              />
+              <span class="icon is-small is-left">
+                <i class="fas fa-user"></i>
+              </span>
+              <span class="icon is-small is-right">
+                <i class="fas fa-check"></i>
+              </span>
+            </div>
+            <p class="help is-success"></p>
+          </div>
+          <div class="field">
+            <label class="label">Password</label>
+            <div class="control">
+              <input class="input" type="text" placeholder="Text input" />
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
+
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="js/login.js"></script>
 </body>
