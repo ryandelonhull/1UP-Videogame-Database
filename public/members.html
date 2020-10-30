@@ -1,121 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8" />
-<<<<<<< HEAD
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>1UP</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css"
-    />
-    <script
-      defer
-      src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"
-    ></script>
-=======
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>1UP</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.4/dist/css/bulma-carousel.min.css">
   <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
->>>>>>> fa9e5ff320acf8c617da41f4d3c2130264f1bac4
   <link href="stylesheets/style.css" rel="stylesheet">
 </head>
-
 <body class="Site">
-  <section class="hero is-warning">
+  <section class="hero" id="header-img">
     <div class="hero-body columns">
       <div class="column">
         <h1 class="title">1UP</h1>
         <h2 class="subtitle">Video Game Database</h2>
+        <a class="button is-danger">Logout</a>
       </div>
-      <div class="column">
+      <div class="column" >
         <div class="field">
           <label class="label">Search</label>
           <div class="control">
-<<<<<<< HEAD
-            <input class="input" type="text" placeholder="What game do you want to find?" />
-          </div>
-        </div>
-        <div class="control">
-          <button class="button is-primary">Submit</button>
-=======
             <input class="searchbar input" type="text" placeholder="Text input" />
           </div>
         </div>
         <div class="control">
           <button class="search button is-primary">Submit</button>
->>>>>>> fa9e5ff320acf8c617da41f4d3c2130264f1bac4
         </div>
       </div>
       <div class="column">
       </div>
     </div>
   </section>
-  <main class="Site-content">
-    <div class="tile is-ancestor">
-      <div class="tile is-vertical is-12">
-        <div class="tile">
-          <div class="tile is-parent is-vertical is-3">
-            <article class="tile is-child notification is-primary">
-              <p class="title">USER INFO</p>
-              <p class="subtitle">Great content about the user!</p>
-<<<<<<< HEAD
-=======
-              <h1 class="member-name"></h1>
-              <p class="games"></p>
->>>>>>> fa9e5ff320acf8c617da41f4d3c2130264f1bac4
-            </article>
-          </div>
-          <div class="tile is-parent is-vertical is-6">
-            <article class="tile is-child notification is-danger">
-              <p class="title">GAME CAROUSEL</p>
-              <p class="subtitle">Amazing content!</p>
-              <div class="content">
-                <!-- Content -->
-              </div>
-            </article>
-          </div>
-          <div class="tile is-parent is-vertical is-3">
-            <article class="tile is-child notification is-success">
-              <div class="content">
-                <p class="title">FRIENDS INFO</p>
-                <p class="subtitle">Even more great content!</p>
-                <div class="content">
-                  <!-- Content -->
-                </div>
-              </div>
-            </article>
-          </div>
+  <section>
+    <div class="column">
+      <div class="column is-three-fifths is-offset-one-fifth">
+        <div class="tile is-parent">
+          <article class="tile is-child notification">
+            <p class="title">User Data</p>
+            <p class="subtitle">User data on left, friends data on the right</p>
+          </article>
         </div>
       </div>
     </div>
-  </main>
-  <footer class="footer">
-    <div class="content has-text-centered">
-      <p>
-        <strong>1UP</strong> by
-        <a href="https://papertoilet.com">Team 4</a>. The source code is
-        licensed by
-<<<<<<< HEAD
-        <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. 
-      </p>
-    </div>
-  </footer>
+  </section>
+  <main class="Site-content">
 
-=======
-        <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
-      </p>
-    </div>
-  </footer>
->>>>>>> fa9e5ff320acf8c617da41f4d3c2130264f1bac4
+      <section class="section">
+        <div class="container">
+          <div id="post_images" class="carousel">
+            <div class="item-1">
+              <figure class="image is-16by9 has-ratio has-text-centered has-background">
+                  <img class="is-background" src="assets/1^dblogo.png"/>
+                  <div class="hero-body has-text-centered is-overlay">
+                    <h1 class="title">Test Game One!</h1>
+                    <h2 class="rating">PG-13</h2>
+                    <h3 class="year">2020</h3>
+                  </div>
+                </figure>
+              </div>
+              <div class="item-2">
+                <figure class="image is-16by9 has-ratio has-text-centered has-background">
+                  <img class="is-background" src="assets/1^dblogo.png"/>
+                  <div class="hero-body has-text-centered is-overlay">
+                    <h1 class="title">Test Game Two!</h1>
+                    <h2 class="rating">PG-13</h2>
+                    <h3 class="year">2020</h3>
+                  </div>
+              </figure>
+            </div>
+            <div class="item-3">
+              <figure class="image is-16by9 has-ratio has-text-centered has-background">
+                <img class="is-background" src="assets/1^dblogo.png"/>
+                <div class="hero-body has-text-centered is-overlay">
+                  <h1 class="title">Test Game Three!</h1>
+                  <h2 class="rating">PG-13</h2>
+                  <h3 class="year">2020</h3>
+                </div>
+              </figure>
+            </div>
+            <div class="item-4">
+              <figure class="image is-16by9 has-ratio has-text-centered has-background">
+                <img class="is-background" src="assets/1^dblogo.png"/>
+                <div class="hero-body has-text-centered is-overlay">
+                  <h1 class="title">Test Game Four!</h1>
+                  <h2 class="rating">PG-13</h2>
+                  <h3 class="year">2020</h3>
+                </div>
+              </figure>
+            </div>
+              <div class="item-5">
+                <figure class="image is-16by9 has-ratio has-text-centered has-background">
+                  <img class="is-background" src="assets/1^dblogo.png"/>
+                  <div class="hero-body has-text-centered is-overlay">
+                    <h1 class="title">Test Game Five!</h1>
+                    <h2 class="rating">PG-13</h2>
+                    <h3 class="year">2020</h3>
+                  </div>
+              </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+  </main>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.4/dist/js/bulma-carousel.min.js"></script>
   <script type="text/javascript" src="js/members.js"></script>
 </body>
-<<<<<<< HEAD
 </html>
-=======
-
-</html>
->>>>>>> fa9e5ff320acf8c617da41f4d3c2130264f1bac4

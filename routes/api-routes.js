@@ -50,19 +50,12 @@ module.exports = function (app) {
       email: req.body.email,
       password: req.body.password
     })
-<<<<<<< HEAD
-      .then(function() {
-        res.redirect(307, "/api/login");
-      })
-      .catch(function(err) {
-=======
       .then(function () {
         // redirect to login page
         res.redirect(307, "/api/login");
       })
       .catch(function (err) {
         // throw error status 401
->>>>>>> fa9e5ff320acf8c617da41f4d3c2130264f1bac4
         res.status(401).json(err);
       });
   });
