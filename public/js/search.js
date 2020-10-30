@@ -18,12 +18,12 @@ $(document).ready(function () {
             // + hour + ':' + min + ':' + sec 
             var content = `
             <div class="item-${i+1}">
-            <figure class="image is-16by9 has-ratio has-text-centered has-background">
-            <img class="is-background" src="${data.display[i].cover.url}" alt="${data.display[i].name} cover image"/>
-            <div class="hero-body has-text-centered is-overlay">
+            <figure class="has-text-centered">
+            <div class="hero-body has-text-centered">
             <h1 class="title">${data.display[i].name}</h1>
             <h2 class="rating">RATING: ${Math.floor(data.display[i].rating)}%</h2>
-            <h3 class="year">${time}</h3>
+            <h3 class="year">${time}</h3></br>
+            <img src="${data.display[i].cover.url}" alt="${data.display[i].name} cover image"/></br></br>
             <button class="favorite button is-info is-outlined is-rounded" data-id=${i}>Favorite</button>
             </div></figure></div>`;
             $(".carousel").append(content);
