@@ -2,7 +2,7 @@ $(document).ready(function () {
   // This file just does a GET request to figure out which user is logged in
   // and updates the HTML on the page
   $.get("/api/user_data").then(function (games) {
-    $(".title").text(games.email)
+    $("#userName").text(games.email)
     console.log("TESTING");
     console.log("data: ", games);
     console.log("all games front end: ", games.display)
@@ -11,20 +11,28 @@ $(document).ready(function () {
           <div class="item-${i + 1}">
           <figure class="has-text-centered">
           <div class="hero-body has-text-centered">
-          <h1 class="title">${games.display[i].name}</h1>
-          <h2 class="rating">RATING: ${games.display[i].user_rating}%</h2>
-          <h3 class="year">${games.display[i].year}</h3></br>
-          <img src="${games.display[i].cover_url}" alt="${games.display[i].name} cover image"/></br></br>
+          <h1 class="title">${games.display[i].name}</h1>`;
+      if (!games.display[i].user_rating) {
+        content += `<h2 class="rating">User Rating Not Available</h2>`;
+      } else {
+        content += `<h2 class="rating">RATING: ${games.display[i].user_rating}%</h2>`;
+      }
+      if (!games.display[i].year) {
+        content += `<h3 class="year">Year Not Available</h3></br>`;
+      } else {
+        content += `<h3 class="year">${games.display[i].year}</h3></br>`;
+      }
+      content += `<img src="${games.display[i].cover_url}" alt="${games.display[i].name} cover image"/></br></br>
           </div></figure></div>`;
-      $(".container").append(content);
+      $(".content").append(content);
     }
   });
- 
-  $(".logout").on("click", function(event){
+
+  $(".logout").on("click", function (event) {
     event.preventDefault();
     $.get("/logout");
-    })
-  
+  })
+
 
 
   $(".search").on("click", function (event) {

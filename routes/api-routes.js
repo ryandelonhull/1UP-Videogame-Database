@@ -206,28 +206,31 @@ module.exports = function (app) {
         friend_id: req.user.id
 
       });
-      if(friend.dataValues.email){
+      if (friend.dataValues.email) {
         res.status(201).send("success!");
       }
     });
-    
+
   });
 
   app.post("/favorite", function (req, res) {
     console.log("user", req.user);
     console.log("game on backend", req.body.game);
     var game = req.body.game;
-    var rating = Math.floor(game.rating);
+    if (game.rating) {
+      var rating = Math.floor(game.rating);
+    }
     console.log("rating", rating);
-
-    var ogdate = game.first_release_date;
-    console.log("ogdate: ", ogdate);
-    var a = new Date(ogdate * 1000);
-    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    var year = a.getFullYear();
-    var month = months[a.getMonth()];
-    var date = a.getDate();
-    var final = date + ' ' + month + ' ' + year + ' ';
+    if (game.first_release_date) {
+      var ogdate = game.first_release_date;
+      console.log("ogdate: ", ogdate);
+      var a = new Date(ogdate * 1000);
+      var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      var year = a.getFullYear();
+      var month = months[a.getMonth()];
+      var date = a.getDate();
+      var final = date + ' ' + month + ' ' + year + ' ';
+    }
     console.log("release date", final);
     db.Games.create({
       userId: req.user.id,

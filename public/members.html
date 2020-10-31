@@ -10,39 +10,26 @@
   <link href="stylesheets/style.css" rel="stylesheet">
 </head>
 <body class="Site">
-  <section class="hero" id="header-img">
+  <video class="video" autoplay loop muted poster="assets/1^bg.png" id="vid2">
+    <source src="assets/tunnel20001_0300.mov" type="video/mp4">
+  </video>
+  <section class="hero is-max-desktop" id="header-img">
     <div class="hero-body columns">
+      <img class="logo img-thumbnail" src="assets/1^db solo.png" alt="1^db">
       <div class="column">
-        <h1 class="title">1UP</h1>
-        <h2 class="subtitle">Video Game Database</h2>
-        <a class="button is-danger">Logout</a>
       </div>
-      <div class="column" >
+      <div class="column">
         <div class="field">
-          <label class="label">Search</label>
           <div class="control">
-            <input class="searchbar input" type="text" placeholder="Text input" />
+            <input class="searchbar input" type="text" id="searchbar" placeholder="Search Games" />
           </div>
         </div>
         <div class="control">
-          <button class="search button is-primary">Submit</button>
+          <button class="search button is-info is-outlined is-rounded">Submit</button>
         </div>
       </div>
-      <!-- copy of search for testing add friends -->
-      <div class="column" >
-        <div class="field">
-          <label class="label">Add Friend</label>
-          <div class="control">
-            <input id="emailInput" class="input" type="email" placeholder="Enter Friend's email" />
-          </div>
-        </div>
-        <div class="control">
-          <button id="friend" class="button is-primary">Add</button>
-        </div>
-      </div>
-      <!-- end test -->
       <div class="column">
-        <div class="column is-pulled-right">
+        <div class="column is-pulled-right" id="dropdown">
           <div class="dropdown is-hoverable">
             <div class="dropdown-trigger">
               <button class="button is-info is-outlined is-rounded" aria-haspopup="true" aria-controls="dropdown-menu">
@@ -54,15 +41,17 @@
             </div>
             <div class="dropdown-menu" id="dropdown-menu" role="menu">
               <div class="dropdown-content">
-                <a href="/members" class="profile-item">
+                <div href="#" class="dropdown-item">
                   Profile
-                </a >
+                </div>
                 <hr class="dropdown-divider">
-                <a href="#" class="profile-item">
-                  Add Friend
-                </a >
+                <div class="dropdown-item" data-toggle="modal" id="modalText">
+                  Friends
+                </div>
                 <hr class="dropdown-divider">
-                <a class="navbar-brand" href="/logout">Logout</a>
+                <a href="/logout" class="dropdown-item">
+                  Logout
+                </a>
               </div>
             </div>
           </div>
@@ -74,75 +63,33 @@
     <div class="column">
       <div class="column is-three-fifths is-offset-one-fifth">
         <div class="tile is-parent">
-          <article class="tile is-child notification">
-            <p class="title">User Data</p>
+          <article class="tile is-child notification" style="background: white; z-index: 1;">
+            <p class="title"id="userName">User Data</p>
             <p class="subtitle">User data on left, friends data on the right</p>
+          </article>
+        </div>
+        <div class="tile is-child">
+          <article class="tile is-child notification" style="background: white; z-index: 1;">
+            <p class="title">Games</p>
+            <div class="content"></div>
           </article>
         </div>
       </div>
     </div>
   </section>
-  <main class="Site-content">
-
-      <section class="section">
-        <div class="container">
-          <!-- <div id="post_images" class="carousel"> -->
-            <!-- <div class="item-1">
-              <figure class="image is-16by9 has-ratio has-text-centered has-background">
-                  <img class="is-background" src="assets/1^dblogo.png"/>
-                  <div class="hero-body has-text-centered is-overlay">
-                    <h1 class="title">Test Game One!</h1>
-                    <h2 class="rating">PG-13</h2>
-                    <h3 class="year">2020</h3>
-                  </div>
-                </figure>
-              </div>
-              <div class="item-2">
-                <figure class="image is-16by9 has-ratio has-text-centered has-background">
-                  <img class="is-background" src="assets/1^dblogo.png"/>
-                  <div class="hero-body has-text-centered is-overlay">
-                    <h1 class="title">Test Game Two!</h1>
-                    <h2 class="rating">PG-13</h2>
-                    <h3 class="year">2020</h3>
-                  </div>
-              </figure>
-            </div>
-            <div class="item-3">
-              <figure class="image is-16by9 has-ratio has-text-centered has-background">
-                <img class="is-background" src="assets/1^dblogo.png"/>
-                <div class="hero-body has-text-centered is-overlay">
-                  <h1 class="title">Test Game Three!</h1>
-                  <h2 class="rating">PG-13</h2>
-                  <h3 class="year">2020</h3>
-                </div>
-              </figure>
-            </div>
-            <div class="item-4">
-              <figure class="image is-16by9 has-ratio has-text-centered has-background">
-                <img class="is-background" src="assets/1^dblogo.png"/>
-                <div class="hero-body has-text-centered is-overlay">
-                  <h1 class="title">Test Game Four!</h1>
-                  <h2 class="rating">PG-13</h2>
-                  <h3 class="year">2020</h3>
-                </div>
-              </figure>
-            </div>
-              <div class="item-5">
-                <figure class="image is-16by9 has-ratio has-text-centered has-background">
-                  <img class="is-background" src="assets/1^dblogo.png"/>
-                  <div class="hero-body has-text-centered is-overlay">
-                    <h1 class="title">Test Game Five!</h1>
-                    <h2 class="rating">PG-13</h2>
-                    <h3 class="year">2020</h3>
-                  </div>
-              </figure>
-          </div> -->
-        <!-- </div> -->
+  <div class="modal">
+    <div class="modal-content is-info is-outlined is-rounded">
+      <h1 id="modalText">Add Friends</h1>
+      <div class="control">
+        <input class="input" type="email" id="emailInput" placeholder="Add Email"/>
       </div>
-    </section>
-
-
-  </main>
+      <button class="button is-info is-outlined is-small is-rounded" id="friend">Add</button>
+      <br/>
+      <button class="button is-info is-outlined is-small is-rounded" id="close">Close</button>
+    </div>
+  </div>
+  
+ 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.4/dist/js/bulma-carousel.min.js"></script>
   <script type="text/javascript" src="js/members.js"></script>

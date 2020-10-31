@@ -1,13 +1,15 @@
 form.signup,
 form.login {
-  margin-top: 50px;
+  margin-top: 45px;
 }
 #header-img {
   width: 100%;
-  height: 180px;
-  background: url("../assets/img-header.png");
+  height: 100%;
+  background-image: url("../assets/img-header.png");
   background-size: cover;
-  margin-right: -20px;
+  margin-right: -50px;
+  z-index: 25;
+  position: relative;
 }
 input {
   margin-left: 0px;
@@ -38,11 +40,20 @@ input:focus {
   top: 0;
   left: 0;
 }
-.img {
+#vid2 {
+  object-fit: cover;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  top: 0;
+  left: 0;
+}
+.logo {
   float: left;
   top: 0;
   left: 0;
-  position: fixed;
+  position: absolute;
   z-index: 1000;
   }
 #dataform {
@@ -53,9 +64,9 @@ input:focus {
   height: 50%;
   width: 50%;
   padding: 10px;
-  z-index: 5;
+  z-index: 50;
   background-color: white;
-  opacity: .7;
+  opacity: 0.9;
   border-radius: 4px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
@@ -70,13 +81,14 @@ input:focus {
     top: 70%;
   }
   #post_images{
-    z-index: 50;
+    z-index: 40;
   }
   .column {
     z-index: 50;
   }
-  #carousel {
-    z-index: 100;
+  .carousel {
+    z-index: 5;
+    position: relative;
   }
   #userfield {
     z-index: 100;
@@ -88,4 +100,64 @@ input:focus {
     box-shadow: 0px 0px 8px #7BC1F7;
     -moz-box-shadow: 0px 0px 8px #7BC1F7;
     -webkit-box-shadow: 0px 0px 8px #7BC1F7;
+  }
+  /* #bg2 {
+    object-fit: cover;
+    background-image: url("assets/1^bg2.png");
+    background-position: center center;
+    background-repeat:  no-repeat;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    top: 0;
+    left: 0;
+  } */
+ .modal-content {
+  background-color:lightgrey;
+  margin: auto; 
+  padding: 20px;
+  text-align: center;
+  width: 60%; 
+  z-index: 200; 
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  box-shadow: 0px 0px 8px #7BC1F7;
+  -moz-box-shadow: 0px 0px 8px #7BC1F7;
+  -webkit-box-shadow: 0px 0px 8px #7BC1F7;
+}
+.modal {
+  z-index: 200; 
+  left: 30%;
+  top: 32%;
+  width: 40%; 
+  height: 50%; 
+}
+#close{
+  text-align: center;
+  width: 12%;
+  left:45%;
+  position: relative;
+}
+#close:hover,
+#close:focus {
+color: black;
+cursor: pointer;
+}
+.dropdown-item {
+cursor: pointer;
+z-index: 250;
+}
+#dropdown-menu {
+  z-index: 250;
+  }
+.section {
+  width: 100%;
+  height: 100%;
+  background-image: url("assets/1^bg2.png");
+  display: block;
+  background-size: cover;
+  margin-right: -50px;
+  z-index: 2;
   }

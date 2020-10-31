@@ -1,4 +1,6 @@
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,16 +10,20 @@
   <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
   <link href="stylesheets/style.css" rel="stylesheet">
 </head>
+
 <body class="Site">
-  <section class="hero" id="header-img">
+  <video class="video" autoplay loop muted poster="assets/1^bg.png" id="vid2">
+    <source src="assets/tunnel20001_0300.mov" type="video/mp4">
+  </video>
+  <section class="hero is-max-desktop" id="header-img">
     <div class="hero-body columns">
-      <img class="img img-thumbnail" src="assets/1^db solo.png" alt="1^db">
+      <img class="logo img-thumbnail" src="assets/1^db solo.png" alt="1^db">
       <div class="column">
       </div>
       <div class="column">
         <div class="field">
           <div class="control">
-            <input class="searchbar input" type="text" placeholder="Search"/>
+            <input class="searchbar input" type="text" id="searchbar" placeholder="Search Games" />
           </div>
         </div>
         <div class="control">
@@ -25,7 +31,7 @@
         </div>
       </div>
       <div class="column">
-        <div class="column is-pulled-right">
+        <div class="column is-pulled-right" id="dropdown">
           <div class="dropdown is-hoverable">
             <div class="dropdown-trigger">
               <button class="button is-info is-outlined is-rounded" aria-haspopup="true" aria-controls="dropdown-menu">
@@ -37,28 +43,44 @@
             </div>
             <div class="dropdown-menu" id="dropdown-menu" role="menu">
               <div class="dropdown-content">
-                <a href="/members" class="profile-item">
+                <a href="/members" class="dropdown-item">
                   Profile
-                </a >
+                </a>
                 <hr class="dropdown-divider">
-                <a href="#" class="profile-item">
-                  Add Friend
-                </a >
+                <div class="dropdown-item" data-toggle="modal" id="modalText">
+                  Friends
+                </div>
                 <hr class="dropdown-divider">
-                <a class="navbar-brand" href="/logout">Logout</a>
+                <a href="/logout" class="dropdown-item">
+                  Logout
+                </a>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
   </section>
+  <div class="modal">
+    <div class="modal-content is-info is-outlined is-rounded">
+      <h1 id="modalText">Add Friends</h1>
+      <div class="control">
+        <input class="input" type="email" id="emailInput" placeholder="Add Email" />
+      </div>
+      <button class="button is-info is-outlined is-small is-rounded" id="friend">Add</button>
+      <br />
+      <button class="button is-info is-outlined is-small is-rounded" id="close">Close</button>
+    </div>
+  </div>
   <main class="Site-content">
-    <section class="gamesContainer">
-      
+    <section class="section" style="background-color: white;">
+      <div class="container" id="gamesContainer" style="background-color: white; z-index: 1">
+      </div>
     </section>
   </main>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.4/dist/js/bulma-carousel.min.js"></script>
   <script type="text/javascript" src="js/search.js"></script>
 </body>
+
 </html>
