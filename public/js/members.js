@@ -2,6 +2,7 @@ $(document).ready(function () {
   // This file just does a GET request to figure out which user is logged in
   // and updates the HTML on the page
   $.get("/api/user_data").then(function (games) {
+    $(".title").text(games.email)
     console.log("TESTING");
     console.log("data: ", games);
     console.log("all games front end: ", games.display)
@@ -19,6 +20,11 @@ $(document).ready(function () {
     }
   });
  
+  $(".logout").on("click", function(event){
+    event.preventDefault();
+    $.get("/logout");
+    })
+  
 
 
   $(".search").on("click", function (event) {
@@ -38,7 +44,7 @@ $(document).ready(function () {
     event.preventDefault();
     var email = $("#emailInput").val();
     $.post("/api/addfriend", { email: email }).then(function (data) {
-
+      console.log("addfriend response 1: ", data);
     })
   });
 

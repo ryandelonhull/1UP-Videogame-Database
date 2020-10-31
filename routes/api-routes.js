@@ -86,7 +86,8 @@ module.exports = function (app) {
         .then(function (display) {
           console.log("all games: ", display);
           res.json({
-            display: display
+            display: display,
+            email: req.user.email
           });
         });
 
@@ -184,18 +185,32 @@ module.exports = function (app) {
 
   app.post("/api/addfriend", function (req, res) {
     console.log(req.user.id);
+    console.log("User addding: ", req.user);
     db.User.findOne({
+      // grab email from modal
       where: { email: req.body.email }
-    }).then(function (user) {
-      console.log(user);
+    }).then(function (friend) {
+      console.log("friend: ", friend);
+      console.log("friend email: ", friend.dataValues.email);
       //   if (!user) { res.status(406).send("User not found") }
       //   // create error on front end
-      //   db.Friends.create({
-      //     UserId: req.user.id,
-      //     email: user.email,
-      //     friend_id: user.id
+      db.Friends.create({
+        userId: req.user.id,
+        email: friend.dataValues.email,
+        friend_id: friend.dataValues.id
+      });
+      console.log("Second create");
+      db.Friends.create({
+        userId: friend.dataValues.id,
+        email: req.user.email,
+        friend_id: req.user.id
+
+      });
+      if(friend.dataValues.email){
+        res.status(201).send("success!");
+      }
     });
-    // });
+    
   });
 
   app.post("/favorite", function (req, res) {

@@ -17,10 +17,10 @@ module.exports = function (sequelize, DataTypes) {
     Friends.associate = models => {
         // Each Event belongs to A User
         // Each Event can have many UserEvents
-        models.Friends.belongsTo(models.User, {
-            foreignKey: {
-                allowNull: false
-            }
+        models.Friends.belongsTo(models.User, { as: "host" }, {
+            // foreignKey: {
+            //     allowNull: false
+            // }
         });
     }
 
