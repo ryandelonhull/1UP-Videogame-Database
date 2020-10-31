@@ -48,9 +48,8 @@ $(document).ready(function () {
         if (search) {
             $.post("/search", {
                 search: search
-            }).then(function () {
-                window.location.replace("/search");
-                // If there's an error, log the error
+            }).then(function (data) {
+                console.log("search returned data: ", data);
             }).catch(function (err) {
                 console.log(err);
             });

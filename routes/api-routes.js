@@ -82,34 +82,43 @@ module.exports = function (app) {
       // The user is not logged in, send back an empty object
       res.json({});
     } else {
-      // GAME CODE START
-      games = await axios({
-        url: "https://api.igdb.com/v4/games",
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Client-ID': 'qh6jfouob87senzmm6422jomq4ui44',
-          'Authorization': `Bearer ${token}`,
-        },
-        data: "fields age_ratings,aggregated_rating,aggregated_rating_count,alternative_names,artworks,bundles,category,checksum,collection,cover,created_at,dlcs,expansions,external_games,first_release_date,follows,franchise,franchises,game_engines,game_modes,genres,hypes,involved_companies,keywords,multiplayer_modes,name,parent_game,platforms,player_perspectives,rating,rating_count,release_dates,screenshots,similar_games,slug,standalone_expansions,status,storyline,summary,tags,themes,total_rating,total_rating_count,updated_at,url,version_parent,version_title,videos,websites;"
-      })
-        .then(response => {
-          // console.log(response.data);
-          games = response.data;
-          // console.log("games", games);
-          return games;
-        })
-        .catch(err => {
-          console.error(err);
+      db.Games.findAll({ where: { userId: req.user.id } })
+        .then(function (display) {
+          console.log("all games: ", display);
+          res.json({
+            display: display
+          });
         });
+
+      // test axios call
+      // GAME CODE START
+      // games = await axios({
+      //   url: "https://api.igdb.com/v4/games",
+      //   method: 'POST',
+      //   headers: {
+      //     'Accept': 'application/json',
+      //     'Client-ID': 'qh6jfouob87senzmm6422jomq4ui44',
+      //     'Authorization': `Bearer ${token}`,
+      //   },
+      //   data: "fields age_ratings,aggregated_rating,aggregated_rating_count,alternative_names,artworks,bundles,category,checksum,collection,cover,created_at,dlcs,expansions,external_games,first_release_date,follows,franchise,franchises,game_engines,game_modes,genres,hypes,involved_companies,keywords,multiplayer_modes,name,parent_game,platforms,player_perspectives,rating,rating_count,release_dates,screenshots,similar_games,slug,standalone_expansions,status,storyline,summary,tags,themes,total_rating,total_rating_count,updated_at,url,version_parent,version_title,videos,websites;"
+      // })
+      //   .then(response => {
+      //     // console.log(response.data);
+      //     games = response.data;
+      //     // console.log("games", games);
+      //     return games;
+      //   })
+      //   .catch(err => {
+      //     console.error(err);
+      //   });
       // console.log("games test2", games);
       // Otherwise send back the user's email and id
       // Sending back a password, even a hashed password, isn't a good idea
-      res.json({
-        email: req.user.email,
-        id: req.user.id,
-        display: JSON.stringify(games)
-      });
+      // res.json({
+      //   email: req.user.email,
+      //   id: req.user.id,
+      //   display: JSON.stringify(games)
+      // });
     }
   });
   // final url url: `https://api.igdb.com/v4/games/?search=${req.body.search}&fields=id,name,collection,genres,cover.url,first_release_date,rating,slug,storyline,summary`,
@@ -163,10 +172,10 @@ module.exports = function (app) {
   });
 
   app.get("/api/display", async function (req, res) {
-    db.Games.findAll({where: {id: req.user.id}})
-    .then(function(display){
-      console.log(display);
-    })
+    db.Games.findAll({ where: { id: req.user.id } })
+      .then(function (display) {
+        console.log("all games: ", display);
+      })
     res.json({
       display: games
     });
@@ -195,7 +204,7 @@ module.exports = function (app) {
     var game = req.body.game;
     var rating = Math.floor(game.rating);
     console.log("rating", rating);
-    
+
     var ogdate = game.first_release_date;
     console.log("ogdate: ", ogdate);
     var a = new Date(ogdate * 1000);
@@ -216,10 +225,10 @@ module.exports = function (app) {
     }).then(function (data) {
       console.log("returned data: ", data);
       if (!data) { res.status(406).send("Connection Issue") }
-      else{
+      else {
         res.status(201).send("Success!");
       }
-      
+
     });
 
   });
