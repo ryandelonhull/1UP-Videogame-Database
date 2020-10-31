@@ -13,6 +13,7 @@ $(document).ready(function() {
       password: passwordInput.val().trim()
     };
 
+
     if (!userData.email || !userData.password) {
       return;
     }
@@ -21,6 +22,11 @@ $(document).ready(function() {
     loginUser(userData.email, userData.password);
     emailInput.val("");
     passwordInput.val("");
+  });
+  $("#signupbutton").on("click", function(event){
+    event.preventDefault();
+    console.log("testing")
+    window.location.replace("/");
   });
 
   // loginUser does a post to our "api/login" route and if successful, redirects us the the members page

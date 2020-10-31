@@ -1,6 +1,4 @@
-<!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -10,52 +8,59 @@
   <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
   <link href="stylesheets/style.css" rel="stylesheet">
 </head>
-
 <body class="Site">
-  <section class="hero is-warning">
+  <section class="hero" id="header-img">
     <div class="hero-body columns">
+      <img class="img img-thumbnail" src="assets/1^db solo.png" alt="1^db">
       <div class="column">
-        <h1 class="title">1UP</h1>
-        <h2 class="subtitle">Video Game Database</h2>
       </div>
       <div class="column">
         <div class="field">
-          <label class="label">Search</label>
           <div class="control">
-            <input class="searchbar input" type="text" placeholder="Text input" />
+            <input class="input" type="text" placeholder="Search"/>
           </div>
         </div>
         <div class="control">
-          <button class="search button is-primary">Submit</button>
+          <button class="search button is-info is-outlined is-rounded">Submit</button>
         </div>
       </div>
       <div class="column">
+        <div class="column is-pulled-right">
+          <div class="dropdown is-hoverable">
+            <div class="dropdown-trigger">
+              <button class="button is-info is-outlined is-rounded" aria-haspopup="true" aria-controls="dropdown-menu">
+                <span>User Info</span>
+                <span class="icon is-small">
+                  <i class="fas fa-angle-down" aria-hidden="true"></i>
+                </span>
+              </button>
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu" role="menu">
+              <div class="dropdown-content">
+                <a href="#" class="profile-item">
+                  Profile
+                </a>
+                <hr class="dropdown-divider">
+                <a class="navbar-brand" href="/logout"></a>
+                Logout
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
   </section>
   <main class="Site-content">
-    <!-- Start Carousel -->
     <section class="section">
-      <div class="container">
+      <div class="container" id="carousel">
         <div id="post_images" class="carousel">
-
+          
         </div>
       </div>
     </section>
   </main>
-  <footer class="footer">
-    <div class="content has-text-centered">
-      <p>
-        <strong>1UP</strong> by
-        <a href="https://papertoilet.com">Team 4</a>. The source code is
-        licensed by
-        <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
-      </p>
-    </div>
-  </footer>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.4/dist/js/bulma-carousel.min.js"></script>
   <script type="text/javascript" src="js/search.js"></script>
 </body>
-
 </html>

@@ -13,6 +13,11 @@ $(document).ready(function () {
     // prevent page from reloading
     event.preventDefault();
     // get user data
+    if (passwordInput.val() !== $("#verifyPass").val()) {
+      $("#verifyPass").val("");
+      passwordInput.val("");
+      return alert("Please enter the same password");
+    }
     var userData = {
       // pulling emailInput from html 
       name: fullName.val().trim(),
@@ -26,6 +31,8 @@ $(document).ready(function () {
     if (!userData.name || !userData.email || !userData.password || !userData.birthday) {
       return alert("Please complete all fields");
     }
+
+
     // If we have an email and password, run the signUpUser function
     signUpUser(userData.name, userData.email, userData.password, userData.birthday);
     // empties text boxes for email and password
@@ -52,7 +59,7 @@ $(document).ready(function () {
       })
       .catch(handleLoginErr);
   }
-  $("#loginbutton").on("click", function(event){
+  $("#loginbutton").on("click", function (event) {
     event.preventDefault();
     console.log("testing")
     window.location.replace("/login");

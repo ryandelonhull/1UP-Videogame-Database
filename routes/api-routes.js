@@ -12,41 +12,41 @@ module.exports = function (app) {
   // Otherwise the user will be sent an error
   app.post("/api/login", passport.authenticate("local"), function (req, res) {
 
-  //   token = getToken();
-  //   // console.log(scripts.getToken());
-  //   db.User.update({ access: token },
-  //     {
-  //       where: {
-  //         id: req.user.dataValues.id
-  //       }
-  //     }
-  //   );
-  //   res.json(req.user);
-  // });
-  axios.post("https://id.twitch.tv/oauth2/token?client_id=qh6jfouob87senzmm6422jomq4ui44&client_secret=83qdp141qoaog5ybcmwpr4z7u6wj4y&grant_type=client_credentials")
-    .then(function (response) {
-      console.log("response in auth func", response.data.access_token);
-      token = response.data.access_token;
-      console.log("token in auth function", token);
+    //   token = getToken();
+    //   // console.log(scripts.getToken());
+    //   db.User.update({ access: token },
+    //     {
+    //       where: {
+    //         id: req.user.dataValues.id
+    //       }
+    //     }
+    //   );
+    //   res.json(req.user);
+    // });
+    axios.post("https://id.twitch.tv/oauth2/token?client_id=qh6jfouob87senzmm6422jomq4ui44&client_secret=83qdp141qoaog5ybcmwpr4z7u6wj4y&grant_type=client_credentials")
+      .then(function (response) {
+        console.log("response in auth func", response.data.access_token);
+        token = response.data.access_token;
+        console.log("token in auth function", token);
 
-    }, function (err) {
-      console.log(err);
-    })
-    .then(function () {
-      console.log("token login", token);
-      console.log("user", req.user.dataValues);
-      db.User.update({ access: token },
-        {
-          where: {
-            id: req.user.dataValues.id
+      }, function (err) {
+        console.log(err);
+      })
+      .then(function () {
+        console.log("token login", token);
+        console.log("user", req.user.dataValues);
+        db.User.update({ access: token },
+          {
+            where: {
+              id: req.user.dataValues.id
+            }
           }
-        }
-      );
-      res.json(req.user);
+        );
+        res.json(req.user);
 
-    }).catch(function (err) {
-      console.log(err);
-    });
+      }).catch(function (err) {
+        console.log(err);
+      });
 
   });
 
@@ -141,7 +141,7 @@ module.exports = function (app) {
       .catch(err => {
         console.error(err);
       });
-    console.log("trimmed game ", games[0].name.split(" ").join(""));
+    // console.log("trimmed game ", games[0].name.split(" ").join(""));
     // var gameCover = covers(games[0].cover);
     // console.log(gameCover);
     // console.log("games test s0.earch", games);
@@ -160,6 +160,68 @@ module.exports = function (app) {
     res.json({
       display: games
     });
+  });
+
+  app.get("/api/display", async function (req, res) {
+    db.Games.findAll({where: {id: req.user.id}})
+    .then(function(display){
+      console.log(display);
+    })
+    res.json({
+      display: games
+    });
+  });
+
+
+  app.post("/api/addfriend", function (req, res) {
+    console.log(req.user.id);
+    db.User.findOne({
+      where: { email: req.body.email }
+    }).then(function (user) {
+      console.log(user);
+      //   if (!user) { res.status(406).send("User not found") }
+      //   // create error on front end
+      //   db.Friends.create({
+      //     UserId: req.user.id,
+      //     email: user.email,
+      //     friend_id: user.id
+    });
+    // });
+  });
+
+  app.post("/favorite", function (req, res) {
+    console.log("user", req.user);
+    console.log("game on backend", req.body.game);
+    var game = req.body.game;
+    var rating = Math.floor(game.rating);
+    console.log("rating", rating);
+    
+    var ogdate = game.first_release_date;
+    console.log("ogdate: ", ogdate);
+    var a = new Date(ogdate * 1000);
+    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var year = a.getFullYear();
+    var month = months[a.getMonth()];
+    var date = a.getDate();
+    var final = date + ' ' + month + ' ' + year + ' ';
+    console.log("release date", final);
+    db.Games.create({
+      userId: req.user.id,
+      name: game.name,
+      cover_url: game.cover.url,
+      user_rating: rating,
+      year: final,
+      storyline: game.storyline,
+      summary: game.summary
+    }).then(function (data) {
+      console.log("returned data: ", data);
+      if (!data) { res.status(406).send("Connection Issue") }
+      else{
+        res.status(201).send("Success!");
+      }
+      
+    });
+
   });
 
 
