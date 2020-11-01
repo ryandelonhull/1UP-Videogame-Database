@@ -11,18 +11,6 @@ module.exports = function (app) {
   // If the user has valid login credentials, send them to the members page.
   // Otherwise the user will be sent an error
   app.post("/api/login", passport.authenticate("local"), function (req, res) {
-
-    //   token = getToken();
-    //   // console.log(scripts.getToken());
-    //   db.User.update({ access: token },
-    //     {
-    //       where: {
-    //         id: req.user.dataValues.id
-    //       }
-    //     }
-    //   );
-    //   res.json(req.user);
-    // });
     axios.post("https://id.twitch.tv/oauth2/token?client_id=qh6jfouob87senzmm6422jomq4ui44&client_secret=83qdp141qoaog5ybcmwpr4z7u6wj4y&grant_type=client_credentials")
       .then(function (response) {
         console.log("response in auth func", response.data.access_token);
@@ -90,36 +78,6 @@ module.exports = function (app) {
             email: req.user.email
           });
         });
-
-      // test axios call
-      // GAME CODE START
-      // games = await axios({
-      //   url: "https://api.igdb.com/v4/games",
-      //   method: 'POST',
-      //   headers: {
-      //     'Accept': 'application/json',
-      //     'Client-ID': 'qh6jfouob87senzmm6422jomq4ui44',
-      //     'Authorization': `Bearer ${token}`,
-      //   },
-      //   data: "fields age_ratings,aggregated_rating,aggregated_rating_count,alternative_names,artworks,bundles,category,checksum,collection,cover,created_at,dlcs,expansions,external_games,first_release_date,follows,franchise,franchises,game_engines,game_modes,genres,hypes,involved_companies,keywords,multiplayer_modes,name,parent_game,platforms,player_perspectives,rating,rating_count,release_dates,screenshots,similar_games,slug,standalone_expansions,status,storyline,summary,tags,themes,total_rating,total_rating_count,updated_at,url,version_parent,version_title,videos,websites;"
-      // })
-      //   .then(response => {
-      //     // console.log(response.data);
-      //     games = response.data;
-      //     // console.log("games", games);
-      //     return games;
-      //   })
-      //   .catch(err => {
-      //     console.error(err);
-      //   });
-      // console.log("games test2", games);
-      // Otherwise send back the user's email and id
-      // Sending back a password, even a hashed password, isn't a good idea
-      // res.json({
-      //   email: req.user.email,
-      //   id: req.user.id,
-      //   display: JSON.stringify(games)
-      // });
     }
   });
   // final url url: `https://api.igdb.com/v4/games/?search=${req.body.search}&fields=id,name,collection,genres,cover.url,first_release_date,rating,slug,storyline,summary`,
@@ -151,12 +109,7 @@ module.exports = function (app) {
       .catch(err => {
         console.error(err);
       });
-    // console.log("trimmed game ", games[0].name.split(" ").join(""));
-    // var gameCover = covers(games[0].cover);
-    // console.log(gameCover);
-    // console.log("games test s0.earch", games);
-    // Otherwise send back the user's email and id
-    // Sending back a password, even a hashed password, isn't a good idea
+
     res.json({
       // pass data email/id
       games: JSON.stringify(games)
@@ -254,16 +207,16 @@ module.exports = function (app) {
     });
 
   });
-// include statement almost working include: [{model: db.User, as: 'host'}]
-  app.get("/api/friends", function(req,res){
+  // include statement almost working include: [{model: db.User, as: 'host'}]
+  app.get("/api/friends", function (req, res) {
     console.log(req.user.id);
-    db.Friends.findAll({where:{user_Id: req.user.id}})
-    .then(function(data){
-      console.log("friends response", data);
-      res.json({
-        friends: data
+    db.Friends.findAll({ where: { user_Id: req.user.id } })
+      .then(function (data) {
+        console.log("friends response", data);
+        res.json({
+          friends: data
+        });
       });
-    });
   });
 
 };

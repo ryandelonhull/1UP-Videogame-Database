@@ -29,20 +29,20 @@ $(document).ready(function () {
       // dropdown menu test
       // content += ``
       $(".content").append(content);
-      $(".favorite").on("click", function (event) {
+      $(".recommend").on("click", function (event) {
         event.preventDefault();
         console.log(this);
         var id = $(this).attr("data-id");
-        $.post("/favorite", {
-          game: data.display[id]
+        $.post("/api/recommend", {
+          game: games.display[id]
         });
       });
-      $(".favorite").on("click", function (event) {
+      $(".delete").on("click", function (event) {
         event.preventDefault();
         console.log(this);
-        var id = $(this).attr("data-id");
-        $.post("/favorite", {
-          game: data.display[id]
+        var id = $(this).attr("data-delete");
+        $.post("/api/delete", {
+          game: games.display[id]
         });
       });
     }
