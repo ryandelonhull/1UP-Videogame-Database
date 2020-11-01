@@ -1,10 +1,9 @@
 $(document).ready(function () {
     $.get("/api/search").then(function (data) {
-        console.log("TESTING");
-        console.log(data.display)
+        // console.log("TESTING");
+        // console.log(data.display)
         // console.log("year unix: ", parseInt(data.display[0].first_release_date));
         for (let i = 0; i < data.display.length; i++) {
-
             var ogdate = parseInt(data.display[i].first_release_date);
             var a = new Date(ogdate * 1000);
             var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -49,14 +48,12 @@ $(document).ready(function () {
 
         $(".favorite").on("click", function (event) {
             event.preventDefault();
-            console.log(this);
+            // console.log(this);
             var id = $(this).attr("data-id");
             $.post("/favorite", {
                 game: data.display[id]
             });
         });
-    }).then(function (data) {
-        console.log("search data: ", data);
     });
 
     // searchbar on search page function
@@ -66,11 +63,8 @@ $(document).ready(function () {
         if (search) {
             $.post("/search", {
                 search: search
-            }).then(function (data) {
-                console.log("search returned data: ", data);
+            }).then(function () {
                 location.reload();
-            }).catch(function (err) {
-                console.log(err);
             });
         }
     });
@@ -79,7 +73,7 @@ $(document).ready(function () {
         event.preventDefault();
         var email = $("#emailInput").val();
         $.post("/api/addfriend", { email: email }).then(function (data) {
-          console.log("addfriend response 1: ", data);
+        //   console.log("addfriend response 1: ", data);
         }).then(function(){
           location.reload();
         });

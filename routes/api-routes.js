@@ -134,7 +134,7 @@ module.exports = function (app) {
     addfriend = false;
     db.Friends.findAll({ where: { user_Id: req.user.id }, raw: true })
       .then(function (data) {
-        console.log("check friend response", data);
+        // console.log("check friend response", data);
         let friendArr = data.map(friend => friend.email);
         if (friendArr.includes(req.body.email)) {
 
@@ -209,7 +209,7 @@ module.exports = function (app) {
   app.get("/api/recommended", function (req, res) {
     recoGames.length = 0;
     db.Reco.findAll({ where: { recommendee_id: req.user.id } }).then(function (data) {
-      console.log("recommended games: ", data);
+      // console.log("recommended games: ", data);
       // console.log("datavalues: ", data[0].dataValues.game_id);
       // console.log("datavalues length", data.length);
       for (let i = 0; i < data.length; i++) {
@@ -235,13 +235,13 @@ module.exports = function (app) {
     // raw sets return value to normal javascript object
     db.Friends.findAll({ where: { user_id: req.user.id }, raw: true })
       .then(function (data) {
-        console.log("friends search", data);
+        // console.log("friends search", data);
         // console.log("datavalues", data.datavalues);
         let friendArr = data.map(friend => friend.email);
-        console.log("friend array", friendArr);
-        console.log("friend email", email);
+        // console.log("friend array", friendArr);
+        // console.log("friend email", email);
         if (!friendArr.includes(email)) {
-          console.log("not your friend");
+          // console.log("not your friend");
           // 
           return res.status(406).send("This person is not your friend");
         } else {
@@ -255,12 +255,12 @@ module.exports = function (app) {
               var recId = users.dataValues.id;
               db.Reco.findAll({ where: { game_id: req.body.gameId, recommendee_id: recId }, raw: true })
                 .then(function (game) {
-                  console.log("reco game response: ", game)
+                  // console.log("reco game response: ", game)
                   // check if returned array is empty, then create rec
                   if (game.length === 0) {
                     create = true;
                   } else {
-                    console.log("rec already exists");
+                    // console.log("rec already exists");
                     // res.status(406).send("Recommendation already exists")
                     return res.status(406).send("Recommendation already exists");
                   }
@@ -289,8 +289,8 @@ module.exports = function (app) {
 
   // delete recommended game
   app.post("/api/deleteRec", function (req, res) {
-    console.log("delete response: ", req.body.game.id);
-    console.log("whole game delete", req.body.game);
+    // console.log("delete response: ", req.body.game.id);
+    // console.log("whole game delete", req.body.game);
     db.Reco.destroy({ where: { game_id: req.body.game.id, recommendee_id: req.user.id } });
     res.status(201).send("Success!");
   });
