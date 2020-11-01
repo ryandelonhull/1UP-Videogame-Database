@@ -207,9 +207,9 @@ module.exports = function (app) {
   // get recommended games
   var recoGames = [];
   app.get("/api/recommended", function (req, res) {
-    // recoGames.length = 0;
+    recoGames.length = 0;
     db.Reco.findAll({ where: { recommendee_id: req.user.id } }).then(function (data) {
-      // console.log("recommended games: ", data);
+      console.log("recommended games: ", data);
       // console.log("datavalues: ", data[0].dataValues.game_id);
       // console.log("datavalues length", data.length);
       for (let i = 0; i < data.length; i++) {
@@ -256,12 +256,13 @@ module.exports = function (app) {
               db.Reco.findAll({ where: { game_id: req.body.gameId, recommendee_id: recId }, raw: true })
                 .then(function (game) {
                   console.log("reco game response: ", game)
-                  if (game[0].game_id == rec) {
+                  // check if returned array is empty, then create rec
+                  if (game.length === 0) {
+                    create = true;
+                  } else {
                     console.log("rec already exists");
                     // res.status(406).send("Recommendation already exists")
                     return res.status(406).send("Recommendation already exists");
-                  } else {
-                    create = true;
                   }
 
                 }).then(function () {
@@ -281,15 +282,20 @@ module.exports = function (app) {
                     })
                   }
                 });
-
             });
         }
-        // console.log("recommend return data: ", data);
       });
-
-    // db.Recommend.create({game_id: req.game.id})
   });
 
+  // delete recommended game
+  app.post("/api/deleteRec", function (req, res) {
+    console.log("delete response: ", req.body.game.id);
+    console.log("whole game delete", req.body.game);
+    db.Reco.destroy({ where: { game_id: req.body.game.id, recommendee_id: req.user.id } });
+    res.status(201).send("Success!");
+  });
+
+  // delete favorited game
   app.post("/api/delete", function (req, res) {
     // console.log("delete response: ", req.body.game.id);
     db.Games.destroy({ where: { id: req.body.game.id } });

@@ -11,6 +11,7 @@ $(document).ready(function () {
   var recommendedGame;
   var recId;
 
+  // display recommended games
   $.get("/api/recommended").then(function (games) {
     console.log("recommended games: ", games.display[0]);
     for (let i = 0; i < games.display.length; i++) {
@@ -32,8 +33,7 @@ $(document).ready(function () {
       reco += `<img src="${games.display[i].cover_url}" alt="${games.display[i].name} cover image"/></br></br>
     <button class="delreco button is-info is-outlined is-rounded" data-delreco="${i}">Delete</button> 
     </div></figure></div>`;
-      // dropdown menu test
-      // reco += ``
+      
       $(".recommended").append(reco);
       $(".delreco").on("click", function (event) {
         console.log("working");
@@ -79,13 +79,15 @@ $(document).ready(function () {
         $(".content").append(content);
         $(".recommend").on("click", function (event) {
           event.preventDefault();
+          $("#friendEmail").val("");
           recoModal.attr("style", "display: block");
-          console.log(this);
+          // console.log(this);
           recId = $(this).attr("data-id");
           recommendedGame = games.display[recId].id;
+
         });
         $(".del").on("click", function (event) {
-          console.log("working");
+          // console.log("working");
           event.preventDefault();
           var id = $(this).attr("data-delete");
           $.post("/api/delete", {
@@ -98,8 +100,8 @@ $(document).ready(function () {
     .then(function () {
       $.get("/api/friends", function (data) {
         if (data) {
-          console.log("data returned from friends", data);
-          console.log("display friends frontend response", data.friends);
+          // console.log("data returned from friends", data);
+          // console.log("display friends frontend response", data.friends);
           for (var i = 0; i < data.friends.length; i++) {
             var div = $("<div>");
             div.text(`${data.friends[i].email}`);
@@ -150,6 +152,7 @@ $(document).ready(function () {
     var email = $("#emailInput").val();
     $.post("/api/addfriend", { email: email })
       .then(function (data) {
+        $("#add").text("Thank you!");
         console.log("addfriend response 1: ", data);
       })
       .then(function () {
