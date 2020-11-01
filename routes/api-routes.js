@@ -192,16 +192,20 @@ module.exports = function (app) {
     }).then(function (friend) {
       console.log("friend: ", friend);
       console.log("friend email: ", friend.dataValues.email);
+      console.log(req.user.id)
       //   if (!user) { res.status(406).send("User not found") }
       //   // create error on front end
       db.Friends.create({
-        userId: req.user.id,
+        user_Id: req.user.id,
         email: friend.dataValues.email,
         friend_id: friend.dataValues.id
       });
       console.log("Second create");
+      console.log("friend info", friend.dataValues.id);
+      console.log("friend info", friend.dataValues.email);
+      console.log("friend info", friend.dataValues.id);
       db.Friends.create({
-        userId: friend.dataValues.id,
+        user_Id: friend.dataValues.id,
         email: req.user.email,
         friend_id: req.user.id
 
@@ -250,36 +254,16 @@ module.exports = function (app) {
     });
 
   });
-
-
-  // function not necessary
-  // working url url: `https://api.igdb.com/v4/covers/?game=${x}&fields=url,game`,
-  function covers(x) {
-    console.log("cover x=", x);
-    axios({
-      url: `https://api.igdb.com/v4/covers/?search=${x}&fields=url,game`,
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Client-ID': 'qh6jfouob87senzmm6422jomq4ui44',
-        'Authorization': `Bearer ${token}`,
-      },
-      // data: `fields url.*;`
-      //  name, game, company;"
-    })
-      .then(response => {
-        console.log("covers response", response);
-        cover = response.data;
-        console.log("games cover search", cover);
-        // return cover;
-      })
-      .catch(err => {
-        console.error(err);
+// include statement almost working include: [{model: db.User, as: 'host'}]
+  app.get("/api/friends", function(req,res){
+    console.log(req.user.id);
+    db.Friends.findAll({where:{user_Id: req.user.id}})
+    .then(function(data){
+      console.log("friends response", data);
+      res.json({
+        friends: data
       });
-    // begin second axios call for cover
-    return cover;
-  }
-
-  // url: `https://api.igdb.com/v4/covers/?game=${x}`,
+    });
+  });
 
 };

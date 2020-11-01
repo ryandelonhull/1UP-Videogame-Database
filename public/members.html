@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -9,6 +10,7 @@
   <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
   <link href="stylesheets/style.css" rel="stylesheet">
 </head>
+
 <body class="Site">
   <video class="video" autoplay loop muted poster="assets/1^bg.png" id="vid2">
     <source src="assets/tunnel20001_0300.mov" type="video/mp4">
@@ -28,6 +30,16 @@
           <button class="search button is-info is-outlined is-rounded">Submit</button>
         </div>
       </div>
+      <!-- <div class="column">
+        <div class="field">
+          <div class="control">
+            <input class="input" type="text" id="emailInput" placeholder="Enter Friend Email" />
+          </div>
+        </div>
+        <div class="control">
+          <button id="friend" class="button is-info is-outlined is-rounded">Add Friend</button>
+        </div>
+      </div> -->
       <div class="column">
         <div class="column is-pulled-right" id="dropdown">
           <div class="dropdown is-hoverable">
@@ -64,8 +76,14 @@
       <div class="column is-three-fifths is-offset-one-fifth">
         <div class="tile is-parent">
           <article class="tile is-child notification" style="background: white; z-index: 1;">
-            <p class="title"id="userName">User Data</p>
+            <p class="title" id="userName">User Data</p>
             <p class="subtitle">User data on left, friends data on the right</p>
+          </br>
+            <p class="title">Friends: </p>
+            <div id="friendsDisplay"></div>
+        </br>
+            <p class="title">Recommended Games: </p>
+            <div class="recommended"></div>
           </article>
         </div>
         <div class="tile is-child">
@@ -81,17 +99,18 @@
     <div class="modal-content is-info is-outlined is-rounded">
       <h1 id="modalText">Add Friends</h1>
       <div class="control">
-        <input class="input" type="email" id="emailInput" placeholder="Add Email"/>
-      </div>
+        <input class="input" type="email" id="emailInput" placeholder="Add Email" />
+      </div></br></br>
       <button class="button is-info is-outlined is-small is-rounded" id="friend">Add</button>
-      <br/>
+      <br />
       <button class="button is-info is-outlined is-small is-rounded" id="close">Close</button>
     </div>
   </div>
-  
- 
+
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.4/dist/js/bulma-carousel.min.js"></script>
   <script type="text/javascript" src="js/members.js"></script>
 </body>
+
 </html>

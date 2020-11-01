@@ -3,6 +3,10 @@
 module.exports = function (sequelize, DataTypes) {
     var Friends = sequelize.define("Friends", {
         // The email cannot be null, and must be a proper email before creation
+        user_Id: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
         email: {
             type: DataTypes.STRING,
             allowNull: false,

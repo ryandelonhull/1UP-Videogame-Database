@@ -48,15 +48,11 @@ $(document).ready(function () {
         // add cursor-pointer when hovering over card
 
         $(".favorite").on("click", function (event) {
-            console.log("working");
             event.preventDefault();
             console.log(this);
             var id = $(this).attr("data-id");
-            console.log(id);
             $.post("/favorite", {
                 game: data.display[id]
-            }).then(function (data) {
-                console.log("returned data: ", data);
             });
         });
     }).then(function (data) {
