@@ -1,38 +1,50 @@
 module.exports = function (sequelize, DataTypes) {
-    var Games = sequelize.define("Game", {
+    var Games = sequelize.define("Games", {
+        // id,name,collection,genres,cover.url,first_release_date,rating,slug,storyline,summary
+        userId: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
         name: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true,
         },
-        cover: {
+        cover_url: {
             type: DataTypes.STRING,
+            allowNull: true,
         },
         user_rating: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
+            allowNull: true,
         },
-        age_rating: {
+        year: {
             type: DataTypes.STRING,
+            allowNull: true,
         },
-        company: {
-            type: DataTypes.STRING,
+        storyline: {
+            type: DataTypes.TEXT('long'),
+            allowNull: true,
         },
-        franchise: {
-            type: DataTypes.STRING,
-        },
-        genre: {
-            type: DataTypes.STRING,
-        },
-        key_words: {
-            type: DataTypes.STRING,
-        },
-        videos: {
-            type: DataTypes.STRING,
-        },
-        url: {
-            type: DataTypes.STRING,
-        },
-
+        summary: {
+            type: DataTypes.TEXT('long'),
+            allowNull: true,
+        }
+        // company: {
+        //     type: DataTypes.STRING,
+        // },
+        // franchise: {
+        //     type: DataTypes.STRING,
+        // },
+        // key_words: {
+        //     type: DataTypes.STRING,
+        // },
+        // videos: {
+        //     type: DataTypes.STRING,
+        // },
+        // url: {
+        //     type: DataTypes.STRING,
+        // },
 
     });
     return Games;

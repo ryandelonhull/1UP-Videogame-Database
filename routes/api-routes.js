@@ -12,44 +12,41 @@ module.exports = function (app) {
   // Otherwise the user will be sent an error
   app.post("/api/login", passport.authenticate("local"), function (req, res) {
 
-  //   token = getToken();
-  //   // console.log(scripts.getToken());
-  //   db.User.update({ access: token },
-  //     {
-  //       where: {
-  //         id: req.user.dataValues.id
-  //       }
-  //     }
-  //   );
-  //   res.json(req.user);
-  // });
-  axios.post("https://id.twitch.tv/oauth2/token?client_id=qh6jfouob87senzmm6422jomq4ui44&client_secret=83qdp141qoaog5ybcmwpr4z7u6wj4y&grant_type=client_credentials")
-    .then(function (response) {
-      console.log("response in auth func", response.data.access_token);
-      token = response.data.access_token;
-      console.log("token in auth function", token);
+    //   token = getToken();
+    //   // console.log(scripts.getToken());
+    //   db.User.update({ access: token },
+    //     {
+    //       where: {
+    //         id: req.user.dataValues.id
+    //       }
+    //     }
+    //   );
+    //   res.json(req.user);
+    // });
+    axios.post("https://id.twitch.tv/oauth2/token?client_id=qh6jfouob87senzmm6422jomq4ui44&client_secret=83qdp141qoaog5ybcmwpr4z7u6wj4y&grant_type=client_credentials")
+      .then(function (response) {
+        console.log("response in auth func", response.data.access_token);
+        token = response.data.access_token;
+        console.log("token in auth function", token);
 
-    }, function (err) {
-      console.log(err);
-    })
-    .then(function () {
-      console.log("token login", token);
-      // sessionStorage.setItem('access', token);
-      // var test = sessionStorage.getItem('access');
-      // console.log("access token from storage", test);
-      console.log("user", req.user.dataValues);
-      db.User.update({ access: token },
-        {
-          where: {
-            id: req.user.dataValues.id
+      }, function (err) {
+        console.log(err);
+      })
+      .then(function () {
+        console.log("token login", token);
+        console.log("user", req.user.dataValues);
+        db.User.update({ access: token },
+          {
+            where: {
+              id: req.user.dataValues.id
+            }
           }
-        }
-      );
-      res.json(req.user);
+        );
+        res.json(req.user);
 
-    }).catch(function (err) {
-      console.log(err);
-    });
+      }).catch(function (err) {
+        console.log(err);
+      });
 
   });
 
@@ -58,8 +55,10 @@ module.exports = function (app) {
   // otherwise send back an error
   app.post("/api/signup", function (req, res) {
     db.User.create({
+      name: req.body.name,
       email: req.body.email,
-      password: req.body.password
+      password: req.body.password,
+      birthday: req.body.birthday
     })
       .then(function () {
         // redirect to login page
@@ -83,34 +82,44 @@ module.exports = function (app) {
       // The user is not logged in, send back an empty object
       res.json({});
     } else {
-      // GAME CODE START
-      games = await axios({
-        url: "https://api.igdb.com/v4/games",
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Client-ID': 'qh6jfouob87senzmm6422jomq4ui44',
-          'Authorization': `Bearer ${token}`,
-        },
-        data: "fields age_ratings,aggregated_rating,aggregated_rating_count,alternative_names,artworks,bundles,category,checksum,collection,cover,created_at,dlcs,expansions,external_games,first_release_date,follows,franchise,franchises,game_engines,game_modes,genres,hypes,involved_companies,keywords,multiplayer_modes,name,parent_game,platforms,player_perspectives,rating,rating_count,release_dates,screenshots,similar_games,slug,standalone_expansions,status,storyline,summary,tags,themes,total_rating,total_rating_count,updated_at,url,version_parent,version_title,videos,websites;"
-      })
-        .then(response => {
-          // console.log(response.data);
-          games = response.data;
-          // console.log("games", games);
-          return games;
-        })
-        .catch(err => {
-          console.error(err);
+      db.Games.findAll({ where: { userId: req.user.id } })
+        .then(function (display) {
+          console.log("all games: ", display);
+          res.json({
+            display: display,
+            email: req.user.email
+          });
         });
+
+      // test axios call
+      // GAME CODE START
+      // games = await axios({
+      //   url: "https://api.igdb.com/v4/games",
+      //   method: 'POST',
+      //   headers: {
+      //     'Accept': 'application/json',
+      //     'Client-ID': 'qh6jfouob87senzmm6422jomq4ui44',
+      //     'Authorization': `Bearer ${token}`,
+      //   },
+      //   data: "fields age_ratings,aggregated_rating,aggregated_rating_count,alternative_names,artworks,bundles,category,checksum,collection,cover,created_at,dlcs,expansions,external_games,first_release_date,follows,franchise,franchises,game_engines,game_modes,genres,hypes,involved_companies,keywords,multiplayer_modes,name,parent_game,platforms,player_perspectives,rating,rating_count,release_dates,screenshots,similar_games,slug,standalone_expansions,status,storyline,summary,tags,themes,total_rating,total_rating_count,updated_at,url,version_parent,version_title,videos,websites;"
+      // })
+      //   .then(response => {
+      //     // console.log(response.data);
+      //     games = response.data;
+      //     // console.log("games", games);
+      //     return games;
+      //   })
+      //   .catch(err => {
+      //     console.error(err);
+      //   });
       // console.log("games test2", games);
       // Otherwise send back the user's email and id
       // Sending back a password, even a hashed password, isn't a good idea
-      res.json({
-        email: req.user.email,
-        id: req.user.id,
-        display: JSON.stringify(games)
-      });
+      // res.json({
+      //   email: req.user.email,
+      //   id: req.user.id,
+      //   display: JSON.stringify(games)
+      // });
     }
   });
   // final url url: `https://api.igdb.com/v4/games/?search=${req.body.search}&fields=id,name,collection,genres,cover.url,first_release_date,rating,slug,storyline,summary`,
@@ -142,7 +151,7 @@ module.exports = function (app) {
       .catch(err => {
         console.error(err);
       });
-    console.log("trimmed game ", games[0].name.split(" ").join(""));
+    // console.log("trimmed game ", games[0].name.split(" ").join(""));
     // var gameCover = covers(games[0].cover);
     // console.log(gameCover);
     // console.log("games test s0.earch", games);
@@ -161,6 +170,85 @@ module.exports = function (app) {
     res.json({
       display: games
     });
+  });
+
+  app.get("/api/display", async function (req, res) {
+    db.Games.findAll({ where: { id: req.user.id } })
+      .then(function (display) {
+        console.log("all games: ", display);
+      })
+    res.json({
+      display: games
+    });
+  });
+
+
+  app.post("/api/addfriend", function (req, res) {
+    console.log(req.user.id);
+    console.log("User addding: ", req.user);
+    db.User.findOne({
+      // grab email from modal
+      where: { email: req.body.email }
+    }).then(function (friend) {
+      console.log("friend: ", friend);
+      console.log("friend email: ", friend.dataValues.email);
+      //   if (!user) { res.status(406).send("User not found") }
+      //   // create error on front end
+      db.Friends.create({
+        userId: req.user.id,
+        email: friend.dataValues.email,
+        friend_id: friend.dataValues.id
+      });
+      console.log("Second create");
+      db.Friends.create({
+        userId: friend.dataValues.id,
+        email: req.user.email,
+        friend_id: req.user.id
+
+      });
+      if (friend.dataValues.email) {
+        res.status(201).send("success!");
+      }
+    });
+
+  });
+
+  app.post("/favorite", function (req, res) {
+    console.log("user", req.user);
+    console.log("game on backend", req.body.game);
+    var game = req.body.game;
+    if (game.rating) {
+      var rating = Math.floor(game.rating);
+    }
+    console.log("rating", rating);
+    if (game.first_release_date) {
+      var ogdate = game.first_release_date;
+      console.log("ogdate: ", ogdate);
+      var a = new Date(ogdate * 1000);
+      var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      var year = a.getFullYear();
+      var month = months[a.getMonth()];
+      var date = a.getDate();
+      var final = date + ' ' + month + ' ' + year + ' ';
+    }
+    console.log("release date", final);
+    db.Games.create({
+      userId: req.user.id,
+      name: game.name,
+      cover_url: game.cover.url,
+      user_rating: rating,
+      year: final,
+      storyline: game.storyline,
+      summary: game.summary
+    }).then(function (data) {
+      console.log("returned data: ", data);
+      if (!data) { res.status(406).send("Connection Issue") }
+      else {
+        res.status(201).send("Success!");
+      }
+
+    });
+
   });
 
 
