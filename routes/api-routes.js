@@ -16,17 +16,17 @@ module.exports = function (app) {
       )
       .then(
         function (response) {
-          console.log("response in auth func", response.data.access_token);
+          // console.log("response in auth func", response.data.access_token);
           token = response.data.access_token;
-          console.log("token in auth function", token);
+          // console.log("token in auth function", token);
         },
         function (err) {
-          console.log(err);
+          // console.log(err);
         }
       )
       .then(function () {
-        console.log("token login", token);
-        console.log("user", req.user.dataValues);
+        // console.log("token login", token);
+        // console.log("user", req.user.dataValues);
         db.User.update(
           { access: token },
           {
@@ -38,7 +38,7 @@ module.exports = function (app) {
         res.json(req.user);
       })
       .catch(function (err) {
-        console.log(err);
+        // console.log(err);
       });
   });
 
@@ -131,7 +131,7 @@ module.exports = function (app) {
   // display all games on search
   // app.get("/api/display", async function (req, res) {
   //   db.Games.findAll({where: {id: req.user.id}}).then(function (display) {
-  //     // console.log("all games: ", display);
+  // console.log("all games: ", display);
   //   });
   //   res.json({
   //     display: games,
@@ -140,15 +140,15 @@ module.exports = function (app) {
 
   // add friends - database table friends
   app.post("/api/addfriend", function (req, res) {
-    console.log(req.user.id);
-    console.log("User addding: ", req.user);
+    // console.log(req.user.id);
+    // console.log("User addding: ", req.user);
     db.User.findOne({
       // grab email from modal
       where: { email: req.body.email },
     }).then(function (friend) {
-      console.log("friend: ", friend);
-      console.log("friend email: ", friend.dataValues.email);
-      console.log(req.user.id);
+      // console.log("friend: ", friend);
+      // console.log("friend email: ", friend.dataValues.email);
+      // console.log(req.user.id);
       //   if (!user) { res.status(406).send("User not found") }
       //   // create error on front end
       db.Friends.create({
@@ -156,10 +156,6 @@ module.exports = function (app) {
         email: friend.dataValues.email,
         friend_id: friend.dataValues.id,
       });
-      console.log("Second create");
-      console.log("friend info", friend.dataValues.id);
-      console.log("friend info", friend.dataValues.email);
-      console.log("friend info", friend.dataValues.id);
       db.Friends.create({
         user_Id: friend.dataValues.id,
         email: req.user.email,
@@ -173,16 +169,16 @@ module.exports = function (app) {
 
   // add favorited games to database - table games
   app.post("/favorite", function (req, res) {
-    console.log("user", req.user);
-    console.log("game on backend", req.body.game);
+    // console.log("user", req.user);
+    // console.log("game on backend", req.body.game);
     var game = req.body.game;
     if (game.rating) {
       var rating = Math.floor(game.rating);
     }
-    console.log("rating", rating);
+    // console.log("rating", rating);
     if (game.first_release_date) {
       var ogdate = game.first_release_date;
-      console.log("ogdate: ", ogdate);
+      // console.log("ogdate: ", ogdate);
       var a = new Date(ogdate * 1000);
       var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",];
       var year = a.getFullYear();
@@ -214,21 +210,19 @@ module.exports = function (app) {
   app.get("/api/recommended", function (req, res) {
     // recoGames.length = 0;
     db.Reco.findAll({ where: { recommendee_id: req.user.id } }).then(function (data) {
-      console.log("recommended games: ", data);
-      console.log("datavalues: ", data[0].dataValues.game_id);
-      console.log("datavalues length", data.length);
+      // console.log("recommended games: ", data);
+      // console.log("datavalues: ", data[0].dataValues.game_id);
+      // console.log("datavalues length", data.length);
       for (let i = 0; i < data.length; i++) {
-        db.Games.findOne({ where: { id: data[i].dataValues.game_id } })
-          .then(function (game) {
-            console.log("recgame info", game);
-            recoGames.push(game);
-          }).then(function () {
-            console.log("Array of games: ", recoGames);
-          })
+        recoGames.push(data[i].dataValues.game_id);
       }
-      res.json({
-        array: recoGames
-      });
+      db.Games.findAll({ where: { id: recoGames } })
+        .then(function (game) {
+          // console.log("recgame info", game);
+          res.json({
+            display: game
+          })
+        });
     })
   });
 
@@ -240,22 +234,45 @@ module.exports = function (app) {
     // console.log("recommender");
     var rec = req.body.gameId;
     var email = req.body.email;
-    db.User.findOne({ where: { email: email } })
-      // fix spelling recommendee
+    // raw sets return value to normal javascript object
+
+    db.Friends.findAll({ where: { user_id: req.user.id }, raw: true })
       .then(function (data) {
-        var recId = data.dataValues.id;
-        db.Reco.create({
-          game_id: rec,
-          recommender_id: req.user.id,
-          recommendee_id: recId,
-        }).then(function (data) {
-          // console.log("returned data: ", data);
-          if (!data) {
-            res.status(406).send("Connection Issue");
-          } else {
-            res.status(201).send("Success!");
-          }
-        });
+        console.log("friends search", data);
+        // console.log("datavalues", data.datavalues);
+        let friendArr = data.map(friend => friend.email);
+        console.log("friend array", friendArr);
+        if (!friendArr.includes(email)) {
+          console.log("not your friend");
+          return res.status(406).send("This person is not your friend");
+        }
+      }).then(function () {
+        db.User.findOne({ where: { email: email } })
+          // fix spelling recommendee
+          .then(function (users) {
+            var recId = users.dataValues.id;
+            db.Reco.findAll({ where: { game_id: req.body.gameId, recommendee_id: recId }, raw: true })
+              .then(function (game) {
+                console.log("reco game response: ", game)
+                if (game) {
+                  console.log("rec already exists");
+                  return res.status(406).send("Recommendation already exists");
+                }
+              }).then(function () {
+                db.Reco.create({
+                  game_id: rec,
+                  recommender_id: req.user.id,
+                  recommendee_id: recId,
+                }).then(function (user) {
+                  // console.log("returned data: ", data);
+                  if (!user) {
+                    res.status(406).send("Connection Issue");
+                  } else {
+                    res.status(201).send("Success!");
+                  }
+                })
+              });
+          });
         // console.log("recommend return data: ", data);
       });
     // db.Recommend.create({game_id: req.game.id})

@@ -10,10 +10,42 @@ $(document).ready(function () {
 
   var recommendedGame;
   var recId;
-  
-  $.get("/api/recommended").then(function(reco){
-    console.log("recommended games: ", reco);
-    
+
+  $.get("/api/recommended").then(function (games) {
+    console.log("recommended games: ", games.display[0]);
+    for (let i = 0; i < games.display.length; i++) {
+      var reco = `
+        <div class="item-${i + 1}">
+        <figure class="has-text-centered">
+        <div class="hero-body has-text-centered">
+        <h1 class="title">${games.display[i].name}</h1>`;
+      if (!games.display[i].user_rating) {
+        reco += `<h2 class="rating">User Rating Not Available</h2>`;
+      } else {
+        reco += `<h2 class="rating">RATING: ${games.display[i].user_rating}%</h2>`;
+      }
+      if (!games.display[i].year) {
+        reco += `<h3 class="year">Year Not Available</h3></br>`;
+      } else {
+        reco += `<h3 class="year">${games.display[i].year}</h3></br>`;
+      }
+      reco += `<img src="${games.display[i].cover_url}" alt="${games.display[i].name} cover image"/></br></br>
+    <button class="delreco button is-info is-outlined is-rounded" data-delreco="${i}">Delete</button> 
+    </div></figure></div>`;
+      // dropdown menu test
+      // reco += ``
+      $(".recommended").append(reco);
+      $(".delreco").on("click", function (event) {
+        console.log("working");
+        event.preventDefault();
+        var id = $(this).attr("data-delreco");
+        // route to delete recommendation - needs to be created
+        $.post("/api/deleteRec", {
+          game: games.display[id],
+        });
+        location.reload();
+      });
+    }
   });
 
   $.get("/api/user_data")
@@ -116,7 +148,7 @@ $(document).ready(function () {
   $("#friend").on("click", function (event) {
     event.preventDefault();
     var email = $("#emailInput").val();
-    $.post("/api/addfriend", {email: email})
+    $.post("/api/addfriend", { email: email })
       .then(function (data) {
         console.log("addfriend response 1: ", data);
       })

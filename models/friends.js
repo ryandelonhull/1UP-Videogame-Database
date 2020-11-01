@@ -10,7 +10,6 @@ module.exports = function (sequelize, DataTypes) {
         email: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true,
         },
         friend_id: {
             type: DataTypes.INTEGER,
