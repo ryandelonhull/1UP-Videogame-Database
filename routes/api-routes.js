@@ -128,33 +128,42 @@ module.exports = function (app) {
     });
   });
 
-
+  var addFriend = false;
   // add friends - database table friends
   app.post("/api/addfriend", function (req, res) {
-    
-    db.User.findOne({
-      // grab email from modal
-      where: { email: req.body.email },
-    }).then(function (friend) {
-      // console.log("friend: ", friend);
-      // console.log("friend email: ", friend.dataValues.email);
-      // console.log(req.user.id);
-      //   if (!user) { res.status(406).send("User not found") }
-      //   // create error on front end
-      db.Friends.create({
-        user_Id: req.user.id,
-        email: friend.dataValues.email,
-        friend_id: friend.dataValues.id,
-      });
-      db.Friends.create({
-        user_Id: friend.dataValues.id,
-        email: req.user.email,
-        friend_id: req.user.id,
-      });
-      if (friend.dataValues.email) {
-        res.status(201).send("success!");
-      }
-    });
+    addfriend = false;
+    db.Friends.findAll({ where: { user_Id: req.user.id }, raw: true })
+      .then(function (data) {
+        console.log("check friend response", data);
+        let friendArr = data.map(friend => friend.email);
+        if (friendArr.includes(req.body.email)) {
+
+          return res.status(406).send("You are already friends with this user");
+        } else {
+          addFriend = true;
+        }
+      }).then(function () {
+        if (addFriend) {
+          db.User.findOne({
+            // grab email from modal
+            where: { email: req.body.email },
+          }).then(function (friend) {
+            db.Friends.create({
+              user_Id: req.user.id,
+              email: friend.dataValues.email,
+              friend_id: friend.dataValues.id,
+            });
+            db.Friends.create({
+              user_Id: friend.dataValues.id,
+              email: req.user.email,
+              friend_id: req.user.id,
+            });
+            if (friend.dataValues.email) {
+              res.status(201).send("success!");
+            }
+          });
+        }
+      })
   });
 
   // add favorited games to database - table games
@@ -219,6 +228,8 @@ module.exports = function (app) {
   var find = false;
   // recommend games
   app.post("/api/recommend", function (req, res) {
+    create = false;
+    find = false;
     var rec = req.body.gameId;
     var email = req.body.email;
     // raw sets return value to normal javascript object
