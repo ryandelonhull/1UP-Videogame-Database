@@ -4,6 +4,7 @@ $(document).ready(function () {
         // console.log(data.display)
         // console.log("year unix: ", parseInt(data.display[0].first_release_date));
         for (let i = 0; i < data.display.length; i++) {
+            // unix timestap converter
             var ogdate = parseInt(data.display[i].first_release_date);
             var a = new Date(ogdate * 1000);
             var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -11,8 +12,6 @@ $(document).ready(function () {
             var month = months[a.getMonth()];
             var date = a.getDate();
             var time = date + ' ' + month + ' ' + year + ' ';
-            // + hour + ':' + min + ':' + sec 
-            // console.log("cover url: ", data.display[i].cover.url);
             var content = `
             <div class="item-${i + 1}">
             <figure class="has-text-centered">
@@ -43,9 +42,8 @@ $(document).ready(function () {
             $("#gamesContainer").append(content);
 
         }
-        // create event listener for card in carousel -load info from data id
-        // add cursor-pointer when hovering over card
 
+        // favorite game
         $(".favorite").on("click", function (event) {
             event.preventDefault();
             // console.log(this);
@@ -69,6 +67,7 @@ $(document).ready(function () {
         }
     });
 
+    // add friends
     $("#friend").on("click", function (event) {
         event.preventDefault();
         var email = $("#emailInput").val();

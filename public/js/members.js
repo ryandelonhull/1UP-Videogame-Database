@@ -1,19 +1,18 @@
 $(document).ready(function () {
-  // This file just does a GET request to figure out which user is logged in
-  // and updates the HTML on the page
-  // recommend modal
-  var recoModal = $("#recommend");
-  recoModal.attr("style", "display: none");
-  // modal popup
-  var modal = $("#addFriend");
-  modal.attr("style", "display: none");
 
+  // initialize modal vars
+  var recoModal = $("#recommend");
+  var modal = $("#addFriend");
   var recommendedGame;
   var recId;
 
+  // hide modals
+  modal.attr("style", "display: none");
+  recoModal.attr("style", "display: none");
+
   // display recommended games
   $.get("/api/recommended").then(function (games) {
-    console.log("recommended games: ", games.display[0]);
+    // console.log("recommended games: ", games.display[0]);
     for (let i = 0; i < games.display.length; i++) {
       var reco = `
         <div class="item-${i + 1}">
@@ -35,11 +34,12 @@ $(document).ready(function () {
     </div></figure></div>`;
       
       $(".recommended").append(reco);
+
+      // delete recommendations
       $(".delreco").on("click", function (event) {
-        console.log("working");
+        // console.log("working");
         event.preventDefault();
         var id = $(this).attr("data-delreco");
-        // route to delete recommendation - needs to be created
         $.post("/api/deleteRec", {
           game: games.display[id],
         });
@@ -48,12 +48,12 @@ $(document).ready(function () {
     }
   });
 
+  // display favorited games
   $.get("/api/user_data")
     .then(function (games) {
       $("#userName").text(games.email);
-      console.log("TESTING");
-      console.log("data: ", games);
-      console.log("all games front end: ", games.display);
+      // console.log("data: ", games);
+      // console.log("all games front end: ", games.display);
       for (let i = 0; i < games.display.length; i++) {
         var content = `
           <div class="item-${i + 1}">
@@ -84,8 +84,9 @@ $(document).ready(function () {
           // console.log(this);
           recId = $(this).attr("data-id");
           recommendedGame = games.display[recId].id;
-
         });
+
+        // delete favorited games
         $(".del").on("click", function (event) {
           // console.log("working");
           event.preventDefault();
@@ -115,7 +116,7 @@ $(document).ready(function () {
   $("#selectFriend").on("click", function (event) {
     event.preventDefault();
     var friendText = $("#friendEmail").val().trim();
-    console.log(recId);
+    // console.log(recId);
     $.post("/api/recommend", {
       gameId: recommendedGame,
       email: friendText,
@@ -140,9 +141,6 @@ $(document).ready(function () {
       .then(function () {
         window.location.replace("/search");
         // If there's an error, log the error
-      })
-      .catch(function (err) {
-        console.log(err);
       });
   });
 
@@ -153,7 +151,7 @@ $(document).ready(function () {
     $.post("/api/addfriend", { email: email })
       .then(function (data) {
         $("#add").text("Thank you!");
-        console.log("addfriend response 1: ", data);
+        // console.log("addfriend response 1: ", data);
       })
       .then(function () {
         location.reload();
