@@ -219,7 +219,7 @@ module.exports = function (app) {
       db.Reco.create({
         game_id: rec,
         recommender_id: req.user.id,
-        recomendee_id: recId
+        recommendee_id: recId
       }).then(function(data){
         console.log("returned data: ", data);
         if (!data) { res.status(406).send("Connection Issue") }

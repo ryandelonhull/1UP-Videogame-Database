@@ -1,5 +1,5 @@
 module.exports = function (sequelize, DataTypes) {
-    var Reco = sequelize.define("Recommendations", {
+    var Reco = sequelize.define("Reco", {
         game_id: {
             type: DataTypes.INTEGER,
             allowNull: false
