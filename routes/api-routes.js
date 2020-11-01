@@ -128,20 +128,10 @@ module.exports = function (app) {
     });
   });
 
-  // display all games on search
-  // app.get("/api/display", async function (req, res) {
-  //   db.Games.findAll({where: {id: req.user.id}}).then(function (display) {
-  // console.log("all games: ", display);
-  //   });
-  //   res.json({
-  //     display: games,
-  //   });
-  // });
 
   // add friends - database table friends
   app.post("/api/addfriend", function (req, res) {
-    // console.log(req.user.id);
-    // console.log("User addding: ", req.user);
+    
     db.User.findOne({
       // grab email from modal
       where: { email: req.body.email },
@@ -225,56 +215,67 @@ module.exports = function (app) {
         });
     })
   });
-
+  var create = false;
+  var find = false;
   // recommend games
   app.post("/api/recommend", function (req, res) {
-    // console.log("recommended game id: ", req.body.gameId);
-    // console.log("recommender id", req.user.id);
-    // console.log("recommendee email: ", req.body.email);
-    // console.log("recommender");
     var rec = req.body.gameId;
     var email = req.body.email;
     // raw sets return value to normal javascript object
-
     db.Friends.findAll({ where: { user_id: req.user.id }, raw: true })
       .then(function (data) {
         console.log("friends search", data);
         // console.log("datavalues", data.datavalues);
         let friendArr = data.map(friend => friend.email);
         console.log("friend array", friendArr);
+        console.log("friend email", email);
         if (!friendArr.includes(email)) {
           console.log("not your friend");
+          // 
           return res.status(406).send("This person is not your friend");
+        } else {
+          find = true;
         }
       }).then(function () {
-        db.User.findOne({ where: { email: email } })
-          // fix spelling recommendee
-          .then(function (users) {
-            var recId = users.dataValues.id;
-            db.Reco.findAll({ where: { game_id: req.body.gameId, recommendee_id: recId }, raw: true })
-              .then(function (game) {
-                console.log("reco game response: ", game)
-                if (game) {
-                  console.log("rec already exists");
-                  return res.status(406).send("Recommendation already exists");
-                }
-              }).then(function () {
-                db.Reco.create({
-                  game_id: rec,
-                  recommender_id: req.user.id,
-                  recommendee_id: recId,
-                }).then(function (user) {
-                  // console.log("returned data: ", data);
-                  if (!user) {
-                    res.status(406).send("Connection Issue");
+        if (find) {
+          db.User.findOne({ where: { email: email } })
+            // fix spelling recommendee
+            .then(function (users) {
+              var recId = users.dataValues.id;
+              db.Reco.findAll({ where: { game_id: req.body.gameId, recommendee_id: recId }, raw: true })
+                .then(function (game) {
+                  console.log("reco game response: ", game)
+                  if (game[0].game_id == rec) {
+                    console.log("rec already exists");
+                    // res.status(406).send("Recommendation already exists")
+                    return res.status(406).send("Recommendation already exists");
                   } else {
-                    res.status(201).send("Success!");
+                    create = true;
                   }
-                })
-              });
-          });
+
+                }).then(function () {
+                  if (create) {
+                    db.Reco.create({
+                      game_id: rec,
+                      recommender_id: req.user.id,
+                      recommendee_id: recId,
+                    }).then(function (user) {
+                      // console.log("returned data: ", data);
+                      if (!user) {
+                        res.status(406).send("Connection Issue");
+                      } else {
+                        res.status(201).send("Success!");
+                      }
+
+                    })
+                  }
+                });
+
+            });
+        }
         // console.log("recommend return data: ", data);
       });
+
     // db.Recommend.create({game_id: req.game.id})
   });
 

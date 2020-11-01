@@ -102,7 +102,7 @@ $(document).ready(function () {
           console.log("display friends frontend response", data.friends);
           for (var i = 0; i < data.friends.length; i++) {
             var div = $("<div>");
-            div.text(`Email Address: ${data.friends[i].email}`);
+            div.text(`${data.friends[i].email}`);
             $("#friendsDisplay").append(div);
           }
         }
