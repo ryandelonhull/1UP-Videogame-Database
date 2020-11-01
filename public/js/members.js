@@ -1,6 +1,8 @@
 $(document).ready(function () {
   // This file just does a GET request to figure out which user is logged in
   // and updates the HTML on the page
+  var recommendedGame;
+  var recId;
   $.get("/api/user_data").then(function (games) {
     $("#userName").text(games.email)
     console.log("TESTING");
@@ -31,11 +33,10 @@ $(document).ready(function () {
       $(".content").append(content);
       $(".recommend").on("click", function (event) {
         event.preventDefault();
+        recoModal.attr("style", "display: block");
         console.log(this);
-        var id = $(this).attr("data-id");
-        $.post("/api/recommend", {
-          game: games.display[id]
-        });
+        recId = $(this).attr("data-id");
+        recommendedGame = games.display[recId].id;
       });
       $(".delete").on("click", function (event) {
         event.preventDefault();
@@ -60,12 +61,24 @@ $(document).ready(function () {
     });
   });
 
+$("#selectFriend").on("click", function(event){
+  event.preventDefault();
+  var friendText = $("#friendEmail").val().trim();
+  console.log(recId);
+  $.post("/api/recommend", {
+    gameId: recommendedGame,
+    email: friendText
+  }).then(function(){
+    $("#response").text("Thank you!");
+  });
+});
+  
+
+
   $(".logout").on("click", function (event) {
     event.preventDefault();
     $.get("/logout");
   })
-
-
 
   $(".search").on("click", function (event) {
     event.preventDefault();
@@ -81,24 +94,34 @@ $(document).ready(function () {
   });
 
   $("#friend").on("click", function (event) {
-    console.log("friend button working");
     event.preventDefault();
     var email = $("#emailInput").val();
     $.post("/api/addfriend", { email: email }).then(function (data) {
       console.log("addfriend response 1: ", data);
-    })
+    }).then(function(){
+      location.reload();
+    });
   });
 
   // modal popup
-  var modal = $(".modal")
+  var modal = $("#addFriend")
   modal.attr("style", "display: none");
-  $("#modal").text("Summary");
+
   $("#modalText").on("click", function (event) {
     event.preventDefault()
     modal.attr("style", "display: block");
   });
+
   $("#close").on("click", function (event) {
     modal.attr("style", "display: none");
+  });
+
+  // recommend modal
+  var recoModal = $("#recommend");
+  recoModal.attr("style", "display: none");
+  
+  $("#closeRec").on("click", function (event) {
+    recoModal.attr("style", "display: none");
   });
 
 });

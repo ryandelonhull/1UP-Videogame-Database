@@ -75,12 +75,14 @@ $(document).ready(function () {
         }
     });
 
-
-
-    bulmaCarousel.attach('#post_images', {
-        slidesToScroll: 1,
-        slidesToShow: 1,
-        loop: true,
-    });
+    $("#friend").on("click", function (event) {
+        event.preventDefault();
+        var email = $("#emailInput").val();
+        $.post("/api/addfriend", { email: email }).then(function (data) {
+          console.log("addfriend response 1: ", data);
+        }).then(function(){
+          location.reload();
+        });
+      });
 
 });

@@ -134,7 +134,7 @@ input:focus {
   width: 40%; 
   height: 50%; 
 }
-#close{
+#close, #closeRec{
   text-align: center;
   width: 12%;
   left:45%;

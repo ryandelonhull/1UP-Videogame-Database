@@ -3,6 +3,15 @@ module.exports = function (sequelize, DataTypes) {
         game_id: {
             type: DataTypes.INTEGER,
             allowNull: false
+        },
+        recommender_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        // fix spelling
+        recommendee_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false
         }
     });
 

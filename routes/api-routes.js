@@ -4,7 +4,6 @@ var passport = require("../config/passport");
 const axios = require("axios");
 var games = "";
 var token = "";
-var cover = "";
 // var getToken = "./authorization.js";
 module.exports = function (app) {
   // Using the passport.authenticate middleware with our local strategy.
@@ -203,10 +202,37 @@ module.exports = function (app) {
       else {
         res.status(201).send("Success!");
       }
+    });
+  });
 
+  app.post("/api/recommend", function(req,res){
+    console.log("recommended game id: ", req.body.gameId);
+    console.log("recommender id", req.user.id);
+    console.log("recommendee email: ", req.body.email);
+    console.log("recommender")
+    var rec = req.body.gameId;
+    var email = req.body.email;
+    db.User.findOne({where: {email: email}})
+    // fix spelling recommendee
+    .then(function(data){
+      var recId = data.dataValues.id;
+      db.Reco.create({
+        game_id: rec,
+        recommender_id: req.user.id,
+        recomendee_id: recId
+      }).then(function(data){
+        console.log("returned data: ", data);
+        if (!data) { res.status(406).send("Connection Issue") }
+        else {
+          res.status(201).send("Success!");
+        }
+      });
+      // console.log("recommend return data: ", data);
     });
 
+    // db.Recommend.create({game_id: req.game.id})
   });
+
   // include statement almost working include: [{model: db.User, as: 'host'}]
   app.get("/api/friends", function (req, res) {
     console.log(req.user.id);
