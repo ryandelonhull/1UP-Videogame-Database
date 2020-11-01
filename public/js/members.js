@@ -13,6 +13,7 @@ $(document).ready(function () {
   
   $.get("/api/recommended").then(function(reco){
     console.log("recommended games: ", reco);
+    
   });
 
   $.get("/api/user_data")

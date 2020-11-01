@@ -28,7 +28,7 @@ module.exports = function (app) {
         console.log("token login", token);
         console.log("user", req.user.dataValues);
         db.User.update(
-          {access: token},
+          { access: token },
           {
             where: {
               id: req.user.dataValues.id,
@@ -74,7 +74,7 @@ module.exports = function (app) {
       // The user is not logged in, send back an empty object
       res.json({});
     } else {
-      db.Games.findAll({where: {userId: req.user.id}}).then(function (display) {
+      db.Games.findAll({ where: { userId: req.user.id } }).then(function (display) {
         // console.log("all games: ", display);
         res.json({
           display: display,
@@ -87,7 +87,7 @@ module.exports = function (app) {
 
   // working url "https://api.igdb.com/v4/games/?search=" + req.body.search,
 
-  // search function - grabs all data requested
+  // search function - query igdb for games with user input
   app.post("/search", async function (req, res) {
     // console.log("START OF SEARCH");
     // console.log("search = ", req.body.search);
@@ -138,12 +138,13 @@ module.exports = function (app) {
   //   });
   // });
 
+  // add friends - database table friends
   app.post("/api/addfriend", function (req, res) {
     console.log(req.user.id);
     console.log("User addding: ", req.user);
     db.User.findOne({
       // grab email from modal
-      where: {email: req.body.email},
+      where: { email: req.body.email },
     }).then(function (friend) {
       console.log("friend: ", friend);
       console.log("friend email: ", friend.dataValues.email);
@@ -170,6 +171,7 @@ module.exports = function (app) {
     });
   });
 
+  // add favorited games to database - table games
   app.post("/favorite", function (req, res) {
     console.log("user", req.user);
     console.log("game on backend", req.body.game);
@@ -182,26 +184,13 @@ module.exports = function (app) {
       var ogdate = game.first_release_date;
       console.log("ogdate: ", ogdate);
       var a = new Date(ogdate * 1000);
-      var months = [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-      ];
+      var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",];
       var year = a.getFullYear();
       var month = months[a.getMonth()];
       var date = a.getDate();
       var final = date + " " + month + " " + year + " ";
     }
-    console.log("release date", final);
+    // console.log("release date", final);
     db.Games.create({
       userId: req.user.id,
       name: game.name,
@@ -211,7 +200,7 @@ module.exports = function (app) {
       storyline: game.storyline,
       summary: game.summary,
     }).then(function (data) {
-      console.log("returned data: ", data);
+      // console.log("returned data: ", data);
       if (!data) {
         res.status(406).send("Connection Issue");
       } else {
@@ -219,26 +208,28 @@ module.exports = function (app) {
       }
     });
   });
+
   // get recommended games
   var recoGames = [];
   app.get("/api/recommended", function (req, res) {
-    db.Reco.findAll({where: {recommendee_id: req.user.id}}).then(function (
-      data
-    ) {
+    // recoGames.length = 0;
+    db.Reco.findAll({ where: { recommendee_id: req.user.id } }).then(function (data) {
       console.log("recommended games: ", data);
       console.log("datavalues: ", data[0].dataValues.game_id);
       console.log("datavalues length", data.length);
       for (let i = 0; i < data.length; i++) {
-        db.Games.findOne({where: {id: data[i].dataValues.game_id}})
+        db.Games.findOne({ where: { id: data[i].dataValues.game_id } })
           .then(function (game) {
-            console.log(game);
+            console.log("recgame info", game);
             recoGames.push(game);
-          })
-          .then(function () {
+          }).then(function () {
             console.log("Array of games: ", recoGames);
-          });
+          })
       }
-    });
+      res.json({
+        array: recoGames
+      });
+    })
   });
 
   // recommend games
@@ -249,7 +240,7 @@ module.exports = function (app) {
     // console.log("recommender");
     var rec = req.body.gameId;
     var email = req.body.email;
-    db.User.findOne({where: {email: email}})
+    db.User.findOne({ where: { email: email } })
       // fix spelling recommendee
       .then(function (data) {
         var recId = data.dataValues.id;
@@ -267,20 +258,20 @@ module.exports = function (app) {
         });
         // console.log("recommend return data: ", data);
       });
-
     // db.Recommend.create({game_id: req.game.id})
   });
 
   app.post("/api/delete", function (req, res) {
-    console.log("delete response: ", req.body.game.id);
-    db.Games.destroy({where: {id: req.body.game.id}});
+    // console.log("delete response: ", req.body.game.id);
+    db.Games.destroy({ where: { id: req.body.game.id } });
+    res.status(201).send("Success!");
   });
 
   // include statement almost working include: [{model: db.User, as: 'host'}]
   app.get("/api/friends", function (req, res) {
-    console.log(req.user.id);
-    db.Friends.findAll({where: {user_Id: req.user.id}}).then(function (data) {
-      console.log("friends response", data);
+    // console.log(req.user.id);
+    db.Friends.findAll({ where: { user_Id: req.user.id } }).then(function (data) {
+      // console.log("friends response", data);
       res.json({
         friends: data,
       });
