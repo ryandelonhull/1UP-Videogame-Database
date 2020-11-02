@@ -1,85 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>1UP</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css"
-    />
-    <script
-      defer
-      src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"
-    ></script>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>1UP</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css" />
+  <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
   <link href="stylesheets/style.css" rel="stylesheet">
+  <link rel="icon" type="image/png" href="./assets/1upfavicon.png" />
 </head>
+
 <body class="Site">
   <video class="video" autoplay loop muted poster="assets/1^bg.png">
     <source src="assets/Circularity_01.mp4" type="video/mp4">
-    </video>
-    <div>
-      <img class="logo img-thumbnail" src="assets/1^db solo.png" alt="1^db">
-    </div>
-    <section class="container">
-      <div class="row"></div>
-    </section>
-    <section class="container">
-      <div class="card text-center col-sm-8 m-5 p-3" id="dataform">
-        <div class="columns is-mobile">
-          <div class="column is-half is-offset-one-quarter">
-            <div class="field">
-              <label class="label">SIGN UP!</label>
-              <div class="control">
-                <input class="input" id="fullName" type="text" placeholder="Full Name" />
-              </div>
+  </video>
+  <div>
+    <img class="logo img-thumbnail" src="assets/1^db solo.png" alt="1^db">
+  </div>
+  <section class="container">
+    <div class="row"></div>
+  </section>
+  <section class="container">
+    <div class="card text-center col-sm-8 m-5 p-3" id="dataform">
+      <div class="columns is-mobile">
+        <div class="column is-half is-offset-one-quarter">
+          <div class="field">
+            <label class="label">SIGN UP!</label>
+            <div class="control">
+              <input class="input" id="fullName" type="text" placeholder="Full Name" />
             </div>
-        <div class="field">
-          <p class="control has-icons-left has-icons-right">
-            <input class="input" id="email-input" type="email" placeholder="Email" />
-            <span class="icon is-small is-left">
-              <i class="fas fa-envelope"></i>
-            </span>
-            <span class="icon is-small is-right">
-              <i class="fas fa-check"></i>
-            </span>
-          </p>
-        </div>
-        <div class="field">
-          <p class="control has-icons-left">
-            <input class="input" id="password-input" type="password" placeholder="Password" />
-            <span class="icon is-small is-left">
-              <i class="fas fa-lock"></i>
-            </span>
-          </p>
-        </div>
-        <div class="field">
-          <p class="control has-icons-left">
-            <input
-              id="verifyPass"
-              class="input"
-              type="password"
-              placeholder="Retype Password"
-            />
-            <span class="icon is-small is-left">
-              <i class="fas fa-lock"></i>
-            </span>
-          </p>
-          <br>
-          <label for="dateofbirth">Date Of Birth</label>
-          <input type="date" name="dateofbirth" id="dateofbirth" />
-        </div>
-        <div class="field">
-          <p class="control">
-            <button class="button is-info is-outlined is-rounded" id="signupbutton">SIGN UP</button>
-            <button class="button is-info is-outlined is-rounded" id="loginbutton">LOG IN</button>
-          </p>
+          </div>
+          <div class="field">
+            <p class="control has-icons-left has-icons-right">
+              <input class="input" id="email-input" type="email" placeholder="Email" />
+              <span class="icon is-small is-left">
+                <i class="fas fa-envelope"></i>
+              </span>
+              <span class="icon is-small is-right">
+                <i class="fas fa-check"></i>
+              </span>
+            </p>
+          </div>
+          <div class="field">
+            <p class="control has-icons-left">
+              <input class="input" id="password-input" type="password" placeholder="Password" />
+              <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+              </span>
+            </p>
+          </div>
+          <div class="field">
+            <p class="control has-icons-left">
+              <input id="verifyPass" class="input" type="password" placeholder="Retype Password" />
+              <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+              </span>
+            </p>
+            <br>
+            <label for="dateofbirth">Date Of Birth</label>
+            <input type="date" name="dateofbirth" id="dateofbirth" />
+          </div>
+          <div class="field">
+            <p class="control">
+              <button class="button is-info is-outlined is-rounded" id="signupbutton">SIGN UP</button>
+              <button class="button is-info is-outlined is-rounded" id="loginbutton">LOG IN</button>
+            </p>
+          </div>
         </div>
       </div>
-    </div>
   </section>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="js/signup.js"></script>
-</video>
+  </video>
 </body>
+
 </html>
