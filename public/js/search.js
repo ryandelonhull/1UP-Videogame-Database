@@ -71,7 +71,9 @@ $(document).ready(function () {
                 if (data.display[id].summary) {
                     $("#summary").text(`Summary: ${data.display[id].summary}`);
                 }
-                if (data.display[id].storyline) {
+                if (!data.display[id].storyline) {
+                    $("#storyline").text(`Story Line Not Available`);
+                }else{
                     $("#storyline").text(`Story Line: ${data.display[id].storyline}`);
                 }
             });

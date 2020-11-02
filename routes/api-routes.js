@@ -117,8 +117,7 @@ module.exports = function (app) {
 
   // displays games on search page
   app.get("/api/search", async function (req, res) {
-    // var final = JSON.parse(games);
-    // console.log("games value = ", games);
+    console.log("searched games: ", games);
     res.json({
       display: games,
     });
@@ -168,6 +167,11 @@ module.exports = function (app) {
     // console.log("game on backend", req.body.game);
     var game = req.body.game;
     var image = req.body.image;
+    if (game.storyline) {
+      var story = game.storyline;
+    } else {
+      story = "Not Available";
+    }
     if (game.rating) {
       var rating = Math.floor(game.rating);
     }
@@ -189,7 +193,7 @@ module.exports = function (app) {
       cover_url: image,
       user_rating: rating,
       year: final,
-      storyline: game.storyline,
+      storyline: story,
       summary: game.summary,
     }).then(function (data) {
       // console.log("returned data: ", data);
@@ -221,7 +225,7 @@ module.exports = function (app) {
         });
     })
   });
-  
+
   var create = false;
   var find = false;
 
@@ -309,8 +313,6 @@ module.exports = function (app) {
 
   // delete recommended game
   app.post("/api/deleteRec", function (req, res) {
-    // console.log("delete response: ", req.body.game.id);
-    // console.log("whole game delete", req.body.game);
     db.Reco.destroy({ where: { game_id: req.body.game.id, recommendee_id: req.user.id } })
       .then(function () {
         res.status(201).send("Success!");
@@ -319,7 +321,6 @@ module.exports = function (app) {
 
   // delete favorited game
   app.post("/api/delete", function (req, res) {
-    // console.log("delete response: ", req.body.game.id);
     db.Games.destroy({ where: { id: req.body.game.id } })
       .then(function () {
         res.status(201).send("Success!");
