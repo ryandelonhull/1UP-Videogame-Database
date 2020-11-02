@@ -16,17 +16,10 @@ module.exports = function (app) {
       )
       .then(
         function (response) {
-          // console.log("response in auth func", response.data.access_token);
           token = response.data.access_token;
-          // console.log("token in auth function", token);
-        },
-        function (err) {
-          // console.log(err);
         }
       )
       .then(function () {
-        // console.log("token login", token);
-        // console.log("user", req.user.dataValues);
         db.User.update(
           { access: token },
           {
@@ -37,9 +30,6 @@ module.exports = function (app) {
         );
         res.json(req.user);
       })
-      .catch(function (err) {
-        // console.log(err);
-      });
   });
 
   // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
@@ -68,10 +58,9 @@ module.exports = function (app) {
     res.redirect("/");
   });
 
-  // Route for getting some data about our user to be used client side
+  // Route for getting favorite game data
   app.get("/api/user_data", async function (req, res) {
     if (!req.user) {
-      // The user is not logged in, send back an empty object
       res.json({});
     } else {
       db.User.findOne({ where: { id: req.user.id } })
@@ -96,14 +85,9 @@ module.exports = function (app) {
         });
     }
   });
-  // final url url: `https://api.igdb.com/v4/games/?search=${req.body.search}&fields=id,name,collection,genres,cover.url,first_release_date,rating,slug,storyline,summary`,
-
-  // working url "https://api.igdb.com/v4/games/?search=" + req.body.search,
 
   // search function - query igdb for games with user input
   app.post("/search", async function (req, res) {
-    // console.log("START OF SEARCH");
-    // console.log("search = ", req.body.search);
     games = await axios({
       url: `https://api.igdb.com/v4/games/?search=${req.body.search}&fields=id,name,collection,genres,cover.url,first_release_date,rating,slug,storyline,summary`,
       method: "POST",
@@ -113,7 +97,6 @@ module.exports = function (app) {
         Authorization: `Bearer ${token}`,
       },
       // data: "fields= *;"
-      //  name, game, company;"
     })
       .then((response) => {
         // console.log("first search responses ", response.data);
@@ -238,8 +221,10 @@ module.exports = function (app) {
         });
     })
   });
+  
   var create = false;
   var find = false;
+
   // recommend games
   app.post("/api/recommend", function (req, res) {
     create = false;
@@ -292,7 +277,6 @@ module.exports = function (app) {
                       } else {
                         res.status(201).send("Success!");
                       }
-
                     })
                   }
                 });
@@ -314,7 +298,7 @@ module.exports = function (app) {
         .then(function () {
           res.status(201).send("Success!");
         });
-    }else{
+    } else {
       db.User.update({ image_url: req.body.image, bio: req.body.bio }, { where: { id: req.user.id } })
         .then(function () {
           res.status(201).send("Success!");

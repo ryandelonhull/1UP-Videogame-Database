@@ -40,8 +40,6 @@ module.exports = function (sequelize, DataTypes) {
     });
     // associate friends with user
     // User.associate = function(models) {
-    //     // Associating Author with Posts
-    //     // When an Author is deleted, also delete any associated Posts
     //     User.hasMany(models.Friends, {
     //       onDelete: "cascade"
     //     });
@@ -52,8 +50,6 @@ module.exports = function (sequelize, DataTypes) {
     //   };
     //   associate recommendations with user
     //   User.associate = function(models) {
-    //     // Associating Author with Posts
-    //     // When an Author is deleted, also delete any associated Posts
     //     User.hasMany(models.Reco, {
     //       onDelete: "cascade"
     //     });
