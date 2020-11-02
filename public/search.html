@@ -17,10 +17,10 @@
   </video>
   <section class="hero is-max-desktop" id="header-img">
     <div class="hero-body columns">
+      <div class="column is-one-third is-3by2">
       <img class="logo img-thumbnail" src="assets/1^db solo.png" alt="1^db">
-      <div class="column">
       </div>
-      <div class="column">
+      <div class="column is-one-third">
         <div class="field">
           <div class="control">
             <input class="searchbar input" type="text" id="searchbar" placeholder="Search Games" />
@@ -30,7 +30,7 @@
           <button class="search button is-info is-outlined is-rounded">Submit</button>
         </div>
       </div>
-      <div class="column">
+      <div class="column is-one-third">
         <div class="column is-pulled-right" id="dropdown">
           <div class="dropdown is-hoverable">
             <div class="dropdown-trigger">
@@ -61,20 +61,20 @@
       </div>
     </div>
   </section>
-  <div class="modal">
+  <div class="modal" id="addFriend">
     <div class="modal-content is-info is-outlined is-rounded">
-      <h1 id="modalText">Add Friends</h1>
+      <h1 id="add">Add Friends</h1>
       <div class="control">
         <input class="input" type="email" id="emailInput" placeholder="Add Email" />
-      </div>
+      </div></br>
       <button class="button is-info is-outlined is-small is-rounded" id="friend">Add</button>
       <br />
-      <button class="button is-info is-outlined is-small is-rounded" id="close">Close</button>
+      <button class="button is-info is-outlined is-small is-rounded" id="close">X</button>
     </div>
   </div>
   <main class="Site-content">
-    <section class="section" style="background-color: white;">
-      <div class="container" id="gamesContainer" style="background-color: white; z-index: 1">
+    <section class="section has-background-light" >
+      <div class="container" id="gamesContainer" style="background-color:#edf3ff; z-index: 1">
       </div>
     </section>
   </main>

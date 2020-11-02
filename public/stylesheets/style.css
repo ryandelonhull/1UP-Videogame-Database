@@ -11,6 +11,7 @@ form.login {
   z-index: 25;
   position: relative;
 }
+
 input {
   margin-left: 0px;
   margin-top: 0px;
@@ -24,6 +25,16 @@ input {
   -moz-box-shadow: 0px 0px 8px #7BC1F7;
   -webkit-box-shadow: 0px 0px 8px #7BC1F7;
 }
+
+/* .modal{
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  box-shadow: 0px 0px 8px #7BC1F7;
+  -moz-box-shadow: 0px 0px 8px #7BC1F7;
+  -webkit-box-shadow: 0px 0px 8px #7BC1F7;
+} */
+
 input:focus { 
   outline: none;
   border: 1px solid #7BC1F7;
@@ -55,6 +66,8 @@ input:focus {
   left: 0;
   position: absolute;
   z-index: 1000;
+  max-width: 25%;
+  margin-bottom: 25px;
   }
 #dataform {
   margin: 0 auto;
@@ -134,6 +147,7 @@ input:focus {
   width: 40%; 
   height: 50%; 
 }
+
 #gameInfo{
   z-index: 200; 
   left: 20%;
@@ -142,6 +156,7 @@ input:focus {
   height: 60%;
   overflow: auto; 
 }
+
 #close, #closeRec{
   text-align: center;
   width: 12%;

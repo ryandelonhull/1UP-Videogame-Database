@@ -76,7 +76,6 @@ module.exports = function (app) {
     } else {
       db.User.findOne({ where: { id: req.user.id } })
         .then(function (data) {
-          console.log("bio data: ", data);
           db.Games.findAll({ where: { userId: req.user.id } }).then(function (display) {
             // console.log("all games: ", display);
             if (!data.dataValues.image_url) {
@@ -124,7 +123,7 @@ module.exports = function (app) {
         return games;
       })
       .catch((err) => {
-        console.error(err);
+        res.send(err);
       });
 
     res.json({
@@ -303,8 +302,6 @@ module.exports = function (app) {
 
   // edit profile
   app.post("/api/editprofile", function (req, res) {
-    console.log("image", req.body.image);
-    console.log("bio", req.body.bio);
     if (req.body.image && !req.body.bio) {
       db.User.update({ image_url: req.body.image }, { where: { id: req.user.id } })
         .then(function () {

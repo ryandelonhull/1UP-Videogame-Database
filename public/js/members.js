@@ -51,7 +51,7 @@ $(document).ready(function () {
       });
       $(".show").on("click", function (event) {
         event.preventDefault();
-        console.log("testing");
+        // console.log("testing");
         var id = $(this).attr("data-recShow");
         gameModal.attr("style", "display: block");
         $("#title").text(`Title: ${games.display[id].name}`);
@@ -81,7 +81,7 @@ $(document).ready(function () {
   // display favorited games
   $.get("/api/user_data")
     .then(function (games) {
-      console.log(games.display);
+      // console.log(games.display);
       $("#userName").text(`User: ${games.email}`);
       if (games.bio) {
         $(".subtitle").text(`Bio: ${games.bio}`)
@@ -136,7 +136,7 @@ $(document).ready(function () {
         });
         $(".game").on("click", function (event) {
           event.preventDefault();
-          console.log("testing");
+          // console.log("testing");
           var id = $(this).attr("data-val");
           gameModal.attr("style", "display: block");
           $("#title").text(`Title: ${games.display[id].name}`);
@@ -230,33 +230,29 @@ $(document).ready(function () {
 
   $("#submit").on("click", function (event) {
     event.preventDefault();
-    console.log("WORKING");
     var bio = $("#bio").val().trim();
     var image = $("#image").val().trim();
-    console.log("bio", bio);
-    console.log("image", image);
     if (bio === "" && image === "") {
-      console.log("first case sending");
       return;
-    } 
+    }
     if (image !== "" && bio === "") {
-      console.log("just image sending")
+      // console.log("just image sending")
       $.post("/api/editprofile", { image: image })
         .then(function () {
           $("#image").val("");
           location.reload();
         })
     }
-    if(bio !== "" && image === "") {
-      console.log("just bio sending");
+    if (bio !== "" && image === "") {
+      // console.log("just bio sending");
       $.post("/api/editprofile", { bio: bio })
         .then(function () {
           $("#bio").val("");
           location.reload();
         })
     }
-    if (bio !== "" && image !== ""){
-      console.log("both sending");
+    if (bio !== "" && image !== "") {
+      // console.log("both sending");
       $.post("/api/editprofile", { bio: bio, image: image })
         .then(function () {
           $("#bio").val("");
