@@ -79,6 +79,7 @@ $(document).ready(function () {
             });
             $(".close").on("click", function (event) {
                 event.preventDefault();
+                $("#rating").text("");
                 $("#gameInfo").attr("style", "display: none");
             });
         }
