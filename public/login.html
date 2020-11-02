@@ -14,19 +14,16 @@
     ></script>
   <link href="stylesheets/style.css" rel="stylesheet">
 </head>
-
 <body class="Site">
   <video class="video" autoplay loop muted poster="assets/1^bg.png">
     <source src="assets/Circularity_01.mp4" type="video/mp4">
     </video>
     <div>
-      <img class="img img-thumbnail" src="assets/1^db solo.png" alt="1^db">
+      <img class="logo img-thumbnail" src="assets/1^db solo.png" alt="1^db">
     </div>
-
     <section class="container">
       <div class="row"></div>
     </section>
-    
     <section class="container">
       <div class="row">
         <div class="card text-center col-sm-8 m-5 p-3" id="dataform">
@@ -34,11 +31,10 @@
             <label class="label">Email</label>
             <div class="control has-icons-left has-icons-right">
               <input
-                class="input is-success"
+                class="input"
+                id="email-input"
                 type="text"
-                placeholder="Text input"
-                value="email"
-              />
+                placeholder="Text input"/>
               <span class="icon is-small is-left">
                 <i class="fas fa-user"></i>
               </span>
@@ -51,22 +47,22 @@
           <div class="field">
             <label class="label">Password</label>
             <div class="control">
-              <input class="input" type="text" placeholder="Text input" />
+              <input class="input" type="password" id="password-input" placeholder="Text input" />
             </div>
           </div>
           <div class="field">
             <p class="control">
-              <button class="button is-info is-loading">LOG IN</button>
+              <p class="control">
+                <button class="button is-info is-outlined is-rounded" id="signupbutton">SIGN UP</button>
+                <button class="button is-info is-outlined is-rounded" id="loginbutton">LOG IN</button>
+              </p>
             </p>
           </div>
         </div>
       </div>
     </div>
   </section>
-
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="js/login.js"></script>
 </body>
 </html>
-

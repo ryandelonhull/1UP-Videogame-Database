@@ -10,99 +10,88 @@
   <link href="stylesheets/style.css" rel="stylesheet">
 </head>
 <body class="Site">
-  <section class="hero is-warning">
+  <video class="video" autoplay loop muted poster="assets/1^bg.png" id="vid2">
+    <source src="assets/tunnel20001_0300.mov" type="video/mp4">
+  </video>
+  <section class="hero is-max-desktop" id="header-img">
     <div class="hero-body columns">
-      <div class="column">
-        <h1 class="title">1UP</h1>
-        <h2 class="subtitle">Video Game Database</h2>
+      <div class="column is-one-third is-3by2">
+        <img class="logo img-thumbnail" src="assets/1^db solo.png" alt="1^db">
       </div>
-      <div class="column">
+      <div class="column is-one-third">
         <div class="field">
-          <label class="label">Search</label>
           <div class="control">
-            <input class="searchbar input" type="text" placeholder="Text input" />
+            <input class="searchbar input" type="text" id="searchbar" placeholder="Search Games" />
           </div>
         </div>
         <div class="control">
-          <button class="search button is-primary">Submit</button>
+          <button class="search button is-info is-outlined is-rounded">Submit</button>
         </div>
       </div>
-      <div class="column">
-      </div>
-    </div>
-  </section>
-  <main class="Site-content">
-    
-    <!-- Start Carousel -->
-    <section class="section">
-      <div class="container">
-        <div id="post_images" class="carousel">
-          <div class="item-1">
-            <figure class="image is-16by9 has-ratio has-text-centered has-background">
-                <img class="is-background" src="assets/1^dblogo.png"/>
-                <div class="hero-body has-text-centered is-overlay">
-                  <h1 class="title">Test Game One!</h1>
-                  <h2 class="rating">PG-13</h2>
-                  <h3 class="year">2020</h3>
-                </div>
-              </figure>
+      <div class="column is-one-third">
+        <div class="column is-pulled-right" id="dropdown">
+          <div class="dropdown is-hoverable">
+            <div class="dropdown-trigger">
+              <button class="button is-info is-outlined is-rounded" aria-haspopup="true" aria-controls="dropdown-menu">
+                <span>User Info</span>
+                <span class="icon is-small">
+                  <i class="fas fa-angle-down" aria-hidden="true"></i>
+                </span>
+              </button>
             </div>
-            <div class="item-2">
-              <figure class="image is-16by9 has-ratio has-text-centered has-background">
-                <img class="is-background" src="assets/1^dblogo.png"/>
-                <div class="hero-body has-text-centered is-overlay">
-                  <h1 class="title">Test Game Two!</h1>
-                  <h2 class="rating">PG-13</h2>
-                  <h3 class="year">2020</h3>
+            <div class="dropdown-menu" id="dropdown-menu" role="menu">
+              <div class="dropdown-content">
+                <a href="/members" class="dropdown-item">
+                  Profile
+                </a>
+                <hr class="dropdown-divider">
+                <div class="dropdown-item" data-toggle="modal" id="modalText">
+                  Add Friend
                 </div>
-            </figure>
-          </div>
-          <div class="item-3">
-            <figure class="image is-16by9 has-ratio has-text-centered has-background">
-              <img class="is-background" src="assets/1^dblogo.png"/>
-              <div class="hero-body has-text-centered is-overlay">
-                <h1 class="title">Test Game Three!</h1>
-                <h2 class="rating">PG-13</h2>
-                <h3 class="year">2020</h3>
+                <hr class="dropdown-divider">
+                <a href="/authors" class="dropdown-item">
+                  Authors
+                </a>
+                <hr class="dropdown-divider">
+                <a href="/logout" class="dropdown-item">
+                  Logout
+                </a>
               </div>
-            </figure>
+            </div>
           </div>
-          <div class="item-4">
-            <figure class="image is-16by9 has-ratio has-text-centered has-background">
-              <img class="is-background" src="assets/1^dblogo.png"/>
-              <div class="hero-body has-text-centered is-overlay">
-                <h1 class="title">Test Game Four!</h1>
-                <h2 class="rating">PG-13</h2>
-                <h3 class="year">2020</h3>
-              </div>
-            </figure>
-          </div>
-            <div class="item-5">
-              <figure class="image is-16by9 has-ratio has-text-centered has-background">
-                <img class="is-background" src="assets/1^dblogo.png"/>
-                <div class="hero-body has-text-centered is-overlay">
-                  <h1 class="title">Test Game Five!</h1>
-                  <h2 class="rating">PG-13</h2>
-                  <h3 class="year">2020</h3>
-                </div>
-            </figure>
-        </div>
       </div>
     </div>
   </section>
-
-
-</main>
-  <footer class="footer">
-    <div class="content has-text-centered">
-      <p>
-        <strong>1UP</strong> by
-        <a href="https://papertoilet.com">Team 4</a>. The source code is
-        licensed by
-        <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
-      </p>
+  <div class="modal" id="addFriend">
+    <div class="modal-content is-info is-outlined is-rounded">
+      <h1 id="add">Add Friends</h1>
+      <div class="control">
+        <input class="input" type="email" id="emailInput" placeholder="Add Email" />
+      </div></br>
+      <button class="button is-info is-outlined is-small is-rounded" id="friend">Add</button>
+      <br />
+      <button class="button is-info is-outlined is-small is-rounded" id="close">X</button>
     </div>
-  </footer>
+  </div>
+  <main class="Site-content">
+    <section class="section has-background-light">
+      <div class="container" id="gamesContainer" style="background-color: white; z-index: 1">
+      </div>
+    </section>
+  </main>
+  <div class="modal" id="gameInfo">
+    <div class="modal-content is-info is-outlined is-rounded">
+      <h1 id="title"></h1>
+      <div id="rating"></div>
+      <div id="year"></div></br>
+      <img id="cover" /></br></br>
+      <div id="summary"></div></br>
+      <div id="storyline"></div></br>
+      <div class="control">
+      </div></br></br>
+      <button class="close button is-info is-outlined is-small is-rounded">Close</button>
+    </div>
+  </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.4/dist/js/bulma-carousel.min.js"></script>
   <script type="text/javascript" src="js/search.js"></script>
