@@ -32,6 +32,10 @@ module.exports = function (sequelize, DataTypes) {
         bio: {
             type: DataTypes.TEXT,
             allowNull: true
+        },
+        image_url: {
+            type: DataTypes.STRING,
+            allowNull: true
         }
     });
     // associate friends with user

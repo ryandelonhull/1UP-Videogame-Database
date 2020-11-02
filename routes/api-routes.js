@@ -75,17 +75,26 @@ module.exports = function (app) {
       res.json({});
     } else {
       db.User.findOne({ where: { id: req.user.id } })
-      .then(function (data) {
-        console.log("bio data: ", data);
-        db.Games.findAll({ where: { userId: req.user.id } }).then(function (display) {
-          // console.log("all games: ", display);
-          res.json({
-            display: display,
-            email: req.user.email,
-            bio: data.dataValues.bio
+        .then(function (data) {
+          console.log("bio data: ", data);
+          db.Games.findAll({ where: { userId: req.user.id } }).then(function (display) {
+            // console.log("all games: ", display);
+            if (!data.dataValues.image_url) {
+              res.json({
+                display: display,
+                email: req.user.email,
+                bio: data.dataValues.bio
+              });
+            } else {
+              res.json({
+                display: display,
+                email: req.user.email,
+                bio: data.dataValues.bio,
+                image: data.dataValues.image_url
+              });
+            }
           });
         });
-      });
     }
   });
   // final url url: `https://api.igdb.com/v4/games/?search=${req.body.search}&fields=id,name,collection,genres,cover.url,first_release_date,rating,slug,storyline,summary`,
@@ -294,11 +303,27 @@ module.exports = function (app) {
 
   // edit profile
   app.post("/api/editprofile", function (req, res) {
-    db.User.update({ bio: req.body.bio }, { where: { id: req.user.id } })
-      .then(function () {
-        res.status(201).send("Success!");
-      })
-  })
+    console.log("image", req.body.image);
+    console.log("bio", req.body.bio);
+    if (req.body.image && !req.body.bio) {
+      db.User.update({ image_url: req.body.image }, { where: { id: req.user.id } })
+        .then(function () {
+          res.status(201).send("Success!");
+        });
+    }
+    else if (req.body.bio && !req.body.image) {
+      db.User.update({ bio: req.body.bio }, { where: { id: req.user.id } })
+        .then(function () {
+          res.status(201).send("Success!");
+        });
+    }else{
+      db.User.update({ image_url: req.body.image, bio: req.body.bio }, { where: { id: req.user.id } })
+        .then(function () {
+          res.status(201).send("Success!");
+        });
+    }
+
+  });
 
   // delete recommended game
   app.post("/api/deleteRec", function (req, res) {

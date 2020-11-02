@@ -83,7 +83,13 @@ $(document).ready(function () {
     .then(function (games) {
       console.log(games.display);
       $("#userName").text(`User: ${games.email}`);
-      $(".subtitle").text(`Bio: ${games.bio}`)
+      if (games.bio) {
+        $(".subtitle").text(`Bio: ${games.bio}`)
+      }
+      if (games.image) {
+        var proPic = `<img src=${games.image} alt="Profile Picture" style="height: 125px; width: 125px;"/>`;
+        $("#profilePic").append(proPic);
+      }
       // console.log("data: ", games);
       // console.log("all games front end: ", games.display);
       for (let i = 0; i < games.display.length; i++) {
@@ -224,12 +230,40 @@ $(document).ready(function () {
 
   $("#submit").on("click", function (event) {
     event.preventDefault();
+    console.log("WORKING");
     var bio = $("#bio").val().trim();
-    $.post("/api/editprofile", { bio: bio })
-      .then(function () {
-        $("#bio").val("");
-        location.reload();
-      })
+    var image = $("#image").val().trim();
+    console.log("bio", bio);
+    console.log("image", image);
+    if (bio === "" && image === "") {
+      console.log("first case sending");
+      return;
+    } 
+    if (image !== "" && bio === "") {
+      console.log("just image sending")
+      $.post("/api/editprofile", { image: image })
+        .then(function () {
+          $("#image").val("");
+          location.reload();
+        })
+    }
+    if(bio !== "" && image === "") {
+      console.log("just bio sending");
+      $.post("/api/editprofile", { bio: bio })
+        .then(function () {
+          $("#bio").val("");
+          location.reload();
+        })
+    }
+    if (bio !== "" && image !== ""){
+      console.log("both sending");
+      $.post("/api/editprofile", { bio: bio, image: image })
+        .then(function () {
+          $("#bio").val("");
+          $("#image").val("");
+          location.reload();
+        })
+    }
   });
 
   // display add friend modal
