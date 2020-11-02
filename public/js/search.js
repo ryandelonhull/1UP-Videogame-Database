@@ -88,10 +88,16 @@ $(document).ready(function () {
             event.preventDefault();
             // console.log(this);
             var id = $(this).attr("data-id");
+            $("#addFriend").attr("style", "display: block;");
+            $("#emailInput").attr("style", "display: none;");
+            $("#friend").attr("style", "display: none;")
+            $("#add").text(`${data.display[id].name} added to favorites!`);
+
             $.post("/favorite", {
                 game: data.display[id],
                 image: image[id]
             });
+            
         });
     });
 
@@ -109,8 +115,11 @@ $(document).ready(function () {
     });
     // add friend modal
     $("#modalText").on("click", function (event) {
-        console.log("working");
+        // console.log("working");
         modal.attr("style", "display: block");
+        $("#emailInput").attr("style", "display: block;");
+        $("#friend").attr("style", "display: inline-block;")
+        $("#add").text(`Add friend email: `);
     });
     $("#close").on("click", function (event) {
         modal.attr("style", "display: none");

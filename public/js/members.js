@@ -55,7 +55,9 @@ $(document).ready(function () {
         var id = $(this).attr("data-recShow");
         gameModal.attr("style", "display: block");
         $("#title").text(`Title: ${games.display[id].name}`);
-        if (games.display[id].user_rating) {
+        if (!games.display[id].user_rating) {
+          $("#rating").text("");
+        }else{
           $("#rating").text(`User Rating: ${games.display[id].user_rating}%`);
         }
         if (games.display[id].year) {
@@ -120,6 +122,7 @@ $(document).ready(function () {
           event.preventDefault();
           $("#friendEmail").val("");
           recoModal.attr("style", "display: block");
+          $("#response").text("Add Friend Email: ");
           // console.log(this);
           recId = $(this).attr("data-id");
           recommendedGame = games.display[recId].id;
@@ -161,6 +164,7 @@ $(document).ready(function () {
         });
         $(".close").on("click", function (event) {
           event.preventDefault();
+          $("#rating").text("");
           $("#gameInfo").attr("style", "display: none");
         });
       }
