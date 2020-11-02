@@ -33,4 +33,9 @@ module.exports = function (app) {
     // sends members page
     res.sendFile(path.join(__dirname, "../public/search.html"));
   });
+
+  app.get("/authors", isAuthenticated, function (req, res) {
+    // sends members page
+    res.sendFile(path.join(__dirname, "../public/authors.html"));
+  });
 };
