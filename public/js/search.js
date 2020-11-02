@@ -1,4 +1,9 @@
 $(document).ready(function () {
+
+    // game info modal
+    var gameModal = $("#gameInfo");
+
+    // display searched games
     $.get("/api/search").then(function (data) {
         // console.log("TESTING");
         // console.log(data.display)
@@ -31,16 +36,39 @@ $(document).ready(function () {
                 content += yearHtml;
             }
             if (!data.display[i].cover) {
-                var cover = `<img src="assets/1^dblogo.png" style="width:90px; height:90px;" alt="${data.display[i].name} cover image"/></br></br>`;
+                var cover = `<img class="show" data-show="${i}" style="cursor: pointer" src="assets/1^dblogo.png" style="width:90px; height:90px;" alt="${data.display[i].name} cover image"/></br></br>`;
                 content += cover;
             }else{
-                var cover = `<img src="${data.display[i].cover.url}" alt="${data.display[i].name} cover image"/></br></br>`;
+                var cover = `<img class="show" data-show="${i}" style="cursor: pointer" src="${data.display[i].cover.url}" alt="${data.display[i].name} cover image"/></br></br>`;
                 content += cover;
             }
             content += `<button class="favorite button is-info is-outlined is-rounded" data-id=${i}>Favorite</button>
             </div></figure></div>`;
             $("#gamesContainer").append(content);
 
+            $(".show").on("click", function (event) {
+                event.preventDefault();
+                console.log("testing");
+                var id = $(this).attr("data-show");
+                gameModal.attr("style", "display: block");
+                $("#title").text(`Title: ${data.display[id].name}`);
+                if (data.display[id].rating) {
+                  $("#rating").text(`User Rating: ${Math.floor(data.display[id].rating)}%`);
+                }
+                if (data.display[id].cover.url) {
+                  $("#cover").attr("src", data.display[id].cover.url);
+                }
+                if (data.display[id].summary) {
+                  $("#summary").text(`Summary: ${data.display[id].summary}`);
+                }
+                if (data.display[id].storyline) {
+                  $("#storyline").text(`Story Line: ${data.display[id].storyline}`);
+                }
+              });
+              $(".close").on("click", function (event) {
+                event.preventDefault();
+                $("#gameInfo").attr("style", "display: none");
+              });
         }
 
         // favorite game

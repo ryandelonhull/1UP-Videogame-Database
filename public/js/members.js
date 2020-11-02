@@ -19,7 +19,7 @@ $(document).ready(function () {
     // console.log("recommended games: ", games.display[0]);
     for (let i = 0; i < games.display.length; i++) {
       var reco = `
-        <div class="item-${i + 1}">
+        <div>
         <figure class="has-text-centered">
         <div class="hero-body has-text-centered">
         <h1 class="title">${games.display[i].name}</h1>`;
@@ -33,7 +33,7 @@ $(document).ready(function () {
       } else {
         reco += `<h3 class="year">${games.display[i].year}</h3></br>`;
       }
-      reco += `<img src="${games.display[i].cover_url}" alt="${games.display[i].name} cover image"/></br></br>
+      reco += `<img class="show" data-recShow="${i}" style="cursor: pointer" src="${games.display[i].cover_url}" alt="${games.display[i].name} cover image"/></br></br>
     <button class="delreco button is-info is-outlined is-rounded" data-delreco="${i}">Delete</button> 
     </div></figure></a>`;
 
@@ -48,6 +48,32 @@ $(document).ready(function () {
           game: games.display[id],
         });
         location.reload();
+      });
+      $(".show").on("click", function (event) {
+        event.preventDefault();
+        console.log("testing");
+        var id = $(this).attr("data-recShow");
+        gameModal.attr("style", "display: block");
+        $("#title").text(`Title: ${games.display[id].name}`);
+        if (games.display[id].user_rating) {
+          $("#rating").text(`User Rating: ${games.display[id].user_rating}%`);
+        }
+        if (games.display[id].year) {
+          $("#year").text(`Release Date: ${games.display[id].year}`);
+        }
+        if (games.display[id].cover_url) {
+          $("#cover").attr("src", games.display[id].cover_url);
+        }
+        if (games.display[id].summary) {
+          $("#summary").text(`Summary: ${games.display[id].summary}`);
+        }
+        if (games.display[id].storyline) {
+          $("#storyline").text(`Story Line: ${games.display[id].storyline}`);
+        }
+      });
+      $(".close").on("click", function (event) {
+        event.preventDefault();
+        $("#gameInfo").attr("style", "display: none");
       });
     }
   });
@@ -219,6 +245,9 @@ $(document).ready(function () {
 
   $("#closeRec").on("click", function (event) {
     recoModal.attr("style", "display: none");
+  });
+  $("#closeEdit").on("click", function (event) {
+    profile.attr("style", "display: none");
   });
 
 

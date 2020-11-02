@@ -243,8 +243,8 @@ module.exports = function (app) {
         // console.log("friends search", data);
         // console.log("datavalues", data.datavalues);
         let friendArr = data.map(friend => friend.email);
-        // console.log("friend array", friendArr);
-        // console.log("friend email", email);
+        console.log("friend array", friendArr);
+        console.log("friend email", email);
         if (!friendArr.includes(email)) {
           // console.log("not your friend");
           // 
