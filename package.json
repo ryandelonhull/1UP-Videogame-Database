@@ -1,7 +1,7 @@
 {
-  "name": "One-Up-Database",
+  "name": "1updatabase",
   "version": "1.0.0",
-  "description": "",
+  "description": "A social media site for gamers",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,8 +9,8 @@
     "watch": "nodemon server.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Jonathan SanPedro, AJ Huff, Ry Hull",
+  "license": "MIT",
   "dependencies": {
     "axios": "^0.21.0",
     "bcryptjs": "2.4.3",
