@@ -184,6 +184,7 @@ module.exports = function (app) {
     // console.log("user", req.user);
     // console.log("game on backend", req.body.game);
     var game = req.body.game;
+    var image = req.body.image;
     if (game.rating) {
       var rating = Math.floor(game.rating);
     }
@@ -202,7 +203,7 @@ module.exports = function (app) {
     db.Games.create({
       userId: req.user.id,
       name: game.name,
-      cover_url: game.cover.url,
+      cover_url: image,
       user_rating: rating,
       year: final,
       storyline: game.storyline,

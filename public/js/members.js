@@ -63,6 +63,7 @@ $(document).ready(function () {
         }
         if (games.display[id].cover_url) {
           $("#cover").attr("src", games.display[id].cover_url);
+          $("#cover").attr("style", "width:120px; height:120");
         }
         if (games.display[id].summary) {
           $("#summary").text(`Summary: ${games.display[id].summary}`);
@@ -108,7 +109,7 @@ $(document).ready(function () {
         } else {
           content += `<h3 class="year">${games.display[i].year}</h3></br>`;
         }
-        content += `<img class="game" data-val="${i}" style="cursor: pointer" src="${games.display[i].cover_url}" alt="${games.display[i].name} cover image"/></br></br>
+        content += `<img class="game" data-val="${i}" style="width:120px; height:120px; cursor: pointer" src="${games.display[i].cover_url}" alt="${games.display[i].name} cover image"/></br></br>
       <button class="recommend button is-info is-outlined is-rounded" data-id="${i}">Recommend</button>
       <button class="del button is-info is-outlined is-rounded" data-delete="${i}">Delete</button> 
       </div></figure></div>`;
@@ -148,6 +149,8 @@ $(document).ready(function () {
           }
           if (games.display[id].cover_url) {
             $("#cover").attr("src", games.display[id].cover_url);
+            $("#cover").attr("style", "width:120px; height:120");
+            
           }
           if (games.display[id].summary) {
             $("#summary").text(`Summary: ${games.display[id].summary}`);

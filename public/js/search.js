@@ -5,7 +5,7 @@ $(document).ready(function () {
     var modal = $("#addFriend")
     modal.attr("style", "display: none");
     gameModal.attr("style", "display: none");
-
+    var image = [];
     // display searched games
     $.get("/api/search").then(function (data) {
         // console.log("TESTING");
@@ -39,11 +39,14 @@ $(document).ready(function () {
                 content += yearHtml;
             }
             if (!data.display[i].cover) {
-                var cover = `<img class="show" data-show="${i}" style="cursor: pointer" src="assets/1^dblogo.png" style="width:90px; height:90px;" alt="${data.display[i].name} cover image"/></br></br>`;
+                var cover = `<img class="show" data-show="${i}" src="assets/1^dblogo.png" style="width:90px; height:90px; cursor: pointer" alt="${data.display[i].name} cover image"/></br></br>`;
                 content += cover;
+                image.push("assets/1^dblogo.png");
+
             } else {
                 var cover = `<img class="show" data-show="${i}" style="cursor: pointer" src="${data.display[i].cover.url}" alt="${data.display[i].name} cover image"/></br></br>`;
                 content += cover;
+                image.push(data.display[i].cover.url);
             }
             content += `<button class="favorite button is-info is-outlined is-rounded" data-id=${i}>Favorite</button>
             </div></figure></div>`;
@@ -58,8 +61,12 @@ $(document).ready(function () {
                 if (data.display[id].rating) {
                     $("#rating").text(`User Rating: ${Math.floor(data.display[id].rating)}%`);
                 }
-                if (data.display[id].cover.url) {
+                if (!data.display[id].cover) {
+                    $("#cover").attr("src", "assets/1^dblogo.png");
+                    $("#cover").attr("style", "width:120px; height:120");   
+                }else{
                     $("#cover").attr("src", data.display[id].cover.url);
+                    $("#cover").attr("style", "width:120px; height:120");   
                 }
                 if (data.display[id].summary) {
                     $("#summary").text(`Summary: ${data.display[id].summary}`);
@@ -80,7 +87,8 @@ $(document).ready(function () {
             // console.log(this);
             var id = $(this).attr("data-id");
             $.post("/favorite", {
-                game: data.display[id]
+                game: data.display[id],
+                image: image[id]
             });
         });
     });
@@ -111,12 +119,12 @@ $(document).ready(function () {
         event.preventDefault();
         var email = $("#emailInput").val();
         $.post("/api/addfriend", { email: email })
-          .then(function (data) {
-            $("#add").text("Thank you!");
-          });
-      });
+            .then(function (data) {
+                $("#add").text("Thank you!");
+            });
+    });
 
 
 });
 
-  
+
