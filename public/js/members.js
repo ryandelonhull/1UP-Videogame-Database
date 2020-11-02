@@ -3,6 +3,7 @@ $(document).ready(function () {
   // initialize modal vars
   var recoModal = $("#recommend");
   var modal = $("#addFriend");
+  var gameModal = $("#gameInfo");
   var profile = $("#editProfile");
   var recommendedGame;
   var recId;
@@ -11,6 +12,7 @@ $(document).ready(function () {
   modal.attr("style", "display: none");
   recoModal.attr("style", "display: none");
   profile.attr("style", "display: none");
+  gameModal.attr("style", "display: none");
 
   // display recommended games
   $.get("/api/recommended").then(function (games) {
@@ -33,8 +35,8 @@ $(document).ready(function () {
       }
       reco += `<img src="${games.display[i].cover_url}" alt="${games.display[i].name} cover image"/></br></br>
     <button class="delreco button is-info is-outlined is-rounded" data-delreco="${i}">Delete</button> 
-    </div></figure></div>`;
-      
+    </div></figure></a>`;
+
       $(".recommended").append(reco);
 
       // delete recommendations
@@ -53,13 +55,14 @@ $(document).ready(function () {
   // display favorited games
   $.get("/api/user_data")
     .then(function (games) {
+      console.log(games.display);
       $("#userName").text(`User: ${games.email}`);
       $(".subtitle").text(`Bio: ${games.bio}`)
       // console.log("data: ", games);
       // console.log("all games front end: ", games.display);
       for (let i = 0; i < games.display.length; i++) {
         var content = `
-          <div class="item-${i + 1}">
+          <div>
           <figure class="has-text-centered">
           <div class="hero-body has-text-centered">
           <h1 class="title">${games.display[i].name}</h1>`;
@@ -73,7 +76,7 @@ $(document).ready(function () {
         } else {
           content += `<h3 class="year">${games.display[i].year}</h3></br>`;
         }
-        content += `<img src="${games.display[i].cover_url}" alt="${games.display[i].name} cover image"/></br></br>
+        content += `<img class="game" data-val="${i}" style="cursor: pointer" src="${games.display[i].cover_url}" alt="${games.display[i].name} cover image"/></br></br>
       <button class="recommend button is-info is-outlined is-rounded" data-id="${i}">Recommend</button>
       <button class="del button is-info is-outlined is-rounded" data-delete="${i}">Delete</button> 
       </div></figure></div>`;
@@ -98,6 +101,32 @@ $(document).ready(function () {
             game: games.display[id],
           });
           location.reload();
+        });
+        $(".game").on("click", function (event) {
+          event.preventDefault();
+          console.log("testing");
+          var id = $(this).attr("data-val");
+          gameModal.attr("style", "display: block");
+          $("#title").text(`Title: ${games.display[id].name}`);
+          if (games.display[id].user_rating) {
+            $("#rating").text(`User Rating: ${games.display[id].user_rating}%`);
+          }
+          if (games.display[id].year) {
+            $("#year").text(`Release Date: ${games.display[id].year}`);
+          }
+          if (games.display[id].cover_url) {
+            $("#cover").attr("src", games.display[id].cover_url);
+          }
+          if (games.display[id].summary) {
+            $("#summary").text(`Summary: ${games.display[id].summary}`);
+          }
+          if (games.display[id].storyline) {
+            $("#storyline").text(`Story Line: ${games.display[id].storyline}`);
+          }
+        });
+        $(".close").on("click", function (event) {
+          event.preventDefault();
+          $("#gameInfo").attr("style", "display: none");
         });
       }
     })
@@ -170,11 +199,11 @@ $(document).ready(function () {
   $("#submit").on("click", function (event) {
     event.preventDefault();
     var bio = $("#bio").val().trim();
-    $.post("/api/editprofile", {bio: bio})
-    .then(function(){
-      $("#bio").val("");
-      location.reload();
-    })
+    $.post("/api/editprofile", { bio: bio })
+      .then(function () {
+        $("#bio").val("");
+        location.reload();
+      })
   });
 
   // display add friend modal
@@ -192,7 +221,6 @@ $(document).ready(function () {
     recoModal.attr("style", "display: none");
   });
 
-  $("#closeEdit").on("click", function (event) {
-    profile.attr("style", "display: none");
-  });
+
+
 });

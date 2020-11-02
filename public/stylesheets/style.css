@@ -134,6 +134,14 @@ input:focus {
   width: 40%; 
   height: 50%; 
 }
+#gameInfo{
+  z-index: 200; 
+  left: 20%;
+  top: 25%;
+  width: 60%; 
+  height: 60%;
+  overflow: auto; 
+}
 #close, #closeRec{
   text-align: center;
   width: 12%;
