@@ -28,6 +28,10 @@ module.exports = function (sequelize, DataTypes) {
         access: {
             type: DataTypes.STRING,
             allowNull: true
+        },
+        bio: {
+            type: DataTypes.TEXT,
+            allowNull: true
         }
     });
     // associate friends with user

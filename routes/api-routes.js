@@ -74,11 +74,16 @@ module.exports = function (app) {
       // The user is not logged in, send back an empty object
       res.json({});
     } else {
-      db.Games.findAll({ where: { userId: req.user.id } }).then(function (display) {
-        // console.log("all games: ", display);
-        res.json({
-          display: display,
-          email: req.user.email,
+      db.User.findOne({ where: { id: req.user.id } })
+      .then(function (data) {
+        console.log("bio data: ", data);
+        db.Games.findAll({ where: { userId: req.user.id } }).then(function (display) {
+          // console.log("all games: ", display);
+          res.json({
+            display: display,
+            email: req.user.email,
+            bio: data.dataValues.bio
+          });
         });
       });
     }
@@ -287,19 +292,31 @@ module.exports = function (app) {
       });
   });
 
+  // edit profile
+  app.post("/api/editprofile", function (req, res) {
+    db.User.update({ bio: req.body.bio }, { where: { id: req.user.id } })
+      .then(function () {
+        res.status(201).send("Success!");
+      })
+  })
+
   // delete recommended game
   app.post("/api/deleteRec", function (req, res) {
     // console.log("delete response: ", req.body.game.id);
     // console.log("whole game delete", req.body.game);
-    db.Reco.destroy({ where: { game_id: req.body.game.id, recommendee_id: req.user.id } });
-    res.status(201).send("Success!");
+    db.Reco.destroy({ where: { game_id: req.body.game.id, recommendee_id: req.user.id } })
+      .then(function () {
+        res.status(201).send("Success!");
+      })
   });
 
   // delete favorited game
   app.post("/api/delete", function (req, res) {
     // console.log("delete response: ", req.body.game.id);
-    db.Games.destroy({ where: { id: req.body.game.id } });
-    res.status(201).send("Success!");
+    db.Games.destroy({ where: { id: req.body.game.id } })
+      .then(function () {
+        res.status(201).send("Success!");
+      })
   });
 
   // include statement almost working include: [{model: db.User, as: 'host'}]

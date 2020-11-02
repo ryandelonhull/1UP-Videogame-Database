@@ -3,12 +3,14 @@ $(document).ready(function () {
   // initialize modal vars
   var recoModal = $("#recommend");
   var modal = $("#addFriend");
+  var profile = $("#editProfile");
   var recommendedGame;
   var recId;
 
   // hide modals
   modal.attr("style", "display: none");
   recoModal.attr("style", "display: none");
+  profile.attr("style", "display: none");
 
   // display recommended games
   $.get("/api/recommended").then(function (games) {
@@ -51,7 +53,8 @@ $(document).ready(function () {
   // display favorited games
   $.get("/api/user_data")
     .then(function (games) {
-      $("#userName").text(games.email);
+      $("#userName").text(`User: ${games.email}`);
+      $(".subtitle").text(`Bio: ${games.bio}`)
       // console.log("data: ", games);
       // console.log("all games front end: ", games.display);
       for (let i = 0; i < games.display.length; i++) {
@@ -158,6 +161,22 @@ $(document).ready(function () {
       });
   });
 
+  // open edit profile modal
+  $("#edit").on("click", function (event) {
+    event.preventDefault();
+    profile.attr("style", "display: block");
+  });
+
+  $("#submit").on("click", function (event) {
+    event.preventDefault();
+    var bio = $("#bio").val().trim();
+    $.post("/api/editprofile", {bio: bio})
+    .then(function(){
+      $("#bio").val("");
+      location.reload();
+    })
+  });
+
   // display add friend modal
   $("#modalText").on("click", function (event) {
     event.preventDefault();
@@ -171,5 +190,9 @@ $(document).ready(function () {
 
   $("#closeRec").on("click", function (event) {
     recoModal.attr("style", "display: none");
+  });
+
+  $("#closeEdit").on("click", function (event) {
+    profile.attr("style", "display: none");
   });
 });
