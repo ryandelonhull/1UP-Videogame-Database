@@ -25,8 +25,8 @@ $(document).ready(function () {
       password: passwordInput.val().trim(),
       birthday: birthday.val()
     };
-    console.log("userdata name:", userData.name);
-    console.log(userData.birthday);
+    // console.log("userdata name:", userData.name);
+    // console.log(userData.birthday);
     // no email or password it will return empty
     if (!userData.name || !userData.email || !userData.password || !userData.birthday) {
       return alert("Please complete all fields");
@@ -61,7 +61,7 @@ $(document).ready(function () {
   }
   $("#loginbutton").on("click", function (event) {
     event.preventDefault();
-    console.log("testing")
+    // console.log("testing")
     window.location.replace("/login");
   });
   // popup error if something goes wrong

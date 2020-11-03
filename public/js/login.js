@@ -25,7 +25,7 @@ $(document).ready(function() {
   });
   $("#signupbutton").on("click", function(event){
     event.preventDefault();
-    console.log("testing")
+    // console.log("testing")
     window.location.replace("/");
   });
 

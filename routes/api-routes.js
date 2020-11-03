@@ -117,7 +117,7 @@ module.exports = function (app) {
 
   // displays games on search page
   app.get("/api/search", async function (req, res) {
-    console.log("searched games: ", games);
+    // console.log("searched games: ", games);
     res.json({
       display: games,
     });
@@ -241,8 +241,8 @@ module.exports = function (app) {
         // console.log("friends search", data);
         // console.log("datavalues", data.datavalues);
         let friendArr = data.map(friend => friend.email);
-        console.log("friend array", friendArr);
-        console.log("friend email", email);
+        // console.log("friend array", friendArr);
+        // console.log("friend email", email);
         if (!friendArr.includes(email)) {
           // console.log("not your friend");
           // 
