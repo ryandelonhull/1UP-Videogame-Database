@@ -82,9 +82,9 @@ input:focus {
   .image {
     border: 2px solid #7BC1F7;
   }
-  #logout {
+  /* #logout {
     top: 70%;
-  }
+  } */
   #post_images{
     z-index: 40;
   }
@@ -159,6 +159,7 @@ z-index: 250;
 }
 #dropdown-menu {
   z-index: 250;
+  margin-top: -10px;
   }
 
 .section {
@@ -179,12 +180,17 @@ z-index: 250;
 #row-background {
   /* width: 100%; */
   /* height: 100%; */
-  background-image: url("../assets/img-userfield.png");
+  background-image: url("../assets/img-header1.png");
 }
 
 .footer {
   background-color: rgb(48, 42, 42);
 }
-/* #searchbar{
-  border-radius: 10%;
+
+#inline {
+  display: inline-block;
+}
+
+/* .dropdown-menu.style {
+  margin-top: -10%;
 } */
