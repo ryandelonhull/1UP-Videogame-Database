@@ -19,6 +19,7 @@ We wanted to create an app that let users find their favorite games, learn more 
 * [Tech Used](#tech-used)
 * [Installation](#installation)
 * [Usage](#usage)
+* [Guest Account](#guest-account)
 * [Features](#features)
 * [Deployed_Link](#deployed-link)
 * [Authors](#authors)
@@ -66,6 +67,16 @@ Simply create a profile with your name, email, password, and date of birth to st
 
 ---
 
+## Guest Account
+
+We have created a guest account for those that wish to use our application but not create their own account. 
+
+Login: guest@guest.com
+
+Password: password
+
+---
+
 ## Code Snippets
 
 This code snippet displays the backend code to recommend games. Using the /api/recommend route called from the front end using a post method, it checks the database to see if the user you are trying to recommend to is already your friend, then checks the recommendations table to see if the recommendation already exists, then inserts the game id, recommender id and recommendee id into the recommendation table.  
@@ -82,18 +93,12 @@ This code snippet displays the backend code that queries the IGDB database with 
 
 ![axios search snippet](./public/assets/searchAxios.png)
 
+This gif displays our api-routes file.
+
+![gif of backend](./public/assets/backend.gif)
+
 ---
 
-## Code Snippets
-
-This code is using an express post to add a recommended game from a user to another user who is listed in the database as friends.  
-![rec code snippet](./public/assets/recoP1.png)
-![rec code snippet](./public/assets/recoP2.png)
-
-
-This code uses an express post to call an axios search.
-![axios search snippet](./public/assets/searchAxios.png)
----
 ## Features
 
 - Search for your favorite video games

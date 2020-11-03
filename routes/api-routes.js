@@ -216,6 +216,11 @@ module.exports = function (app) {
       for (let i = 0; i < data.length; i++) {
         recoGames.push(data[i].dataValues.game_id);
       }
+      // add recommender to recommended games display
+      // db.Friends.findOne({where: {recommender_id: data.dataValues.recommender_id}})
+      // .then(function(friendRes){
+      //   friendRes.dataValues.recommender_id
+      // })
       db.Games.findAll({ where: { id: recoGames } })
         .then(function (game) {
           // console.log("recgame info", game);
