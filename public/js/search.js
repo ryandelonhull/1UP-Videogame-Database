@@ -6,6 +6,9 @@ $(document).ready(function () {
     modal.attr("style", "display: none");
     gameModal.attr("style", "display: none");
     var image = [];
+
+
+
     // display searched games
     $.get("/api/search").then(function (data) {
         // console.log("TESTING");
@@ -63,17 +66,17 @@ $(document).ready(function () {
                 }
                 if (!data.display[id].cover) {
                     $("#cover").attr("src", "assets/1^dblogo.png");
-                    $("#cover").attr("style", "width:120px; height:120");   
-                }else{
+                    $("#cover").attr("style", "width:120px; height:120");
+                } else {
                     $("#cover").attr("src", data.display[id].cover.url);
-                    $("#cover").attr("style", "width:120px; height:120");   
+                    $("#cover").attr("style", "width:120px; height:120");
                 }
                 if (data.display[id].summary) {
                     $("#summary").text(`Summary: ${data.display[id].summary}`);
                 }
                 if (!data.display[id].storyline) {
                     $("#storyline").text(`Story Line Not Available`);
-                }else{
+                } else {
                     $("#storyline").text(`Story Line: ${data.display[id].storyline}`);
                 }
             });
@@ -98,7 +101,7 @@ $(document).ready(function () {
                 game: data.display[id],
                 image: image[id]
             });
-            
+
         });
     });
 
@@ -134,6 +137,12 @@ $(document).ready(function () {
             .then(function (data) {
                 $("#add").text("Thank you!");
             });
+    });
+
+    // close modals on screen click
+    $(".video").on("click", function () {
+        modal.attr("style", "display: none");
+        gameModal.attr("style", "display: none");
     });
 
 

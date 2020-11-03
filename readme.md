@@ -11,25 +11,29 @@
 
 We wanted to create an app that let users find their favorite games, learn more about them, and be able to recommend them to their friends.
 
-## User Stories
-
-As a gamer...
-
-As a parent...
-
-As a student...
-
 ## Table of Contents
 
 * [Description](#description)
+* [Motivation](#motivation)
+* [User Story](#user-story)
 * [Tech Used](#tech-used)
 * [Installation](#installation)
 * [Usage](#usage)
 * [Features](#features)
 * [Deployed_Link](#deployed-link)
 * [Authors](#authors)
-* [Credits](#credits)
 * [License](#license)
+
+
+## User Story
+
+As a user I want to...
+
+- Log into my account
+- Save all of my favorite games
+- Recommend games to my friends
+- Be able to search for and view game information
+
 
 ## Tech Used
 
@@ -58,9 +62,7 @@ To install run Npm install while navigated to the directory you download this ap
 
 Simply create a profile with your name, email, password, and date of birth to start searching for video games, saving to your favorites, and recommending them to your friends!
 
-![signup-img](public/assets/signup-img.png)
-
-Add gif of usage here
+![Usage]()
 
 ---
 ## Features
@@ -99,8 +101,7 @@ Add gif of usage here
 - [Github](https://github.com/ryandelonhull)
 - [LinkedIn](https://linkedin.com/in/ryan-hull-94003144)
 
-## Credits
 
 ## License
 
-![License](https://img.shields.io/badge/License-MIT-brightgreen)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
