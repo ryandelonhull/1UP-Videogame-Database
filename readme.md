@@ -1,8 +1,27 @@
-![1^up](assets/1^dblogo.png)
-1^DB ("One Up DB") is an interactive database where video game fans use sign up and login functionality through passport, passport-local, and bcrypt to create a profile on our database using mysql and sequelize that lets them search for their favorite video games using axios, express, and the IGDB api and curate a list of their favorites. Users can then send recommendations of games to other users on the app as well!
+# One Up Database
+
+![1^up](./public/assets/1^dblogo.png)
+
+
+## Description
+
+1^DB ("One Up DB") is an interactive database where video game fans use sign up and login functionality through passport, and bcrypt to create a profile on our database using mysql and sequelize that lets them search for their favorite video games using axios, express, and the IGDB api and curate a list of their favorites. Users can also add friends through our database and send them recommendations for games and also add a bio and profile picture to their profiles.
+
 ## Motivation
-We wanted to create an app that let users find their favorite games and be able to recommend them to their friends.
+
+We wanted to create an app that let users find their favorite games, learn more about them, and be able to recommend them to their friends.
+
+## User Stories
+
+As a gamer...
+
+As a parent...
+
+As a student...
+
 ## Table of Contents
+
+* [Description](#description)
 * [Tech Used](#tech-used)
 * [Installation](#installation)
 * [Usage](#usage)
@@ -11,8 +30,9 @@ We wanted to create an app that let users find their favorite games and be able 
 * [Authors](#authors)
 * [Credits](#credits)
 * [License](#license)
-----
+
 ## Tech Used
+
 * [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)
 * [Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 * [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
@@ -29,34 +49,58 @@ We wanted to create an app that let users find their favorite games and be able 
 * [Bcrypt](https://www.npmjs.com/package/bcryptjs)
 * [Axios](https://www.npmjs.com/package/axios)
 * [IGDB API](https://www.igdb.com/api)
+
 ## Installation
-To install run Npm install and access with node server.js.
+
+To install run Npm install while navigated to the directory you download this application to. To run the application locally, initialize a MySQL database called vgdb, then run node server.js in your terminal. 
+
 ## Usage
+
 Simply create a profile with your name, email, password, and date of birth to start searching for video games, saving to your favorites, and recommending them to your friends!
+
 ![signup-img](public/assets/signup-img.png)
-## Features
-- 
-- 
-- 
-- 
-- 
-- 
-## Deployed Link
-* [See Live Site](https://one-up-db.herokuapp.com/)
+
+Add gif of usage here
+
 ---
+## Features
+
+- Search for your favorite video games
+- Display information about 250,000+ different games
+- Save/delete games to/from your profile
+- Add profile description and profile image
+- Add Friends
+- Recommend games to friends
+- Delete recommendations
+
+## Deployed Link
+
+* [See Live Site](https://oneupdb.herokuapp.com/)
+
+---
+
 ## Authors
+
 **Jon SanPedro**
+
 - [Portfolio Site](https://github.com/jsp117/Jon-SanPedro-Portfolio)
 - [Github](https://github.com/jsp117)
 - [LinkedIn](https://www.linkedin.com/in/jonathan-s-6ab32283/)
+
 **AJ Huff** 
+
 - [Portfolio Site](https://ajhuff7.github.io/portfolio-one/)
 - [Github](https://github.com/ajhuff7)
 - [LinkedIn](https://www.linkedin.com/in/aj-huff-7696b14b/)
+
 **Ry Hull**
+
 - [Portfolio Site](https://ryandelonhull.github.io/Bootstrap-Portfolio/)
 - [Github](https://github.com/ryandelonhull)
 - [LinkedIn](https://linkedin.com/in/ryan-hull-94003144)
+
 ## Credits
+
 ## License
+
 ![License](https://img.shields.io/badge/License-MIT-brightgreen)
