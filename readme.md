@@ -11,25 +11,29 @@
 
 We wanted to create an app that let users find their favorite games, learn more about them, and be able to recommend them to their friends.
 
-## User Stories
-
-As a gamer this app lets me find any game i could think of and share it with my friends!
-
-As a parent this app lets me stay up to date with what games my children are playing while on their game consoles.
-
-As a student
-
 ## Table of Contents
 
 * [Description](#description)
+* [Motivation](#motivation)
+* [User Story](#user-story)
 * [Tech Used](#tech-used)
 * [Installation](#installation)
 * [Usage](#usage)
 * [Features](#features)
 * [Deployed_Link](#deployed-link)
 * [Authors](#authors)
-* [Credits](#credits)
 * [License](#license)
+
+
+## User Story
+
+As a user I want to...
+
+- Log into my account
+- Save all of my favorite games
+- Recommend games to my friends
+- Be able to search for and view game information
+
 
 ## Tech Used
 
@@ -58,19 +62,7 @@ To install run Npm install while navigated to the directory you download this ap
 
 Simply create a profile with your name, email, password, and date of birth to start searching for video games, saving to your favorites, and recommending them to your friends!
 
---
-
-### Searching for a Game
-![search gif](./public/assets/search-vgdb.gif)
-
-### Sign Up Page
-![signup-img](./public/assets/signup-img.png)
-
-### Members/Profile Page
-![member-page](./public/assets/member-page.png)
-
-### Database Layout
-![database-layout](./public/assets/database-layout.png)
+![search gif](./public/assets/oneupdb.gif)
 
 ---
 
@@ -78,6 +70,7 @@ Simply create a profile with your name, email, password, and date of birth to st
 
 This code is using an express post to add a recommended game from a user to another user who is listed in the database as friends.  
 ![rec code snippet](./public/assets/recoP1.png)
+![rec code snippet](./public/assets/recoP2.png)
 
 
 This code uses an express post to call an axios search.
@@ -125,4 +118,4 @@ Thank you to Jerome, Roger, Manuel, and Kerwin for having us ready to take on a 
 
 ## License
 
-![License](https://img.shields.io/badge/License-MIT-brightgreen)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)

@@ -58,7 +58,7 @@ module.exports = function (app) {
     res.redirect("/");
   });
 
-  // Route for getting favorite game data
+  // Route for getting favorite game data and user info
   app.get("/api/user_data", async function (req, res) {
     if (!req.user) {
       res.json({});

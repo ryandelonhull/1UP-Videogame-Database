@@ -8,6 +8,7 @@ $(document).ready(function () {
   var recommendedGame;
   var recId;
 
+
   // hide modals
   modal.attr("style", "display: none");
   recoModal.attr("style", "display: none");
@@ -53,11 +54,12 @@ $(document).ready(function () {
         event.preventDefault();
         // console.log("testing");
         var id = $(this).attr("data-recShow");
+        //gameModal.attr("class", "is-active");
         gameModal.attr("style", "display: block");
         $("#title").text(`Title: ${games.display[id].name}`);
         if (!games.display[id].user_rating) {
           $("#rating").text("");
-        }else{
+        } else {
           $("#rating").text(`User Rating: ${games.display[id].user_rating}%`);
         }
         if (games.display[id].year) {
@@ -153,7 +155,7 @@ $(document).ready(function () {
           if (games.display[id].cover_url) {
             $("#cover").attr("src", games.display[id].cover_url);
             $("#cover").attr("style", "width:120px; height:120");
-            
+
           }
           if (games.display[id].summary) {
             $("#summary").text(`Summary: ${games.display[id].summary}`);
@@ -287,12 +289,15 @@ $(document).ready(function () {
     profile.attr("style", "display: none");
   });
 
+  // close modals on screen click
+  $(".video").on("click", function () {
+    modal.attr("style", "display: none");
+    recoModal.attr("style", "display: none");
+    gameModal.attr("style", "display: none");
+    profile.attr("style", "display: none");
+  });
 
-
+ 
 });
 
-bulmaCarousel.attach('#post_images', {
-  slidesToScroll: 1,
-  slidesToShow: 1,
-  loop: true,
-});
+
