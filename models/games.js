@@ -7,8 +7,7 @@ module.exports = function (sequelize, DataTypes) {
         },
         name: {
             type: DataTypes.STRING,
-            allowNull: false,
-            unique: true,
+            allowNull: false
         },
         cover_url: {
             type: DataTypes.STRING,
