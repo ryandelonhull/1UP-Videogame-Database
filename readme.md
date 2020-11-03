@@ -62,7 +62,7 @@ To install run Npm install while navigated to the directory you download this ap
 
 Simply create a profile with your name, email, password, and date of birth to start searching for video games, saving to your favorites, and recommending them to your friends!
 
-![Usage]()
+![Usage](public/assets/oneupdb.gif)
 
 ---
 ## Features
