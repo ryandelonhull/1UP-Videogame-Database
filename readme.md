@@ -1,6 +1,6 @@
 # One Up Database
 
-![1^up](./public/assets/1^dblogo.png)
+![1^up](./public/assets/1updblogo.png)
 
 
 ## Description
@@ -13,11 +13,11 @@ We wanted to create an app that let users find their favorite games, learn more 
 
 ## User Stories
 
-As a gamer...
+As a gamer this app lets me find any game i could think of and share it with my friends!
 
-As a parent...
+As a parent this app lets me stay up to date with what games my children are playing while on their game consoles.
 
-As a student...
+As a student
 
 ## Table of Contents
 
@@ -58,10 +58,30 @@ To install run Npm install while navigated to the directory you download this ap
 
 Simply create a profile with your name, email, password, and date of birth to start searching for video games, saving to your favorites, and recommending them to your friends!
 
-![signup-img](public/assets/signup-img.png)
+--
 
-Add gif of usage here
+### Searching for a Game
+![search gif](./public/assets/search-vgdb.gif)
 
+### Sign Up Page
+![signup-img](./public/assets/signup-img.png)
+
+### Members/Profile Page
+![member-page](./public/assets/member-page.png)
+
+### Database Layout
+![database-layout](./public/assets/database-layout.png)
+
+---
+
+## Code Snippets
+
+This code is using an express post to add a recommended game from a user to another user who is listed in the database as friends.  
+![rec code snippet](./public/assets/recoP1.png)
+
+
+This code uses an express post to call an axios search.
+![axios search snippet](./public/assets/searchAxios.png)
 ---
 ## Features
 
@@ -99,7 +119,9 @@ Add gif of usage here
 - [Github](https://github.com/ryandelonhull)
 - [LinkedIn](https://linkedin.com/in/ryan-hull-94003144)
 
-## Credits
+## *Credits/Acknowledgements*
+
+Thank you to Jerome, Roger, Manuel, and Kerwin for having us ready to take on a project like this.
 
 ## License
 
