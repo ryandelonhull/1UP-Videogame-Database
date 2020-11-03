@@ -296,11 +296,7 @@ $(document).ready(function () {
     profile.attr("style", "display: none");
   });
 
-
+ 
 });
 
-bulmaCarousel.attach('#post_images', {
-  slidesToScroll: 1,
-  slidesToShow: 1,
-  loop: true,
-});
+
