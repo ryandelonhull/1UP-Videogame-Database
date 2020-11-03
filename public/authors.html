@@ -9,130 +9,131 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.4/dist/css/bulma-carousel.min.css">
   <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
   <link href="stylesheets/style.css" rel="stylesheet">
-  <link rel="icon" type="image/png" href="./assets/1upfavicon.png" />
 </head>
 
 <body class="authors">
+  <div>
+    <img class="logo img-thumbnail is-center" src="assets/1^db solo.png" alt="1^db">
+  </div>
   <br>
-  <div class="column">
-    <div class="column is-pulled-right" id="dropdown">
-      <div class="dropdown is-hoverable">
-        <div class="dropdown-trigger">
-          <button class="button is-info is-outlined is-rounded" aria-haspopup="true" aria-controls="dropdown-menu">
-            <span>User Info</span>
-            <span class="icon is-small">
-              <i class="fas fa-angle-down" aria-hidden="true"></i>
-            </span>
-          </button>
+  <div id="authorButton">
+    <div class="dropdown is-hoverable">
+      <div class="dropdown-trigger">
+        <button class="button is-rounded is-outlined is-primary" aria-haspopup="true" aria-controls="dropdown-menu">
+          <span>User Info</span>
+          <span class="icon is-small">
+            <i class="fas fa-angle-down" aria-hidden="true"></i>
+          </span>
+        </button>
+      </div>
+      <div class="dropdown-menu" id="dropdown-menu" role="menu">
+        <div class="dropdown-content">
+          <a href="/members" class="dropdown-item">
+            Profile
+          </a>
+          <hr class="dropdown-divider">
+          <a href="/logout" class="dropdown-item">
+            Logout
+          </a>
         </div>
-        <div class="dropdown-menu" id="dropdown-menu" role="menu">
-          <div class="dropdown-content">
-            <a href="/members" class="dropdown-item">
-              Profile
-            </a>
-            <hr class="dropdown-divider">
-            <div class="dropdown-item">
-              <a class="nav-link" href="authors.html">Authors</a>
-            </div>
-            <hr class="dropdown-divider">
-            <a href="/logout" class="dropdown-item">
-              Logout
-            </a>
+      </div>
+    </div>
+  </div>
+  <div class="column">
+
+  </div>
+  <br>
+  <br>
+  <!-- <div class="column"> -->
+  <div class="row is-three-fifths is-offset-one-fifth users">
+    <div class="card" id="row-background">
+      <div class="card-image" style="float:left; display:block; margin-right: 20px;">
+        <figure class="image is-128x128">
+          <img src="assets/jonpic.png" alt="Jon picture">
+        </figure>
+      </div>
+      <div class="card-content" id="">
+        <div class="media">
+          <div class="media-content">
+            <p class="title is-4 has-text-grey-lighter">Jon SanPedro</p>
           </div>
+        </div>
+        <div class="content has-text-grey-lighter">
+          Hello! I'm Jonathan SanPedro and I am a student at the Berkeley Coding Academy. I graduated from Rutgers
+          University in 2014 with a bachelors in Information Technology and Informatics. </br></br>
+          <a href="https://jsp117.github.io/Jon-SanPedro-Portfolio/" target="_blank"
+            class="button is-info is-small is-rounded is-outlined">Portfolio</a>
+          <a href="https://github.com/jsp117" target="_blank"><i class="fab fa-github is-medium"></i></a>
+          <a href="https://www.linkedin.com/in/jonathan-s-6ab32283/" target="_blank"><i
+              class="fab fa-linkedin is-medium"></i></a>
+
         </div>
       </div>
     </div>
   </div>
   <br>
   <br>
-  <div class="column">
-    <div class="row is-three-fifths is-offset-one-fifth">
-      <div class="card" id="row-background">
-        <div class="card-image" style="float:left; display:block; margin-right: 20px;">
-          <figure class="image is-128x128">
-            <img src="assets/ry-author.jpeg" alt="Placeholder image">
-          </figure>
-        </div>
-        <div class="card-content" id="">
-          <div class="media">
-            <div class="media-content">
-              <p class="title is-4 has-text-grey-lighter">AJ Huff</p>
-            </div>
-          </div>
-          <div class="content has-text-grey-lighter">
-            I am a fullstack developer extraodinaire in training at the UC Berkeley Full Stack Flex program.
-            <br>
-            <span class="tag is-info" href="https://ryandelonhull.github.io/Bootstrap-Portfolio/">Portfolio</span>
-            <i class="fab fa-github" href="https://github.com/ryandelonhull"></i>
-            <i class="fab fa-linkedin" href="https://linkedin.com/in/ryan-hull-94003144"></i>
-          </div>
-        </div>
+  <br>
+  <div class="row users">
+    <div class="card" id="row-background">
+      <div class="card-image" style="float:left; display:block; margin-right: 20px;">
+        <figure class="image is-128x128">
+          <img src="assets/ajpic.png" alt="Aj Picture">
+        </figure>
       </div>
-    </div>
-    <br>
-    <br>
-    <br>
-    <div class="row">
-      <div class="card" id="row-background">
-        <div class="card-image" style="float:left; display:block; margin-right: 20px;">
-          <figure class="image is-128x128">
-            <img src="assets/ry-author.jpeg" alt="Placeholder image">
-          </figure>
-        </div>
-        <div class="card-content">
-          <div class="media">
-            <div class="media-content">
-              <p class="title is-4 has-text-grey-lighter">Jon SanPedro</p>
-            </div>
-          </div>
-          <div class="content center has-text-grey-lighter">
-            I am a fullstack developer extraodinaire in training at the UC Berkeley Full Stack Flex program.
-            <br>
-            <span class="tag is-info control"
-              href="https://ryandelonhull.github.io/Bootstrap-Portfolio/">Portfolio</span>
-            <i class="fab fa-github control" href="https://github.com/ryandelonhull"></i>
-            <i class="fab fa-linkedin control" href="https://linkedin.com/in/ryan-hull-94003144"></i>
+      <div class="card-content">
+        <div class="media">
+          <div class="media-content">
+            <p class="title is-4 has-text-grey-lighter">AJ Huff</p>
           </div>
         </div>
-      </div>
-    </div>
-    <br>
-    <br>
-    <br>
-    <div class="row">
-      <div class="card" id="row-background">
-        <div class="card-image" style="float:left; display:block; margin-right: 20px;">
-          <figure class="image is-128x128">
-            <img src="assets/ry-author.jpeg" alt="Placeholder image">
-          </figure>
-        </div>
-        <div class="card-content">
-          <div class="media">
-            <div class="media-content">
-              <p class="title is-4 has-text-grey-lighter">Ry Hull</p>
-            </div>
-          </div>
-          <div class="content has-text-grey-lighter">
-            I am a fullstack developer extraodinaire in training at the UC Berkeley Full Stack Flex program.
-            <br>
-            <span class="tag is-info" href="https://ryandelonhull.github.io/Bootstrap-Portfolio/">Portfolio</span>
-            <i class="fab fa-github" href="https://github.com/ryandelonhull"></i>
-            <i class="fab fa-linkedin" href="https://linkedin.com/in/ryan-hull-94003144"></i>
-          </div>
+        <div class="content center has-text-grey-lighter">
+          Ambitious Front End Developer with an interest in UX/UI design. I hope to bring a creative problem solving
+          approach to creating products and experiences.<br></br>
+          <a href="https://ajhuff7.github.io/portfolio-one/" target="_blank"
+            class="button is-info is-small is-rounded is-outlined ">Portfolio</a>
+          <a href="https://github.com/ajhuff7" target="_blank"><i class="fab fa-github is-medium"></i></a>
+          <a href="https://www.linkedin.com/in/aj-huff-7696b14b/" target="_blank"><i
+              class="fab fa-linkedin is-medium"></i></a>
         </div>
       </div>
     </div>
   </div>
-  <footer class="footer">
-    <div class="content has-text-centered">
-      <div>
-        <a href="/members">
-          <img class="logo img-thumbnail" src="assets/1^db solo.png" alt="1^db">
-        </a>
+  <br>
+  <br>
+  <br>
+  <div class="row users">
+    <div class="card" id="row-background">
+      <div class="card-image" style="float:left; display:block; margin-right: 20px;">
+        <figure class="image is-128x128">
+          <img src="assets/ry2.png" alt="Ry Picture">
+        </figure>
       </div>
-      <p>
-        <strong>One Up Database</strong> by AJ Huff, Jon SanPedro, and Ry Hull</a>.
+      <div class="card-content">
+        <div class="media">
+          <div class="media-content">
+            <p class="title is-4 has-text-grey-lighter">Ry Hull</p>
+          </div>
+        </div>
+        <div class="content has-text-grey-lighter">
+          I am a fullstack developer extraodinaire IN TRAINING in the UC Berkeley Full Stack Flex program. Ready to get
+          this career off of the ground!
+          <br></br>
+          <a href="https://ryandelonhull.github.io/Bootstrap-Portfolio/" target="_blank"
+            class="button is-info is-small is-rounded is-outlined">Portfolio</a>
+          <a href="https://github.com/ryandelonhull" target="_blank"><i class="fab fa-github is-medium"></i></a>
+          <a href="https://linkedin.com/in/ryan-hull-94003144" target="_blank"><i
+              class="fab fa-linkedin is-medium"></i></a>
+        </div>
+      </div>
     </div>
+  </div>
+  <!-- </div> -->
+
+  <footer class="has-text-centered foot">
+    <p id="footerText">
+      <strong>One Up Database</strong> by AJ Huff, Jon SanPedro, and Ry Hull</a>.
+    </p>
   </footer>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.4/dist/js/bulma-carousel.min.js"></script>

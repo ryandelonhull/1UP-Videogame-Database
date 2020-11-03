@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -9,67 +8,64 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.4/dist/css/bulma-carousel.min.css">
   <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
   <link href="stylesheets/style.css" rel="stylesheet">
-  <link rel="icon" type="image/png" href="./assets/1upfavicon.png" />
 </head>
-
 <body class="Site">
   <video class="video" autoplay loop muted poster="assets/1^bg.png" id="vid2">
     <source src="assets/tunnel20001_0300.mov" type="video/mp4">
-  </video>
-  <section class="hero is-max-desktop" id="header-img">
-    <div class="hero-body columns">
-      <div class="column is-one-third is-3by2">
-        <a href="/members">
-          <img class="logo img-thumbnail" src="assets/1^db solo.png" alt="1^db">
-        </a>
-      </div>
-      <div class="column is-one-third">
-        <div class="field">
-          <div class="control">
-            <input class="searchbar input" type="text" id="searchbar" placeholder="Search Games" />
+  </video>    
+      <section class="hero is-max-desktop" id="header-img">
+        <div class="hero-body columns">
+          <div class="column is-one-third">
+            <img class="logo img-thumbnail" src="assets/1^db solo.png" alt="1^db">
           </div>
-        </div>
-        <div class="control">
-          <button class="search button is-info is-outlined is-rounded">Submit</button>
-        </div>
-      </div>
-      <div class="column is-one-third">
-        <div class="column is-pulled-right" id="dropdown">
-          <div class="dropdown is-hoverable">
-            <div class="dropdown-trigger">
-              <button class="button is-info is-outlined is-rounded" aria-haspopup="true" aria-controls="dropdown-menu">
-                <span>User Info</span>
-                <span class="icon is-small">
-                  <i class="fas fa-angle-down" aria-hidden="true"></i>
-                </span>
-              </button>
+          <div class="column is-one-third">
+            <div class="field">
+              <div class="control">
+                <input class="searchbar input is-rounded" type="text" id="searchbar" placeholder="Search Games" />
+              </div>
             </div>
-            <div class="dropdown-menu" id="dropdown-menu" role="menu">
-              <div class="dropdown-content">
-                <a href="/members" class="dropdown-item">
-                  Profile
-                </a>
-                <hr class="dropdown-divider">
-                <div class="dropdown-item" data-toggle="modal" id="modalText">
-                  Add Friend
+          </div>
+          <div class="column is-one-third">
+            <div class="control">
+              <button class="search button is-info is-outlined is-rounded" id="inline">Submit</button>  
+              <div class="column is-pulled-right" id="dropdown">
+                <div class="dropdown is-hoverable" id="inline">
+                  <div class="dropdown-trigger">
+                    <button class="button is-info is-outlined is-rounded" aria-haspopup="true" aria-controls="dropdown-menu" style="margin-top: -10%;">
+                      <span>User Info</span>
+                      <span class="icon">
+                        <i class="fas fa-angle-down" aria-hidden="true"></i>
+                      </span>
+                    </button>
+                  </div>
+                  <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                    <div class="dropdown-content">
+                      <a href="/members" class="dropdown-item">
+                        Profile
+                      </a>
+                      <hr class="dropdown-divider">
+                      <div class="dropdown-item" data-toggle="modal" id="modalText">
+                        Add Friend
+                      </div>
+                      <hr class="dropdown-divider">
+                      <a href="/authors" class="dropdown-item">
+                        Authors
+                      </a>
+                      <hr class="dropdown-divider">
+                      <a href="/logout" class="dropdown-item">
+                        Logout
+                      </a>
+                    </div>
+                  </div>
                 </div>
-                <hr class="dropdown-divider">
-                <a href="/authors" class="dropdown-item">
-                  Authors
-                </a>
-                <hr class="dropdown-divider">
-                <a href="/logout" class="dropdown-item">
-                  Logout
-                </a>
               </div>
             </div>
           </div>
         </div>
-      </div>
-  </section>
+      </section>
   <div class="modal" id="addFriend">
-    <div class="modal-content is-info is-outlined is-rounded"></br>
-      <h1 id="add">Add friend email: </h1></br>
+    <div class="modal-content is-info is-outlined is-rounded">
+      <h1 id="add">Add Friends</h1>
       <div class="control">
         <input class="input" type="email" id="emailInput" placeholder="Add Email" />
       </div></br>
