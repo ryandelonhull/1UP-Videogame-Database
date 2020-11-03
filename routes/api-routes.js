@@ -263,8 +263,6 @@ module.exports = function (app) {
                   if (game.length === 0) {
                     create = true;
                   } else {
-                    // console.log("rec already exists");
-                    // res.status(406).send("Recommendation already exists")
                     return res.status(406).send("Recommendation already exists");
                   }
 

@@ -1,6 +1,6 @@
 # One Up Database
 
-![1^up](./public/assets/1^dblogo.png)
+![1^up](/public/assets/1^dblogo.png)
 
 
 ## Description
@@ -62,7 +62,25 @@ To install run Npm install while navigated to the directory you download this ap
 
 Simply create a profile with your name, email, password, and date of birth to start searching for video games, saving to your favorites, and recommending them to your friends!
 
-![Usage](public/assets/oneupdb.gif)
+![search gif](./public/assets/oneupdb.gif)
+
+---
+
+## Code Snippets
+
+This code snippet displays the backend code to recommend games. Using the /api/recommend route called from the front end using a post method, it checks the database to see if the user you are trying to recommend to is already your friend, then checks the recommendations table to see if the recommendation already exists, then inserts the game id, recommender id and recommendee id into the recommendation table.  
+
+![rec code snippet](./public/assets/recoP1.png)
+![rec code snippet](./public/assets/recoP2.png)
+
+This code snippet displays the code required to get an access token for IGDB. It requires a registered client ID and client secret, and the token it gives expires after a set amount of time. Each time a user logs in, this code is run to get a unique access token and store it in the user table.
+
+![access token axios](./public/assets/recoP2.png)
+
+
+This code snippet displays the backend code that queries the IGDB database with the user input sent from the frontend. It requires an access token and a registered client ID. After the database is queried, the search html page is loaded and the results displayed.
+
+![axios search snippet](./public/assets/searchAxios.png)
 
 ---
 ## Features
@@ -101,6 +119,9 @@ Simply create a profile with your name, email, password, and date of birth to st
 - [Github](https://github.com/ryandelonhull)
 - [LinkedIn](https://linkedin.com/in/ryan-hull-94003144)
 
+## *Credits/Acknowledgements*
+
+Thank you to Jerome, Roger, Manuel, and Kerwin for having us ready to take on a project like this.
 
 ## License
 

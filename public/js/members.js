@@ -54,8 +54,7 @@ $(document).ready(function () {
         event.preventDefault();
         // console.log("testing");
         var id = $(this).attr("data-recShow");
-        gameModal.attr("class", "is-active");
-        // gameModal.attr("style", "display: block");
+        gameModal.attr("style", "display: block");
         $("#title").text(`Title: ${games.display[id].name}`);
         if (!games.display[id].user_rating) {
           $("#rating").text("");
